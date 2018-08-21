@@ -1,2 +1,4 @@
 # a-era-inclusiva
 Jogo: A Era Inclusiva
+
+**Sobre o jogo:** A Era Inclusiva é um jogo que busca acompanhar o desempenho de um(a) professor(a) recém formado(a) lidando com a experiência de conduzir atividades comuns em uma escola brasileira fictícia, como planejamento de aulas, interação com alunos com diversas especificidades e demais professores. Ademais, o jogo se preocupa em chamar a atenção do jogador para problemas reais encontrados nas escolas, bem como a falta de acessibilidade tanto nas aulas quanto nos espaços escolares, que acabam por dificultar a aprendizagem e o acesso do aluno com deficiência em tais locais. 
