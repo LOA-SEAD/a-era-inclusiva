@@ -272,6 +272,7 @@ GameObject:
   - component: {fileID: 512831337}
   - component: {fileID: 512831336}
   - component: {fileID: 512831335}
+  - component: {fileID: 512831334}
   m_Layer: 5
   m_Name: ConversaAndre
   m_TagString: Untagged
@@ -279,6 +280,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &512831334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512831333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf245bf385e728645b28cc87e89acbef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &512831335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,6 +731,16 @@ PrefabInstance:
         type: 3}
       propertyPath: Dialogs.Array.data[3]
       value: Dialogo 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402700343767198528, guid: f83690b1f23799d42aa7ec5bd85b327a,
+        type: 3}
+      propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 512831334}
+    - target: {fileID: 1402700343767198528, guid: f83690b1f23799d42aa7ec5bd85b327a,
+        type: 3}
+      propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AbrirCorredor
       objectReference: {fileID: 0}
     - target: {fileID: 1402700342381139623, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}

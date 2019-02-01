@@ -1586,6 +1586,7 @@ GameObject:
   - component: {fileID: 1600540302}
   - component: {fileID: 1600540301}
   - component: {fileID: 1600540305}
+  - component: {fileID: 1600540306}
   m_Layer: 5
   m_Name: TelaTitulo
   m_TagString: Untagged
@@ -1694,6 +1695,21 @@ MonoBehaviour:
   botaoInvisivel: {fileID: 1071550718}
   instrucoes: {fileID: 544571221}
   botoes: {fileID: 1398865886}
+--- !u!114 &1600540306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600540300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f1be32513f6d44f8c22e0a1ac40467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JsonMetodologias: {fileID: 4900000, guid: f58a1dd1876b31740973549f749acc19, type: 3}
+  JsonAlunos: {fileID: 4900000, guid: 670df0c096355b14783156ea2caa2f4b, type: 3}
+  JsonFalas: {fileID: 4900000, guid: cbcee6ffb454b024dbdac59ae6227cc4, type: 3}
 --- !u!1 &1656059121
 GameObject:
   m_ObjectHideFlags: 0
