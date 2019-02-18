@@ -1,5 +1,5 @@
 ﻿[System.Serializable]
 public class ClassFalas{
-	private string id;
-	private ClassLocais[] locais;
+	public string id;
+	public ClassLocais[] locais;
 }
