@@ -5,10 +5,10 @@ using UnityEngine;
 public static class Game
 {
     // Start is called before the first frame update
-    public static List<ClassAlunos> Alunos;
-    public static List<ClassMetodologias> Metodologias;
-    public static List<ClassMetodologias> MetodologiasSelecionadas;
-    public static List<ClassFalas> Falas;
+    public static List<ClassAlunos> Students;
+    public static List<ClassMetodologias> Methodologies;
+    public static List<ClassMetodologias> MethodologiesSelected;
+    public static List<ClassFalas> Dialogs;
 
     public static int Happiness; 
 
@@ -16,9 +16,9 @@ public static class Game
     {
 
         Happiness = 0;
-        Alunos = new List<ClassAlunos>();
-        Metodologias = new List<ClassMetodologias>();
-        MetodologiasSelecionadas = new List<ClassMetodologias>();
-        Falas = new List<ClassFalas>();
+        Students = new List<ClassAlunos>();
+        Methodologies = new List<ClassMetodologias>();
+        MethodologiesSelected = new List<ClassMetodologias>();
+        Dialogs = new List<ClassFalas>();
     }
 }
