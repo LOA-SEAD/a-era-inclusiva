@@ -616,7 +616,7 @@ GameObject:
   - component: {fileID: 544571223}
   - component: {fileID: 544571225}
   m_Layer: 5
-  m_Name: Instrucoes
+  m_Name: Instructions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -713,7 +713,7 @@ GameObject:
   - component: {fileID: 879528463}
   - component: {fileID: 879528464}
   m_Layer: 5
-  m_Name: Fundo
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -837,7 +837,7 @@ GameObject:
   - component: {fileID: 1071550720}
   - component: {fileID: 1071550719}
   m_Layer: 5
-  m_Name: BotaoInvisivel
+  m_Name: InvisbleButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1288,7 +1288,7 @@ GameObject:
   - component: {fileID: 1398865892}
   - component: {fileID: 1398865893}
   m_Layer: 5
-  m_Name: FundoBotao
+  m_Name: ButtonGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1692,9 +1692,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97b77cedbc77db4b8d715327dd6abc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invisibleButton: {fileID: 0}
-  instructions: {fileID: 0}
-  buttons: {fileID: 0}
+  invisibleButton: {fileID: 1071550718}
+  instructions: {fileID: 544571221}
+  buttons: {fileID: 1398865886}
 --- !u!114 &1600540306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2033,7 +2033,7 @@ GameObject:
   - component: {fileID: 1756845259}
   - component: {fileID: 1756845258}
   m_Layer: 5
-  m_Name: Sair
+  m_Name: LeaveButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2228,7 +2228,7 @@ GameObject:
   - component: {fileID: 1823908592}
   - component: {fileID: 1823908591}
   m_Layer: 5
-  m_Name: Configuracoes
+  m_Name: SettingsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

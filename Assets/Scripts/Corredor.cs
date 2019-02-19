@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Hall : MonoBehaviour
+public class Corredor : MonoBehaviour
 {
     public string LibrarySceneName;
     public string ClassroomSceneName;
@@ -25,4 +25,6 @@ public class Hall : MonoBehaviour
     public void LoadSRMScene() {
         SceneManager.LoadScene(SRMSceneName);
     }
+
+
 }
