@@ -6,7 +6,10 @@ using UnityEngine.Events;
 
 public class Dialog : MonoBehaviour
 {
+    public string Name;
+    public string Local;
     public List<string> Dialogs;
+    public bool LoadFromJson;
     public List<AudioClip> DialogsAudio;
     public AudioSource audioSource;
     public TextMeshProUGUI textMesh;
@@ -16,6 +19,8 @@ public class Dialog : MonoBehaviour
 
     void Start()
     {
+        if(LoadFromJson)
+            Dialogs = Game.Dialogs.personagens.Find(x => x.nome == Name).dialogos.Find(x => x.local == Local).frases;
         ShowNextDialog();
     }
 

@@ -1,5 +1,7 @@
-﻿[System.Serializable]
+﻿using System.Collections.Generic;
+
+[System.Serializable]
 public class ClassFala{
-	public string id;
-	public ClassLocal[] locais;
+    public string local;
+    public List<string> frases;
 }
