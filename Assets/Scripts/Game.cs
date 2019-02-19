@@ -4,21 +4,20 @@ using UnityEngine;
 
 public static class Game
 {
-    // Start is called before the first frame update
-    public static List<ClassAlunos> Students;
-    public static List<ClassMetodologias> Methodologies;
-    public static List<ClassMetodologias> MethodologiesSelected;
-    public static List<ClassFalas> Dialogs;
-
+    public static List<ClassAluno> Students;
+    public static List<ClassDemanda> Demands;
+    public static List<ClassAcao> Actions;
+    public static List<ClassAcao> SelectedActions;
+    public static List<ClassFala> Dialogs;
     public static int Happiness; 
 
     public static void Setup()
     {
-
         Happiness = 0;
-        Students = new List<ClassAlunos>();
-        Methodologies = new List<ClassMetodologias>();
-        MethodologiesSelected = new List<ClassMetodologias>();
-        Dialogs = new List<ClassFalas>();
+        Students = new List<ClassAluno>();
+        Demands = new List<ClassDemanda>();
+        Actions = new List<ClassAcao>();
+        SelectedActions = new List<ClassAcao>();
+        Dialogs = new List<ClassFala>();
     }
 }

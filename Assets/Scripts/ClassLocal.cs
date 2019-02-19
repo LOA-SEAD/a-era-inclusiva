@@ -1,6 +1,6 @@
 ﻿[System.Serializable]
-public class ClassLocais{
+public class ClassLocal{
 	private string id;
 	private string personagem;
-	private ClassCenas[] cenas;
+	private ClassCena[] cenas;
 }
