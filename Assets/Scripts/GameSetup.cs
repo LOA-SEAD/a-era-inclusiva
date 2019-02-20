@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GameSetup : MonoBehaviour
 {
-    public TextAsset JsonMethodologies;
+    public TextAsset JsonActions;
     public TextAsset JsonStudents;
     public TextAsset JsonDialogs;
     // Start is called before the first frame update
@@ -14,9 +14,9 @@ public class GameSetup : MonoBehaviour
     {
         try
         {
-            JsonUtility.FromJsonOverwrite(JsonMethodologies.text, Game.Methodologies);
-            Game.Students = JsonUtility.FromJson<List<ClassAlunos>>(JsonStudents.text);
-            Game.Dialogs = JsonUtility.FromJson<List<ClassFalas>>(JsonDialogs.text);
+            JsonUtility.FromJsonOverwrite(JsonActions.text, Game.Actions);
+            Game.Students = JsonUtility.FromJson<List<ClassAluno>>(JsonStudents.text);
+            Game.Dialogs = JsonUtility.FromJson<List<ClassFala>>(JsonDialogs.text);
         } catch (Exception e)
         {
             Debug.LogError(e);

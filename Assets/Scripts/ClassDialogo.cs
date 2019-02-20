@@ -1,5 +1,5 @@
 ﻿[System.Serializable]
-public class ClassDialogos{
+public class ClassDialogo{
 	private int id;
 	private string texto;
 }
