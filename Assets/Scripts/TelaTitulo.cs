@@ -18,12 +18,6 @@ public class TelaTitulo : MonoBehaviour
     private Animator animator;
     private bool menuVisible = false;
 
-
-    public void StartGame()
-    {
-        SceneManager.LoadScene("Scenes/ConversaAndre");
-    }
-
     private void Update()
     {
         if (Input.anyKeyDown && !menuVisible)
@@ -41,14 +35,7 @@ public class TelaTitulo : MonoBehaviour
         menuVisible = true;
     }
 
-    public void LeaveGame()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-         Application.Quit();
-#endif
-    }
+
     public void ShowSettings()
     {
         //TODO

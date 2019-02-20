@@ -272,7 +272,6 @@ GameObject:
   - component: {fileID: 512831337}
   - component: {fileID: 512831336}
   - component: {fileID: 512831335}
-  - component: {fileID: 512831334}
   m_Layer: 5
   m_Name: ConversaAndre
   m_TagString: Untagged
@@ -280,18 +279,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &512831334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 512831333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf245bf385e728645b28cc87e89acbef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &512831335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,6 +361,49 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &806027852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 806027854}
+  - component: {fileID: 806027853}
+  m_Layer: 0
+  m_Name: SceneController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &806027853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806027852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c795725506c2b3646bca1cbc71d7b8ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &806027854
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806027852}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 749.57556, y: 498.0647, z: -8.375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1263070095
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,11 +766,11 @@ PrefabInstance:
         type: 3}
       propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 512831334}
+      objectReference: {fileID: 806027853}
     - target: {fileID: 1402700343767198528, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
       propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AbrirCorredor
+      value: ChangeTo
       objectReference: {fileID: 0}
     - target: {fileID: 1402700343767198528, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
@@ -761,6 +791,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402700343767198528, guid: f83690b1f23799d42aa7ec5bd85b327a,
+        type: 3}
+      propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402700343767198528, guid: f83690b1f23799d42aa7ec5bd85b327a,
+        type: 3}
+      propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Scenes/Corredor
       objectReference: {fileID: 0}
     - target: {fileID: 1402700342381139623, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
