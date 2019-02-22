@@ -16,6 +16,7 @@ public class Dialog : MonoBehaviour
     public float speed = 0.2f;
     public UnityEvent AtEndOfDialog;
     private int id = 0;
+    private bool revealing;
 
     void Start()
     {
@@ -27,11 +28,18 @@ public class Dialog : MonoBehaviour
     public void ShowNextDialog()
     {
         StopAllCoroutines();
-        if (Dialogs.Count >= id + 1)
+
+        if (revealing)
+        {
+            textMesh.maxVisibleCharacters = Dialogs[id].Length;
+            id++;
+            revealing = false;
+            return;
+        }
+        if (Dialogs.Count > id)
         {
             audioSource.Stop();
             StartCoroutine(revealPhrase());
-            id++;
         }
         else
         {
@@ -41,6 +49,7 @@ public class Dialog : MonoBehaviour
 
     IEnumerator revealPhrase()
     {
+        revealing = true;
         if (DialogsAudio.Count >= id + 1)
         {
             audioSource.clip = DialogsAudio[id];
@@ -56,5 +65,7 @@ public class Dialog : MonoBehaviour
             textMesh.maxVisibleCharacters++;
             yield return new WaitForSeconds(speed);
         }
+        id++;
+        revealing = false;
     }
 }
