@@ -11,7 +11,7 @@ public class GridMetodologias : MonoBehaviour
         foreach(var action in Game.Actions.acoes)
         {
             var actionObj = Instantiate(ActionPrefab);
-            if (Game.SelectedActions.Contains(action)) {
+            if (action.selected) {
                 actionObj.GetComponent<Toggle>().isOn = true;
             }
             actionObj.GetComponentInChildren<Text>().text = action.nome;
