@@ -8,3 +8,14 @@ public class ClassAluno{
     public List<ClassDemanda> demandas;
 
 }
+
+
+public class ClassAlunos
+{
+	public List<ClassAluno> alunos;
+
+	public ClassAlunos()
+	{
+		alunos = new List<ClassAluno>();
+	}
+}
