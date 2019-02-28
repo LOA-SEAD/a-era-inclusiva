@@ -16,6 +16,8 @@ public class GridMetodologias : MonoBehaviour
             }
             actionObj.GetComponentInChildren<Text>().text = action.nome;
             actionObj.GetComponent<Acao>().acao = action;
+            actionObj.transform.SetParent(transform);
+
         }
     }
 }
