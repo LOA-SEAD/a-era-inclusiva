@@ -7,8 +7,7 @@ public static class Game
     public static List<ClassAluno> Students;
     public static List<ClassDemanda> Demands;
     public static ClassAcoes Actions;
-    public static List<ClassAcao> SelectedActions;
-    public static ClassPersonagens Dialogs;
+    public static ClassPersonagens Characters;
     public static int Happiness; 
 
     public static void Setup()
@@ -17,8 +16,7 @@ public static class Game
         Students = new List<ClassAluno>();
         Demands = new List<ClassDemanda>();
         Actions = new ClassAcoes();
-        SelectedActions = new List<ClassAcao>();
-        Dialogs = new ClassPersonagens();
+        Characters = new ClassPersonagens();
     }
 
 }

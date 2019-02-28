@@ -16,7 +16,7 @@ public class GameSetup : MonoBehaviour
         Game.Setup();
         try
         {
-            JsonUtility.FromJsonOverwrite(DialogosJson.text, Game.Dialogs);
+            JsonUtility.FromJsonOverwrite(DialogosJson.text, Game.Characters);
             JsonUtility.FromJsonOverwrite(AcoesJson.text, Game.Actions);
         }
         catch (Exception e) {
