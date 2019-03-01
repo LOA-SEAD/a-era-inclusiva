@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Game
 {
-    public static List<ClassAluno> Students;
+    public static ClassAlunos Students;
     public static List<ClassDemanda> Demands;
     public static ClassAcoes Actions;
     public static ClassPersonagens Characters;
@@ -13,7 +13,7 @@ public static class Game
     public static void Setup()
     {
         Happiness = 0;
-        Students = new List<ClassAluno>();
+        Students = new ClassAlunos();
         Demands = new List<ClassDemanda>();
         Actions = new ClassAcoes();
         Characters = new ClassPersonagens();
