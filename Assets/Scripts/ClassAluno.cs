@@ -2,6 +2,7 @@
 
 [System.Serializable]
 public class ClassAluno{
+    public int id;
 	public string nome;
     public string deficiencia;
     public string descricao;
