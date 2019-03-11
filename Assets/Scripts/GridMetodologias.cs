@@ -10,7 +10,7 @@ public class GridMetodologias : MonoBehaviour
     {
         foreach(var action in Game.Actions.acoes)
         {
-            var actionObj = Instantiate(ActionPrefab);
+            var actionObj = Instantiate(ActionPrefab, transform);
             if (action.selected) {
                 actionObj.GetComponent<Toggle>().isOn = true;
             }
