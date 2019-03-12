@@ -12,26 +12,41 @@ public class ScrollList : MonoBehaviour
     [FormerlySerializedAs("Objects")] public List<GameObject> objects;
     [FormerlySerializedAs("MaxShown")] public int maxShown = 3;
 
-    private int _at = 0;
+    private int _at;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         up.onClick.AddListener(GoUp);
         down.onClick.AddListener(GoDown);
         up.transform.SetAsFirstSibling();
         down.transform.SetAsLastSibling();
-     
+        if (objects == null)
+        {
+            objects = new List<GameObject>();
+        }
+    }
+
+    void Start()
+    {
         UpdateShown();
     }
+    public void AddGameObject(Transform obj)
+    {
+        obj.SetParent(transform);
+        obj.SetSiblingIndex(1);
+        objects.Add(obj.gameObject);
+    }
+
 
     void UpdateShown()
     {
-        objects.ForEach(x => x.SetActive(false));
-        for (int id = _at; id < _at + maxShown; id++)
-        {
-            objects[id].SetActive(true);
-        }
+    
+            objects.ForEach(x => x.SetActive(false));
+            for (int id = _at; id < _at + maxShown && id<objects.Count; id++)
+            {
+                    objects[id].SetActive(true);
+            }
     }
 
     void GoUp()

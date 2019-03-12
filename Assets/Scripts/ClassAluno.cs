@@ -7,6 +7,7 @@ public class ClassAluno{
     public string deficiencia;
     public string descricao;
     public List<ClassDemanda> demandas;
+    public bool importante;
 
 }
 
