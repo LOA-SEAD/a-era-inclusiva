@@ -18,5 +18,6 @@ public static class Game
         Actions = new ClassAcoes();
         Characters = new ClassPersonagens();
     }
+    
 
 }
