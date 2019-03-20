@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,8 @@ public class ControladorSalaDeAula : MonoBehaviour
     public Button prefabBotaoAcao;
 
     public Button prefabBotaoDemanda;
+    public Image studentPhoto;
+    private readonly string _characterPortraitLocation = "Illustrations/CharacterPortraits/Students/";
 
     public ClassAluno alunoSelecionado;
 
@@ -43,9 +46,6 @@ public class ControladorSalaDeAula : MonoBehaviour
         StartCoroutine(SpawnDemand());
 
     }
-    
-    
-    
     
     private void usarAcao(ClassAcao acao)
     {

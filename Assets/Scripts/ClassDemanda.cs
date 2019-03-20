@@ -3,7 +3,7 @@
 [System.Serializable]
 public class ClassDemanda
 {
-    public string nome;
+    public int idaluno;
     public string descricao;
     public Dictionary<ClassAcao,int> acoes;
 
