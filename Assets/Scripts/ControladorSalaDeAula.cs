@@ -16,15 +16,14 @@ public class ControladorSalaDeAula : MonoBehaviour
 
     public Button prefabBotaoAcao;
 
-    public Button prefabBotaoDemanda;
-    public Image studentPhoto;
+    public DemandToggle prefabBotaoDemanda;
     private readonly string _characterPortraitLocation = "Illustrations/CharacterPortraits/Students/";
 
     public ClassAluno alunoSelecionado;
 
     public int delayBetweenEachDemand;
 
-    private Time lastDemand;
+    private Time _lastDemand;
     // Start is called before the first frame update
     void Awake()
     {
@@ -43,7 +42,7 @@ public class ControladorSalaDeAula : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(SpawnDemand());
+        StartCoroutine(SpawnDemands());
 
     }
     
@@ -53,24 +52,25 @@ public class ControladorSalaDeAula : MonoBehaviour
     }
 
     // Update is called once per frame
-    IEnumerator SpawnDemand()
+    IEnumerator SpawnDemands()
     {
         ClassDemanda demanda;
-        ClassAluno aluno;
-        List<ClassAluno> listaAlunos = Game.Students.alunos.FindAll(x => x.importante);
+        ClassAluno student;
+        List<ClassAluno> studentList = Game.Students.alunos.FindAll(x => x.importante);
         Random randomGenerator = new Random();
 
         while (true)
         {
-            if (painelAlunos.childCount > 4)
+            if (painelAlunos.childCount > 2)
             {
-                Destroy(painelAlunos.GetChild(4).gameObject);
+                Destroy(painelAlunos.GetChild(2).gameObject);
             }
-            aluno = listaAlunos[randomGenerator.Next() % listaAlunos.Count];
+            student = studentList[randomGenerator.Next() % studentList.Count];
 //            demanda = aluno.demandas[randomGenerator.Next() % aluno.demandas.Count];
             var button = Instantiate(prefabBotaoDemanda, painelAlunos);
             button.gameObject.transform.SetAsFirstSibling();
-            button.GetComponentInChildren<TextMeshProUGUI>().SetText(aluno.nome);
+            button.Student = student;
+            button.Level = randomGenerator.Next(3);
             yield return new WaitForSeconds(delayBetweenEachDemand);
 
         }
