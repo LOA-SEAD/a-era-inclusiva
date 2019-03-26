@@ -3,8 +3,18 @@
 [System.Serializable]
 public class ClassDemanda
 {
-    public int idaluno;
+    public string aluno;
     public string descricao;
-    public Dictionary<ClassAcao,int> acoes;
+    public string frase;
 
 }
+[System.Serializable]
+public class ClassDemandas
+{
+    public List<ClassDemanda> demandas;
+    public ClassDemandas()
+    {
+        demandas = new List<ClassDemanda>();
+    }
+}
+
