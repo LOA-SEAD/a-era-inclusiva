@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,33 +10,24 @@ using Random = System.Random;
 
 public class ControladorSalaDeAula : MonoBehaviour
 {
-    //Representação dos objetos da tela
-    public Transform painelAlunos;
-
-    public Transform painelAcoes;
-
-    public Button prefabBotaoAcao;
-
-    public DemandToggle prefabBotaoDemanda;
-    private readonly string _characterPortraitLocation = "Illustrations/CharacterPortraits/Students/";
-
-    public ClassAluno alunoSelecionado;
-
+    public Transform demandPanel;
+    public Transform actionPanel;
+    public ActionButton prefabActionButton;
+    public DemandToggle prefabDemandToggle;
+    public ClassDemanda selectedDemand;
     public int delayBetweenEachDemand;
+    public SpeechBubble speechBubble;
 
     private Time _lastDemand;
     // Start is called before the first frame update
     void Awake()
     {
-        foreach (var acao in Game.Actions.acoes)
+        foreach (var action in Game.Actions.acoes.Where(x=>x.selected))
         {
-            if (acao.selected)
-            {
-                var button = Instantiate(prefabBotaoAcao, painelAcoes);
-                button.onClick.AddListener(delegate { usarAcao(acao);});
-                button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.nome);
-
-            }
+                var button = Instantiate(prefabActionButton, actionPanel);
+                button.GetComponent<Button>().onClick.AddListener(delegate { UseAction(action); });
+                button.enabled = false;
+                button.Action = action;
         }
 
     }
@@ -46,36 +38,58 @@ public class ControladorSalaDeAula : MonoBehaviour
 
     }
     
-    private void usarAcao(ClassAcao acao)
-    {
-        throw new System.NotImplementedException();
-    }
 
     // Update is called once per frame
     IEnumerator SpawnDemands()
     {
-        ClassDemanda demanda;
         ClassAluno student;
         List<ClassAluno> studentList = Game.Students.alunos.FindAll(x => x.importante);
-        Random randomGenerator = new Random();
+        Random rand = new Random();
 
         while (true)
         {
-            if (painelAlunos.childCount > 2)
-            {
-                Destroy(painelAlunos.GetChild(2).gameObject);
-            }
-            student = studentList[randomGenerator.Next() % studentList.Count];
-//            demanda = aluno.demandas[randomGenerator.Next() % aluno.demandas.Count];
-            var button = Instantiate(prefabBotaoDemanda, painelAlunos);
-            button.gameObject.transform.SetAsFirstSibling();
-            button.Student = student;
-            button.Level = randomGenerator.Next(3);
             yield return new WaitForSeconds(delayBetweenEachDemand);
 
+            if (demandPanel.childCount > 2)
+            {
+                Destroy(demandPanel.GetChild(2).gameObject);
+            }
+            student = studentList[rand.Next() % studentList.Count];
+            var demands = Game.Demands.demandas.FindAll(x => x.aluno == student.nome);
+            var idDemand = rand.Next() % demands.Count;
+            
+            var button = Instantiate(prefabDemandToggle, demandPanel);
+            button.gameObject.transform.SetAsFirstSibling();
+            var demands1 = demands; // é perigoso acessar direto, os valores podem mudar (pelo menos foi isso q o rider me disse)
+            var demand = idDemand;
+            button.GetComponent<Button>().onClick.AddListener(delegate { SelectDemand(demands1[demand]); });
+            button.Student = student;
+            button.Level = rand.Next(3);
+            speechBubble.gameObject.SetActive(true);
+            speechBubble.SetText(demands[idDemand].frase);
         }
 
+    }
 
+    private void SelectDemand(ClassDemanda demand)
+    {
+ 
+        if (selectedDemand == null)
+        {
+            foreach (var button in actionPanel.GetComponentsInChildren<Button>())
+            {
+                button.enabled = true;
+            }
+        }
+        selectedDemand = demand;
+        speechBubble.gameObject.SetActive(true);
+        speechBubble.SetText(demand.frase);
+     
+
+    }
+
+    private void UseAction(ClassAcao action)
+    {        Debug.Log(action.nome+" e " + selectedDemand.descricao);
 
     }
 }

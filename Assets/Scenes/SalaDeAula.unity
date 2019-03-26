@@ -537,6 +537,80 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &153731912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 153731913}
+  - component: {fileID: 153731915}
+  - component: {fileID: 153731914}
+  m_Layer: 0
+  m_Name: TMP SubMeshUI [OpenSans-Regular SDF Material + LiberationSans SDF Atlas]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &153731913
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153731912}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 808892481}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &153731914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153731912}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_spriteAsset: {fileID: 0}
+  m_material: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
+  m_isDefaultMaterial: 0
+  m_padding: 0.5
+  m_canvasRenderer: {fileID: 153731915}
+  m_TextComponent: {fileID: 808892482}
+  m_materialReferenceIndex: 1
+--- !u!222 &153731915
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153731912}
+  m_CullTransparentMesh: 0
 --- !u!1 &230506749
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,6 +802,8 @@ GameObject:
   - component: {fileID: 465556451}
   - component: {fileID: 465556453}
   - component: {fileID: 465556452}
+  - component: {fileID: 465556454}
+  - component: {fileID: 465556455}
   m_Layer: 0
   m_Name: Frase
   m_TagString: Untagged
@@ -750,10 +826,10 @@ RectTransform:
   m_Father: {fileID: 143527101}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -92.47424}
-  m_SizeDelta: {x: 0, y: 173.2}
+  m_SizeDelta: {x: 686, y: 173.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &465556452
 MonoBehaviour:
@@ -792,6 +868,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465556450}
   m_CullTransparentMesh: 0
+--- !u!95 &465556454
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465556450}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9632bba344645c943895d923f0c6307a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &465556455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465556450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4a41623f5c7a6b4093191ffe5b8e64a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMesh: {fileID: 808892482}
 --- !u!1 &501988579
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,20 +1019,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c45f23ad0796d640907ceab01753e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  painelAlunos: {fileID: 560553911}
-  painelAcoes: {fileID: 1179975455}
-  prefabBotaoAcao: {fileID: 7049297317240280672, guid: 90546abc09b70ab41a21b238a83971fa,
+  demandPanel: {fileID: 560553911}
+  actionPanel: {fileID: 1179975455}
+  prefabActionButton: {fileID: 1923298687931924487, guid: ce4a83a951d92f6449fcb2c3b6437324,
     type: 3}
-  prefabBotaoDemanda: {fileID: 8278904315534451925, guid: b8e57880a72fffa45a7e1e854a2d543e,
+  prefabDemandToggle: {fileID: 8278904315534451925, guid: b8e57880a72fffa45a7e1e854a2d543e,
     type: 3}
-  alunoSelecionado:
-    id: 0
-    nome: 
-    deficiencia: 
+  selectedDemand:
+    aluno: 
     descricao: 
-    demandas: []
-    importante: 0
-  delayBetweenEachDemand: 6
+    frase: 
+  delayBetweenEachDemand: 8
+  speechBubble: {fileID: 465556455}
 --- !u!1 &560553910
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,8 +1064,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -24.068}
-  m_SizeDelta: {x: 171.9, y: -351.86}
+  m_AnchoredPosition: {x: 25, y: 62.5}
+  m_SizeDelta: {x: 170, y: -175}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &560553912
 MonoBehaviour:
@@ -1012,7 +1118,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 153731913}
   m_Father: {fileID: 465556451}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1043,8 +1150,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "Mariazinha est\xE1 dormindo, o que fazer?"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a8b95760e7d6ba641aa9642fcdcd65bb, type: 2}
+  m_sharedMaterial: {fileID: 21211099263614354, guid: a8b95760e7d6ba641aa9642fcdcd65bb,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1069,7 +1177,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 31.25
+  m_fontSize: 29.8
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1117,8 +1225,8 @@ MonoBehaviour:
     linkCount: 0
     lineCount: 1
     pageCount: 1
-    materialCount: 1
-  m_havePropertiesChanged: 1
+    materialCount: 2
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -1127,7 +1235,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 153731914}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -1179,8 +1287,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -46.3, y: -24.068}
-  m_SizeDelta: {x: 171.90002, y: -351.86}
+  m_AnchoredPosition: {x: -25, y: 62.5}
+  m_SizeDelta: {x: 170, y: -175}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1179975456
 MonoBehaviour:
@@ -1234,7 +1342,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 57
+    m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 15.7

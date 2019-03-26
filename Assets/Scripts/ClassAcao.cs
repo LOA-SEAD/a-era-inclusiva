@@ -5,6 +5,7 @@ public class ClassAcao{
 	public string nome;
     public string tipo;
     public bool selected;
+    public string icone;
 
 }
 
