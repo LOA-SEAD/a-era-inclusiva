@@ -5,7 +5,8 @@ public class ClassDemanda
 {
     public string aluno;
     public string descricao;
-    public string frase;
+    public bool resolvida;
+    public Dictionary<ClassAcao,int> acoes;
 
 }
 [System.Serializable]
