@@ -11,7 +11,8 @@ public class SpeechBubble : MonoBehaviour
 
     public void SetText(string text)
     {
-        GetComponent<Animator>().SetTrigger(ShowHash);
+        if(text!=textMesh.text)
+            GetComponent<Animator>().SetTrigger(ShowHash);
         textMesh.SetText(text);
         StopAllCoroutines();
         StartCoroutine(Hide());
