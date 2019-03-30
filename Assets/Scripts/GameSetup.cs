@@ -22,7 +22,6 @@ public class GameSetup : MonoBehaviour
             JsonUtility.FromJsonOverwrite(AcoesJson.text, Game.Actions);
             JsonUtility.FromJsonOverwrite(AlunosJson.text, Game.Students);
             JsonUtility.FromJsonOverwrite(DemandasJson.text, Game.Demands);
-            
         }
         catch (Exception e) {
             Debug.LogException(e);
