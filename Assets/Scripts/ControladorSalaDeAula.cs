@@ -15,29 +15,28 @@ public class ControladorSalaDeAula : MonoBehaviour
     public Transform painelAlunos;
     public Transform painelAcoes;
     public Transform painelDescDemandas;
-    public Button prefabBotaoAcao;
-    public GameObject prefabDescDemanda;
+    public ActionButton prefabBotaoAcao;
     public DemandToggle prefabBotaoDemanda;
     private readonly string _characterPortraitLocation = "Illustrations/CharacterPortraits/Students/";
+    private ClassDemanda selectedDemand;
 
-    public ClassAluno alunoSelecionado;
 
     public int delayBetweenEachDemand;
     public SpeechBubble speechBubble;
 
     private Time _lastDemand;
 
-    private string textoDemanda;
     // Start is called before the first frame update
     void Awake()
     {
         foreach (var action in Game.Actions.acoes.Where(x=>x.selected))
         {
-            if (acao.selected)
+            if (action.selected)
             {
                 var button = Instantiate(prefabBotaoAcao, painelAcoes);
-                button.onClick.AddListener(delegate { usarAcao(acao);});
-                button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.nome);
+                button.GetComponent<Button>().onClick.AddListener(delegate { UseAction(action); });
+                button.GetComponent<Button>().interactable = false;
+                button.Action = action;
             }
         }
 
@@ -45,24 +44,7 @@ public class ControladorSalaDeAula : MonoBehaviour
 
     void Start()
     {
-        textoDemanda = "";
         StartCoroutine(SpawnDemands());
-    }
-
-    private void showDemand(int idAluno)
-    {
-        for (int i = 0; i < Game.Demands.Count; i++)
-        {
-            if (Game.Demands[i].idaluno == idAluno && !Game.Demands[i].resolvida)
-            {
-                textoDemanda = Game.Demands[i].descricao;
-                Game.Demands[i].resolvida = true;
-                break;
-            }
-        }
-
-        var prefabDemanda = Instantiate(prefabDescDemanda, painelDescDemandas);
-        prefabDemanda.GetComponentInChildren<TextMeshProUGUI>().text = textoDemanda;
     }
     
 
@@ -70,42 +52,52 @@ public class ControladorSalaDeAula : MonoBehaviour
     IEnumerator SpawnDemands()
     {
         //ClassDemanda demanda;
-        ClassAluno student;
-        List<ClassAluno> studentList = Game.Students.alunos.FindAll(x => Game.levelDemandingStudents.Contains(x.id));
-        Random randomGenerator = new Random();
-
-        while (true)
+        var studentList = Game.DemandingStudents;
+        var demandList = Game.Demands.demandas.Where(x => studentList.Select(y=>y.id).Contains(x.idAluno) && !x.resolvida).ToList();
+        while (demandList.Any())
         {
             yield return new WaitForSeconds(delayBetweenEachDemand);
 
-            if (demandPanel.childCount > 2)
+            if (painelDescDemandas.childCount > 2)
             {
-                Destroy(demandPanel.GetChild(2).gameObject);
+                Destroy(painelDescDemandas.GetChild(2).gameObject);
             }
-            student = studentList[randomGenerator.Next() % studentList.Count];
-//           demanda = aluno.demandas[randomGenerator.Next() % aluno.demandas.Count];
-            var button = Instantiate(prefabBotaoDemanda, painelAlunos);
+
+            var demanda = demandList.First();
+            demandList.RemoveAt(0);
+            demanda.resolvida = true;
+            var button = Instantiate(prefabBotaoDemanda, painelDescDemandas);
             button.gameObject.transform.SetAsFirstSibling();
-            var demands1 = demands; // é perigoso acessar direto, os valores podem mudar (pelo menos foi isso q o rider me disse)
-            var demand = idDemand;
-            button.GetComponent<Button>().onClick.AddListener(delegate { SelectDemand(demands1[demand]); });
-            button.Student = student;
-            button.Level = rand.Next(3);
+            button.GetComponent<Button>().onClick.AddListener(delegate { SelectDemand(demanda); });
+
+            button.Demand = demanda;
+            button.Level = demanda.nivelUrgencia;
+            button.Student = demanda.student;
             speechBubble.gameObject.SetActive(true);
-            speechBubble.SetText(demands[idDemand].frase);
+            speechBubble.SetText(demanda.descricao);
         }
 
     }
 
     private void SelectDemand(ClassDemanda demand)
     {
+
  
         if (selectedDemand == null)
         {
-            foreach (var button in actionPanel.GetComponentsInChildren<Button>())
+            foreach (var button in painelAcoes.GetComponentsInChildren<Button>())
             {
-                button.enabled = true;
+                button.interactable = true;
             }
         }
+        selectedDemand = demand;
+
+        speechBubble.gameObject.SetActive(true);
+        speechBubble.SetText(demand.descricao);
+
+    }
+    private void UseAction(ClassAcao action)
+    {        Debug.Log(action.nome+" e " + selectedDemand.descricao);
+
     }
 }

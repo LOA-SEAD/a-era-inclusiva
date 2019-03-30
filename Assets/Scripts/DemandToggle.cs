@@ -28,10 +28,9 @@ public class DemandToggle : MonoBehaviour
         private get { return _level; }
         set
         {
-            Debug.Log(value);
             _level = value;
-            background.color = colorForEachLevel[_level];
-            text.SetText(new string('!', _level+1));
+            background.color = colorForEachLevel[_level-1];
+            text.SetText(new string('!', _level));
         }
     }
 
