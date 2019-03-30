@@ -21,4 +21,9 @@ public class ActionButton : MonoBehaviour
         }
     }
 
+    public void OnSelect()
+    {
+        FindObjectOfType<ControladorSalaDeAula>().UseAction(_action);
+    }
+
 }

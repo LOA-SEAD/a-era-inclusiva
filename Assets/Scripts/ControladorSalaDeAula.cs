@@ -11,93 +11,73 @@ using Random = System.Random;
 
 public class ControladorSalaDeAula : MonoBehaviour
 {
-    //Representação dos objetos da tela
-    public Transform painelAlunos;
-    public Transform painelAcoes;
-    public Transform painelDescDemandas;
-    public ActionButton prefabBotaoAcao;
-    public DemandToggle prefabBotaoDemanda;
-    private readonly string _characterPortraitLocation = "Illustrations/CharacterPortraits/Students/";
-    private ClassDemanda selectedDemand;
-
-
-    public int delayBetweenEachDemand;
+    private DemandToggle _selectedDemand;
+    public TextMeshProUGUI pointsText;
     public SpeechBubble speechBubble;
+    public BarraInferior barraInferior;
+    public float decreaseHappinessRate = 1.0f;
+    public int DemandCounter { get; set; }
 
-    private Time _lastDemand;
-
-    // Start is called before the first frame update
-    void Awake()
+    public DemandToggle SelectedDemand
     {
-        foreach (var action in Game.Actions.acoes.Where(x=>x.selected))
+        set
         {
-            if (action.selected)
-            {
-                var button = Instantiate(prefabBotaoAcao, painelAcoes);
-                button.GetComponent<Button>().onClick.AddListener(delegate { UseAction(action); });
-                button.GetComponent<Button>().interactable = false;
-                button.Action = action;
-            }
+            _selectedDemand = value;
+            Speak(_selectedDemand.Demand.descricao); 
         }
-
+       
     }
 
-    void Start()
+    private void Start()
     {
-        StartCoroutine(SpawnDemands());
+        InvokeRepeating("DecreaseHappiness", 0, decreaseHappinessRate);
     }
-    
 
-    // Update is called once per frame
-    IEnumerator SpawnDemands()
+    public void DecreaseHappiness()
     {
-        //ClassDemanda demanda;
-        var studentList = Game.DemandingStudents;
-        var demandList = Game.Demands.demandas.Where(x => studentList.Select(y=>y.id).Contains(x.idAluno) && !x.resolvida).ToList();
-        while (demandList.Any())
+        Debug.Log(string.Format("Felicidade = {0} - {1}", Game.Happiness, DemandCounter));
+        Game.Happiness -= DemandCounter;
+    }
+    public void UseAction(ClassAcao action)
+    {
+        if (_selectedDemand == null)
         {
-            yield return new WaitForSeconds(delayBetweenEachDemand);
-
-            if (painelDescDemandas.childCount > 2)
-            {
-                Destroy(painelDescDemandas.GetChild(2).gameObject);
-            }
-
-            var demanda = demandList.First();
-            demandList.RemoveAt(0);
-            demanda.resolvida = true;
-            var button = Instantiate(prefabBotaoDemanda, painelDescDemandas);
-            button.gameObject.transform.SetAsFirstSibling();
-            button.GetComponent<Button>().onClick.AddListener(delegate { SelectDemand(demanda); });
-
-            button.Demand = demanda;
-            button.Level = demanda.nivelUrgencia;
-            button.Student = demanda.student;
-            speechBubble.gameObject.SetActive(true);
-            speechBubble.SetText(demanda.descricao);
+            Speak("Não posso fazer isso sem ter escolhido a demanda!");
+            return;
         }
-
-    }
-
-    private void SelectDemand(ClassDemanda demand)
-    {
-
- 
-        if (selectedDemand == null)
+        
+        Efetividade e = _selectedDemand.Demand.acoesEficazes.FirstOrDefault(x => x.idAcao == action.id);
+        if (e != null)
         {
-            foreach (var button in painelAcoes.GetComponentsInChildren<Button>())
+            
+            switch (e.efetividade)
             {
-                button.interactable = true;
+                case 100:
+                    Speak("Acho que isso deu muito certo!");
+                    break;
+                case 50:
+                    Speak("Não parece ser o ideal, mas resolve o problema por hora");
+                    break;
+                default:
+                    Speak("Eu sei que consigo fazer melhor que isso!");
+                    break;
             }
+            barraInferior.IncrementScore(e.efetividade);
         }
-        selectedDemand = demand;
+        else
+        {
+            Speak("Acho que isso não funcionou muito bem!");
 
-        speechBubble.gameObject.SetActive(true);
-        speechBubble.SetText(demand.descricao);
+        }
+        Destroy(_selectedDemand.gameObject);
+        _selectedDemand = null;
 
+        
     }
-    private void UseAction(ClassAcao action)
-    {        Debug.Log(action.nome+" e " + selectedDemand.descricao);
 
+    public void Speak(string demandaDescricao)
+    {
+         speechBubble.gameObject.SetActive(true);
+                speechBubble.SetText(demandaDescricao);
     }
 }
