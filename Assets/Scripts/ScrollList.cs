@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 public class ScrollList : MonoBehaviour
 {
-    [FormerlySerializedAs("Up")] public Button up;
-    [FormerlySerializedAs("Down")] public Button down;
-    [FormerlySerializedAs("Objects")] public List<GameObject> objects;
-    [FormerlySerializedAs("MaxShown")] public int maxShown = 3;
-
+    public Button up;
+    public Button down;
+    public List<GameObject> objects;
+     public int maxShown = 3;
+     public Transform objectsParent;
     private int _at;
 
     // Start is called before the first frame update
@@ -19,8 +19,6 @@ public class ScrollList : MonoBehaviour
     {
         up.onClick.AddListener(GoUp);
         down.onClick.AddListener(GoDown);
-        up.transform.SetAsFirstSibling();
-        down.transform.SetAsLastSibling();
         if (objects == null)
         {
             objects = new List<GameObject>();
@@ -33,9 +31,10 @@ public class ScrollList : MonoBehaviour
     }
     public void AddGameObject(Transform obj)
     {
-        obj.SetParent(transform);
-        obj.SetSiblingIndex(1);
+        obj.SetParent(objectsParent);
+        obj.SetAsLastSibling();
         objects.Add(obj.gameObject);
+        UpdateShown();
     }
 
 
@@ -45,6 +44,7 @@ public class ScrollList : MonoBehaviour
             objects.ForEach(x => x.SetActive(false));
             for (int id = _at; id < _at + maxShown && id<objects.Count; id++)
             {
+                    objects[id].transform.localScale = Vector3.one;
                     objects[id].SetActive(true);
             }
     }
@@ -69,6 +69,18 @@ public class ScrollList : MonoBehaviour
 
         _at++;
         UpdateShown();
+   
+       
+    }
+
+    public void Clear()
+    {
+        _at = 0;
+        objects.RemoveAll(x=>x);
+        foreach (Transform children in objectsParent.transform)
+        {
+            Destroy(children.gameObject);
+        }
     }
 
     // Update is called once per frame

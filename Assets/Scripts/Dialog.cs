@@ -20,7 +20,7 @@ public class Dialog : MonoBehaviour
 
     void Start()
     {
-        if(LoadFromJson)
+        if(LoadFromJson && Game.Characters!=null)
             Dialogs = Game.Characters.personagens.Find(x => x.nome == Name).dialogos.Find(x => x.local == Local).frases;
         ShowNextDialog();
     }
