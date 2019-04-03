@@ -6,6 +6,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Internal.Experimental.UIElements;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = System.Random;
 
@@ -17,6 +18,7 @@ public class ControladorSalaDeAula : MonoBehaviour
     public BarraInferior barraInferior;
     public float decreaseHappinessRate = 1.0f;
     public int DemandCounter { get; set; }
+    public float levelTimeInSeconds;
 
     public DemandToggle SelectedDemand
     {
@@ -31,6 +33,14 @@ public class ControladorSalaDeAula : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("DecreaseHappiness", 0, decreaseHappinessRate);
+    }
+
+    void Update()
+    {
+        //timer da fase
+        levelTimeInSeconds -= Time.deltaTime;
+        if(levelTimeInSeconds < 0) //Acaba a cena
+            SceneManager.LoadScene("HTPI");
     }
 
     public void DecreaseHappiness()
@@ -71,8 +81,6 @@ public class ControladorSalaDeAula : MonoBehaviour
         }
         Destroy(_selectedDemand.gameObject);
         _selectedDemand = null;
-
-        
     }
 
     public void Speak(string demandaDescricao)

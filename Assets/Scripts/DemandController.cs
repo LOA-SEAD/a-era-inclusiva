@@ -27,10 +27,10 @@ public class DemandController : MonoBehaviour
         {
             yield return new WaitForSeconds(delayBetweenEachDemand);
 
-            if (transform.childCount > 2)
+            /*if (transform.childCount > 2)
             {
                 Destroy(transform.GetChild(2).gameObject);
-            }
+            }*/
 
             var demanda = demandList.First();
             demandList.RemoveAt(0);
