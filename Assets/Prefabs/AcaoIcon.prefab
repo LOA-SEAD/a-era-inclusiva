@@ -511,8 +511,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa21241d4bcee7f47955b748cfd57645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 960284427200899572}
-  name: {fileID: 960284427038884671}
+  iconObj: {fileID: 960284427200899572}
+  nameObj: {fileID: 960284427038884671}
 --- !u!114 &7150480379925757186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,17 +552,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 960284427918929726}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1741412810}
-        m_MethodName: Toggle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
