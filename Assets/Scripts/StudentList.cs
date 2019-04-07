@@ -5,16 +5,19 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StudentList : ScrollList
+public class StudentList : MonoBehaviour
 {
-    public StudentIcon prefabButton;
-   
+    public ScrollList scrollList;
+    public Button prefabButton;
+    public TextMeshProUGUI studentName;
+    public TextMeshProUGUI studentDescription;
+    public Image studentPhoto;
     public bool importantOnly;
+    private readonly string _characterPortraitLocation = "Illustrations/CharacterPortraits/Students/";
 
-
-    new void Start()
+    void Awake()
     {
-        base.Start();
+
         foreach (var student in Game.Students.alunos)
         {
             if (importantOnly && !student.importante)
@@ -23,19 +26,24 @@ public class StudentList : ScrollList
             }
 
             var button = Instantiate(prefabButton);
-            button.Student = student;
-            button.AddListener(delegate { OnSelectStudent(student); });
-            AddGameObject(button.transform);
-        }
-        UpdateShown();
+            button.GetComponentsInChildren<Image>()[1].sprite = Resources.Load<Sprite>(
+                _characterPortraitLocation + student.id);
+            button.onClick.AddListener(delegate { ShowStudent(student); });
+            scrollList.AddGameObject(button.transform);
+            button.transform.localScale = Vector3.one;
+        }    }
 
 
-    }
 
-    protected virtual void OnSelectStudent(ClassAluno aluno)
+    void ShowStudent(ClassAluno student)
     {
-     
-    }
+        if (student.id != 0)
+        {
+            studentPhoto.sprite = Resources.Load<Sprite>(
+                _characterPortraitLocation + student.id);
+        }
 
-  
+        studentName.SetText(student.nome);
+        studentDescription.SetText(student.descricao);
+    }
 }

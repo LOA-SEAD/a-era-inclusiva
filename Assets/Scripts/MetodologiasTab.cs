@@ -73,7 +73,7 @@ public class MetodologiasTab : MonoBehaviour
         Titulo.SetText(MetodologiaSelecionada);
         Texto.SetText(String.Format("Escolha 3 {0} que você considera mais eficazes para esta aula, levando em consideração os perfis dos estudantes", MetodologiaSelecionada));
         gridMetodologias.UpdateList();
-        //actionList.UpdateList();
+        actionList.UpdateList();
         popupQuestion.gameObject.SetActive(false);
     }
 
@@ -83,7 +83,7 @@ public class MetodologiasTab : MonoBehaviour
         Game.Actions.acoes.ForEach(x => x.selected = false);
         Titulo.SetText(MetodologiaSelecionada);
         gridMetodologias.UpdateList();
-        //actionList.UpdateList();
+        actionList.UpdateList();
         popupQuestion.gameObject.SetActive(false);
     }
 
@@ -93,7 +93,7 @@ public class MetodologiasTab : MonoBehaviour
         idMetodologia = idMetodologia > 0 ? idMetodologia-1 : 0;
         Titulo.SetText(MetodologiaSelecionada);
         gridMetodologias.UpdateList();
-        //actionList.UpdateList();
+        actionList.UpdateList();
         popupQuestion.gameObject.SetActive(false);
     }
     
