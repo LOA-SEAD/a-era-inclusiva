@@ -15,19 +15,18 @@ public class ScrollList : MonoBehaviour
     private int _at;
 
     // Start is called before the first frame update
-    protected void Awake()
+    void Awake()
     {
         up.onClick.AddListener(GoUp);
         down.onClick.AddListener(GoDown);
-     
-    }
-
-    protected void Start()
-    {
         if (objects == null)
         {
             objects = new List<GameObject>();
         }
+    }
+
+    void Start()
+    {
         UpdateShown();
     }
     public void AddGameObject(Transform obj)
@@ -35,10 +34,11 @@ public class ScrollList : MonoBehaviour
         obj.SetParent(objectsParent);
         obj.SetAsLastSibling();
         objects.Add(obj.gameObject);
+        UpdateShown();
     }
 
 
-    protected void UpdateShown()
+    void UpdateShown()
     {
     
             objects.ForEach(x => x.SetActive(false));
@@ -49,7 +49,7 @@ public class ScrollList : MonoBehaviour
             }
     }
 
-    protected void GoUp()
+    void GoUp()
     {
         if (_at == 0)
         {
@@ -60,7 +60,7 @@ public class ScrollList : MonoBehaviour
         UpdateShown();
     }
 
-    protected void GoDown()
+    void GoDown()
     {
         if (_at + maxShown >= objects.Count)
         {
