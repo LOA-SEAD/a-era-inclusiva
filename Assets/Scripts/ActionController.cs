@@ -11,12 +11,8 @@ public class ActionController : MonoBehaviour
     {
         foreach (var action in Game.Actions.acoes.FindAll(x => x.selected))
         {
-            if (action.selected)
-            {
-                var actionButton = Instantiate(prefabBotaoAcao, transform);
-                actionButton.Action = action;
-            }
+            var actionButton = Instantiate(prefabBotaoAcao, transform);
+            actionButton.Action = action;
         }
     }
-
 }

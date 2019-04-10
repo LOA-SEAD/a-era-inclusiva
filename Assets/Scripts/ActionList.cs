@@ -1,7 +1,7 @@
 ﻿
 using System.Linq;
 
-public class ActionList : ScrollList
+public class ActionList : ScrollList<ClassAcao>
 {
     public AcaoIcon actionPrefab;
 
@@ -9,13 +9,22 @@ public class ActionList : ScrollList
     {
         base.Start();
 
+        UpdateList();
+
+    }
+
+    public void UpdateList()
+    {
+        Clear();
         if (Game.Actions == null) return;
+        
+        
         
         foreach (var action in Game.Actions.acoes.Where(WhichActions))
         {
             var acaoIcon = Instantiate(actionPrefab);
             acaoIcon.Acao = action;
-            acaoIcon.AddListener(delegate { OnSelectAction(action); });
+            acaoIcon.AddListener(delegate { OnSelect(action); });
             AddGameObject(acaoIcon.transform);
         }
 
@@ -28,8 +37,5 @@ public class ActionList : ScrollList
         return true;
     }
 
-    protected virtual void OnSelectAction(ClassAcao acao)
-    {
-        
-    }
+  
 }

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class ActionButton : MonoBehaviour
 {
-    public TextMeshProUGUI icon;
-    public TextMeshProUGUI name;
+    public TextMeshProUGUI iconObj;
+    public TextMeshProUGUI nameObj;
     private ClassAcao _action;
     public ClassAcao Action
     {
@@ -14,10 +14,10 @@ public class ActionButton : MonoBehaviour
         set
         {
             _action = value;
-            icon.SetText(_action.icone);
+            iconObj.SetText(_action.icone);
 
 
-            name.SetText(_action.nome);
+            nameObj.SetText(_action.nome);
         }
     }
 

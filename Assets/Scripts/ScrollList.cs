@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class ScrollList : MonoBehaviour
+public class ScrollList<T> : MonoBehaviour
 {
     public Button up;
     public Button down;
@@ -35,13 +35,17 @@ public class ScrollList : MonoBehaviour
         obj.SetParent(objectsParent);
         obj.SetAsLastSibling();
         objects.Add(obj.gameObject);
+        obj.localScale = Vector3.one;
+        
+        UpdateShown();
     }
 
 
     protected void UpdateShown()
     {
+        objects.ForEach(x=>x.SetActive(false));
+
     
-            objects.ForEach(x => x.SetActive(false));
             for (int id = _at; id < _at + maxShown && id<objects.Count; id++)
             {
                     objects[id].transform.localScale = Vector3.one;
@@ -55,9 +59,10 @@ public class ScrollList : MonoBehaviour
         {
             return;
         }
-
+        objects[_at+2].SetActive(false);
         _at--;
-        UpdateShown();
+        objects[_at].SetActive(true);
+
     }
 
     protected void GoDown()
@@ -66,9 +71,10 @@ public class ScrollList : MonoBehaviour
         {
             return;
         }
-
+        objects[_at].SetActive(false);
         _at++;
-        UpdateShown();
+        objects[_at+2].SetActive(true);
+
    
        
     }
@@ -81,6 +87,10 @@ public class ScrollList : MonoBehaviour
         {
             Destroy(children.gameObject);
         }
+    }
+    protected virtual void OnSelect(T obj)
+    {
+     
     }
 
     // Update is called once per frame

@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StudentList : ScrollList
+public class StudentList : ScrollList<ClassAluno>
 {
     public StudentIcon prefabButton;
    
@@ -24,17 +24,12 @@ public class StudentList : ScrollList
 
             var button = Instantiate(prefabButton);
             button.Student = student;
-            button.AddListener(delegate { OnSelectStudent(student); });
+            button.AddListener(delegate { OnSelect(student); });
             AddGameObject(button.transform);
         }
         UpdateShown();
 
 
-    }
-
-    protected virtual void OnSelectStudent(ClassAluno aluno)
-    {
-     
     }
 
   

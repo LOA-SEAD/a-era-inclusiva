@@ -25,7 +25,7 @@ public class HTPIController : MonoBehaviour
         {
             return;
         }
-        if (_selectedActions[_selectedStudent] == null)
+        if (!_selectedActions.ContainsKey(_selectedStudent) || _selectedActions[_selectedStudent] == null)
         {
             _selectedActions[_selectedStudent] = new List<ClassAcao>();
         }

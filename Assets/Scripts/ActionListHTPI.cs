@@ -25,7 +25,7 @@ public class ActionListHTPI : ActionList
         return true;
     }
 
-    protected override void OnSelectAction(ClassAcao acao)
+    protected override void OnSelect(ClassAcao acao)
     {
         if (htpiController != null)
             htpiController.AddAction(acao);
