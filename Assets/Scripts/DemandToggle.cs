@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class DemandToggle : MonoBehaviour
 {
-    private readonly string _characterPortraitLocation = "Illustrations/CharacterPortraits/Students/";
     private ClassDemanda _demand;
     private readonly List<Color32> colorForEachLevel = new List<Color32>
     {
@@ -28,8 +27,7 @@ public class DemandToggle : MonoBehaviour
             _demand = value;
             background.color = colorForEachLevel[_demand.nivelUrgencia-1];
             text.SetText(new string('!', _demand.nivelUrgencia));
-            studentPhoto.sprite = Resources.Load<Sprite>(
-                _characterPortraitLocation + _demand.student.id);
+            studentPhoto.sprite = _demand.student.LoadPortrait();
         }
     }
 

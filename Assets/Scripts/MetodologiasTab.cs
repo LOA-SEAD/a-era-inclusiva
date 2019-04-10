@@ -11,24 +11,39 @@ using UnityEngine.UI;
 public class MetodologiasTab : MonoBehaviour
 {
     public GridMetodologias gridMetodologias;
-    public ActionList actionList;
     private int idMetodologia = 0;
+    
     private List<string> Metodologias;
     public TextMeshProUGUI Titulo;
     public TextMeshProUGUI Texto;
     public Button UndoButton;
-    public PopupQuestion popupQuestion;
+    public ActionListSalaProfessores actionListSalaProfessores;
+    public GameObject ExitButton;
 
     public string MetodologiaSelecionada
     {
         get { return Metodologias[idMetodologia]; }
     }
 
-    private void Start()
+    public bool HasNextMethodology()
     {
-        UndoButton.interactable = false;
-        
+        return idMetodologia >= Metodologias.Count - 1;
     }
+    public int IdMetodologia
+    {
+        get { return idMetodologia; }
+        set
+        {
+            idMetodologia = value;
+            actionListSalaProfessores.UpdateList();
+            Titulo.SetText(MetodologiaSelecionada);
+            gridMetodologias.UpdateList();
+
+
+        }
+    }
+
+ 
     private void Awake()
     {
         
@@ -38,63 +53,43 @@ public class MetodologiasTab : MonoBehaviour
             Metodologias = new List<string>();
     }
 
-    public void ShowDialog()
+
+
+    public void GoToNextMethodology()
     {
-        popupQuestion.DenyButton.onClick.RemoveAllListeners();
-        popupQuestion.AcceptButton.onClick.RemoveAllListeners();
-
-        string message = String.Empty;
-        if (idMetodologia >= Metodologias.Count-1)
-        {
-            message = "Você terminou de selecionar todas as ações, deseja finalizar ou começar novamente?";
-            popupQuestion.AcceptButton.onClick.AddListener(delegate { popupQuestion.gameObject.SetActive(false); });
-            popupQuestion.DenyButton.GetComponentInChildren<TextMeshProUGUI>().SetText("\uf0e2");
-            popupQuestion.DenyButton.onClick.AddListener(Reset);
-        }
-        else
-        {
-            
-            message = String.Format(
-                "Você já selecionou 3 ações da categoria {0}\nDeseja avançar para a próxima categoria?",
-                MetodologiaSelecionada);
-            popupQuestion.AcceptButton.onClick.AddListener(goToNextMetodologia);
-            popupQuestion.DenyButton.onClick.AddListener(delegate { popupQuestion.gameObject.SetActive(false); });
-        }
-
-        popupQuestion.gameObject.SetActive(true);
-        popupQuestion.Message.SetText(message);
-    }
-
-    private void goToNextMetodologia()
-    {
-        if (!UndoButton.interactable)
-            UndoButton.interactable = true;
-        idMetodologia++;
-        Titulo.SetText(MetodologiaSelecionada);
+        IdMetodologia++;
         Texto.SetText(String.Format("Escolha 3 {0} que você considera mais eficazes para esta aula, levando em consideração os perfis dos estudantes", MetodologiaSelecionada));
-        gridMetodologias.UpdateList();
-        //actionList.UpdateList();
-        popupQuestion.gameObject.SetActive(false);
     }
 
-    private void Reset()
+    public void Reset()
     {
-        idMetodologia = 0;
+        IdMetodologia = 0;
         Game.Actions.acoes.ForEach(x => x.selected = false);
-        Titulo.SetText(MetodologiaSelecionada);
-        gridMetodologias.UpdateList();
-        //actionList.UpdateList();
-        popupQuestion.gameObject.SetActive(false);
     }
 
     public void Undo()
     {
-        Game.Actions.acoes.Where(x=>x.tipo == MetodologiaSelecionada).ToList().ForEach(x => x.selected = false);
-        idMetodologia = idMetodologia > 0 ? idMetodologia-1 : 0;
-        Titulo.SetText(MetodologiaSelecionada);
-        gridMetodologias.UpdateList();
-        //actionList.UpdateList();
-        popupQuestion.gameObject.SetActive(false);
+        var actions = Game.Actions.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
+        if (actions.Count == 0)
+        {
+            IdMetodologia = idMetodologia > 0 ? idMetodologia-1 : 0;
+
+        }
+        else
+        {
+            actions.ForEach(x=>x.selected = false);
+            gridMetodologias.UpdateList();
+        }
+        ExitButton.GetComponentInChildren<TextMeshProUGUI>().SetText("\uf00d");
+        ExitButton.GetComponent<Image>().color = new Color32(255,80,66, 255);
+        
+    }
+
+    public void Done()
+    {
+        ExitButton.GetComponentInChildren<TextMeshProUGUI>().SetText("\uf00c");
+        ExitButton.GetComponent<Image>().color = Color.green;
+       
     }
     
 }

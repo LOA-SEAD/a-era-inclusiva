@@ -15,7 +15,10 @@ public class StudentIcon : Toggle
             _student = value;
             portraitObj.sprite = _student.LoadPortrait();
             ;
-            name = _student.nome;
+            nameObj.SetText(_student.nome);
         }
     }
+
+  
+    
 }

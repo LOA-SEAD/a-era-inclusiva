@@ -14,6 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameObj: {fileID: 2418467294254864780}
   portraitObj: {fileID: 1252499754016077712}
+--- !u!95 &2244924477378126043
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083657923530625276}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 390d51f6d14215740877a1dc6257ffea, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5573056891563038633
 GameObject:
   m_ObjectHideFlags: 0
@@ -48,8 +67,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 10}
-  m_SizeDelta: {x: 0, y: 20}
+  m_AnchoredPosition: {x: 0, y: -21.119999}
+  m_SizeDelta: {x: 0, y: -54.760002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6824560237271098368
 CanvasRenderer:
@@ -107,11 +126,11 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 24
+  m_fontSize: 12.5
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 12.51
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_textAlignment: 514
@@ -125,7 +144,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -161,7 +180,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
-  m_inputSource: 3
+  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
@@ -185,11 +204,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StudentIconPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 2191046025252202104, guid: 4d49bbd65179475449ff6f05ae452486,
-        type: 3}
-      propertyPath: m_FillCenter
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2191046025252202106, guid: 4d49bbd65179475449ff6f05ae452486,
         type: 3}
@@ -299,6 +313,43 @@ PrefabInstance:
     - target: {fileID: 1690337559, guid: 4d49bbd65179475449ff6f05ae452486, type: 3}
       propertyPath: m_Sprite
       value: 
+      objectReference: {fileID: 21300000, guid: 18801885a5f780d4a84e80100a49acb7,
+        type: 3}
+    - target: {fileID: 2191046025252202104, guid: 4d49bbd65179475449ff6f05ae452486,
+        type: 3}
+      propertyPath: m_FillCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191046025252202104, guid: 4d49bbd65179475449ff6f05ae452486,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191046025252202104, guid: 4d49bbd65179475449ff6f05ae452486,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.5059274
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191046025252202104, guid: 4d49bbd65179475449ff6f05ae452486,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.7169812
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690337558, guid: 4d49bbd65179475449ff6f05ae452486, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690337558, guid: 4d49bbd65179475449ff6f05ae452486, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690337558, guid: 4d49bbd65179475449ff6f05ae452486, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690337558, guid: 4d49bbd65179475449ff6f05ae452486, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d49bbd65179475449ff6f05ae452486, type: 3}

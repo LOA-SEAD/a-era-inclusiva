@@ -17,8 +17,7 @@ public class GridMetodologias : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        var actions = Game.Actions.acoes.Where(x => x.tipo == metodologiasTab.MetodologiaSelecionada && x.selected)
-            .ToArray();
+        var actions = Game.Actions.acoes.FindAll(x => x.tipo == metodologiasTab.MetodologiaSelecionada && x.selected);
 
         foreach (var action in actions)
         {
