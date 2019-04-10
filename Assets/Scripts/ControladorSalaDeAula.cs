@@ -45,7 +45,7 @@ public class ControladorSalaDeAula : MonoBehaviour
 
     public void DecreaseHappiness()
     {
-        Debug.Log(string.Format("Felicidade = {0} - {1}", Game.Happiness, DemandCounter));
+      // Debug.Log(string.Format("Felicidade = {0} - {1}", Game.Happiness, DemandCounter));
         Game.Happiness -= DemandCounter;
     }
     public void UseAction(ClassAcao action)
