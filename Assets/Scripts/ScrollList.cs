@@ -17,8 +17,10 @@ public class ScrollList<T> : MonoBehaviour
     // Start is called before the first frame update
     protected void Awake()
     {
-        up.onClick.AddListener(GoUp);
-        down.onClick.AddListener(GoDown);
+        if(up!=null)
+            up.onClick.AddListener(GoUp);
+        if(down!=null)
+            down.onClick.AddListener(GoDown);
      
     }
 
