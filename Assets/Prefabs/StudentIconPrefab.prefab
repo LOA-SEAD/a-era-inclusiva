@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &3601469577374330421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1083657923530625276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff1f7bd65fe94c4e91ff2172b8d2e796, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameObj: {fileID: 2418467294254864780}
-  portraitObj: {fileID: 1252499754016077712}
 --- !u!95 &2244924477378126043
 Animator:
   serializedVersion: 3
@@ -33,6 +19,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3601469577374330421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083657923530625276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff1f7bd65fe94c4e91ff2172b8d2e796, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameObj: {fileID: 2418467294254864780}
+  portraitObj: {fileID: 1252499754016077712}
 --- !u!1 &5573056891563038633
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 12.51
-  m_fontSizeMax: 72
+  m_fontSizeMax: 20
   m_fontStyle: 0
   m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
@@ -205,6 +205,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StudentIconPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1690337559, guid: 4d49bbd65179475449ff6f05ae452486, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 18801885a5f780d4a84e80100a49acb7,
+        type: 3}
     - target: {fileID: 2191046025252202106, guid: 4d49bbd65179475449ff6f05ae452486,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -310,11 +315,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1690337559, guid: 4d49bbd65179475449ff6f05ae452486, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 18801885a5f780d4a84e80100a49acb7,
-        type: 3}
     - target: {fileID: 2191046025252202104, guid: 4d49bbd65179475449ff6f05ae452486,
         type: 3}
       propertyPath: m_FillCenter
@@ -345,11 +345,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1690337558, guid: 4d49bbd65179475449ff6f05ae452486, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 1690337558, guid: 4d49bbd65179475449ff6f05ae452486, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -30
+      value: -45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d49bbd65179475449ff6f05ae452486, type: 3}

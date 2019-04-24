@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
 using UnityEngine;
 
-public class ActionListHTPI : ActionList
+public class SelectedActionListHTPI : ActionList
 {
+    
     protected HTPIController htpiController;
+
+    protected override bool WhichActions(ClassAcao x)
+    {
+        return htpiController.SelectedStudent!=null && htpiController.GetSelectedActions().Contains(x);
+    }
+
 
     private new void Awake()
     {
@@ -17,13 +22,7 @@ public class ActionListHTPI : ActionList
         {
             Debug.Log("Não foi possivel encontrar o HTPIController");
         }
-     
 
-    }
-
-    protected override bool WhichActions(ClassAcao x)
-    {
-        return true;
     }
 
     protected override void OnSelect(ClassAcao acao)
@@ -31,4 +30,5 @@ public class ActionListHTPI : ActionList
         if (htpiController != null)
             htpiController.AddAction(acao);
     }
+
 }

@@ -23,6 +23,6 @@ public class StudentListHTPI : StudentList
     protected override void OnSelect(ClassAluno student)
     {
         if (htpiController != null)
-            htpiController.SelectStudent(student);
+            htpiController.SelectedStudent = student;
     }
 }
