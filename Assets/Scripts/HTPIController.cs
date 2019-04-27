@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HTPIController : MonoBehaviour
@@ -27,11 +28,20 @@ public class HTPIController : MonoBehaviour
     public TextMeshProUGUI descriptionObj;
     public Image portrait;
     public SelectedActionListHTPI selectedActionListHtpi;
+    public Confirmation _confirmation;
+    public GameObject EditandoAcoes;
 
 
     private void Start()
     {
         _selectedActions = new Dictionary<ClassAluno, List<ClassAcao>>();
+        _confirmation.OnAccept(delegate
+        {
+            EditandoAcoes.SetActive(true);
+            _confirmation.Hide();
+        });
+        _confirmation.OnDeny(delegate { SceneManager.LoadScene("Scenes/Corredor"); });
+
     }
 
 
@@ -64,10 +74,48 @@ public class HTPIController : MonoBehaviour
         _selectedActions[_selectedStudent].Add(acao);
 
         selectedActionListHtpi.UpdateList();
+
+        if (_selectedActions.Sum(x => x.Value.Count) == 9)
+        {
+            ShowEndConfirmation();
+        }
     }
 
+    private void ShowEndConfirmation()
+    {
+        EditandoAcoes.SetActive(false);
+        _confirmation.gameObject.SetActive(true);
+        _confirmation.OnAccept(delegate { SceneManager.LoadScene("Scenes/Corredor"); });
+        _confirmation.OnDeny(delegate
+            {
+                EditandoAcoes.SetActive(true);
+                _confirmation.gameObject.SetActive(false);
+            }
+        );
+        _confirmation.SetTitle("Finalizar HTPI?");
 
-    public List<ClassAcao> GetSelectedActions()
+        int points = CalculatePoints();
+        
+        _confirmation.SetText(
+            "Você selecionou ações para todos os estudantes e obteve " + points+" pontos, deseja finalizar o HTPI e voltar para o corredor?");
+    }
+
+    private int CalculatePoints()
+    {
+        int totalPoints = 0;
+        foreach (var student  in _selectedActions)
+        {
+            var selectedActions = student.Value;
+            var acoesEficazes = Game.Demands.demandas.Find(x => x.student == student.Key).acoesEficazes;
+            int points = acoesEficazes.Where(x => selectedActions.Exists(y => y.id == x.idAcao))
+                .Sum(x => x.efetividade);
+            totalPoints += points;
+
+        }
+        return totalPoints;
+    }
+
+public List<ClassAcao> GetSelectedActions()
     {
         if (!_selectedActions.ContainsKey(_selectedStudent) || _selectedActions[_selectedStudent] == null)
         {
