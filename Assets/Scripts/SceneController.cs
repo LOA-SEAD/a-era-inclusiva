@@ -14,7 +14,7 @@ public class SceneController : MonoBehaviour
 
     public void ChangeTo(string scene)
     {
-        SceneManager.LoadScene(scene);
+        Initiate.Fade(scene,Color.black, 3);
     }
     public void LeaveGame()
     {

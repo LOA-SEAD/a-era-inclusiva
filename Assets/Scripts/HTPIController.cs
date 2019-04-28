@@ -40,8 +40,7 @@ public class HTPIController : MonoBehaviour
             EditandoAcoes.SetActive(true);
             _confirmation.Hide();
         });
-        _confirmation.OnDeny(delegate { SceneManager.LoadScene("Scenes/Corredor"); });
-
+        _confirmation.OnDeny(delegate { Initiate.Fade("Scene/Corredor", Color.black, 1); });
     }
 
 
@@ -95,27 +94,28 @@ public class HTPIController : MonoBehaviour
         _confirmation.SetTitle("Finalizar HTPI?");
 
         int points = CalculatePoints();
-        
+
         _confirmation.SetText(
-            "Você selecionou ações para todos os estudantes e obteve " + points+" pontos, deseja finalizar o HTPI e voltar para o corredor?");
+            "Você selecionou ações para todos os estudantes e obteve " + points +
+            " pontos, deseja finalizar o HTPI e voltar para o corredor?");
     }
 
     private int CalculatePoints()
     {
         int totalPoints = 0;
-        foreach (var student  in _selectedActions)
+        foreach (var student in _selectedActions)
         {
             var selectedActions = student.Value;
             var acoesEficazes = Game.Demands.demandas.Find(x => x.student == student.Key).acoesEficazes;
             int points = acoesEficazes.Where(x => selectedActions.Exists(y => y.id == x.idAcao))
                 .Sum(x => x.efetividade);
             totalPoints += points;
-
         }
+
         return totalPoints;
     }
 
-public List<ClassAcao> GetSelectedActions()
+    public List<ClassAcao> GetSelectedActions()
     {
         if (!_selectedActions.ContainsKey(_selectedStudent) || _selectedActions[_selectedStudent] == null)
         {
