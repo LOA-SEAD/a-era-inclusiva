@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,13 +13,14 @@ public class MetodologiasTab : MonoBehaviour
 {
     public GridMetodologias gridMetodologias;
     private int idMetodologia = 0;
-    
+
     private List<string> Metodologias;
     public TextMeshProUGUI Titulo;
     public TextMeshProUGUI Texto;
     public Button UndoButton;
     public ActionListSalaProfessores actionListSalaProfessores;
     public GameObject ExitButton;
+    public ActionConfirmation confirmation;
 
     public string MetodologiaSelecionada
     {
@@ -27,8 +29,9 @@ public class MetodologiasTab : MonoBehaviour
 
     public bool HasNextMethodology()
     {
-        return idMetodologia >= Metodologias.Count - 1;
+        return idMetodologia + 1 < Metodologias.Count;
     }
+
     public int IdMetodologia
     {
         get { return idMetodologia; }
@@ -37,28 +40,28 @@ public class MetodologiasTab : MonoBehaviour
             idMetodologia = value;
             actionListSalaProfessores.UpdateList();
             Titulo.SetText(MetodologiaSelecionada);
-            gridMetodologias.UpdateList();
-
-
+            Texto.SetText(String.Format(
+                "Escolha 3 ações da categoria {0} que você considera mais eficazes para esta aula, levando em consideração os perfis dos estudantes",
+                MetodologiaSelecionada));
+            SelectionHasChanged(value > idMetodologia);
         }
     }
 
- 
+
     private void Awake()
     {
-        
         if (Game.Actions != null)
             Metodologias = Game.Actions.acoes.Select(x => x.tipo).Distinct().ToList();
         else
             Metodologias = new List<string>();
+        IdMetodologia = 0;
+        SelectionHasChanged(false);
     }
-
 
 
     public void GoToNextMethodology()
     {
         IdMetodologia++;
-        Texto.SetText(String.Format("Escolha 3 {0} que você considera mais eficazes para esta aula, levando em consideração os perfis dos estudantes", MetodologiaSelecionada));
     }
 
     public void Reset()
@@ -72,24 +75,49 @@ public class MetodologiasTab : MonoBehaviour
         var actions = Game.Actions.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
         if (actions.Count == 0)
         {
-            IdMetodologia = idMetodologia > 0 ? idMetodologia-1 : 0;
-
+            IdMetodologia = idMetodologia > 0 ? idMetodologia - 1 : 0;
         }
         else
         {
-            actions.ForEach(x=>x.selected = false);
-            gridMetodologias.UpdateList();
+            actions.ForEach(x => x.selected = false);
+            gridMetodologias.ActionsToShow = null;
         }
+
         ExitButton.GetComponentInChildren<TextMeshProUGUI>().SetText("\uf00d");
-        ExitButton.GetComponent<Image>().color = new Color32(255,80,66, 255);
-        
+        ExitButton.GetComponent<Image>().color = new Color32(255, 80, 66, 255);
     }
 
-    public void Done()
+
+
+    public void SelectionHasChanged(bool notificate)
     {
-        ExitButton.GetComponentInChildren<TextMeshProUGUI>().SetText("\uf00c");
-        ExitButton.GetComponent<Image>().color = Color.green;
-       
+        var selected = Game.Actions.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
+        gridMetodologias.ActionsToShow = selected;
+        if (notificate && selected.Count >= 3)
+        {
+            confirmation.gameObject.SetActive(true);
+            confirmation.ActionsToShow = selected;
+            if (HasNextMethodology())
+            {
+                confirmation.OnAccept(delegate
+                {
+                    GoToNextMethodology();
+                    confirmation.Hide();
+                });
+                confirmation.SetText(String.Format("Você selecionou as seguintes ações na categoria {0}, você deseja avançar para a proxima ou alterar suas escolhas?", MetodologiaSelecionada));
+
+            }
+            else
+            {
+                confirmation.OnAccept(delegate
+                {
+                    Initiate.Fade("Scenes/SalaDeAula", Color.black, 3);
+                });
+                confirmation.SetText("Você terminou a seleção, deseja ir para a aula?");
+
+            }
+
+            confirmation.OnDeny(confirmation.Hide);
+        }
     }
-    
 }
