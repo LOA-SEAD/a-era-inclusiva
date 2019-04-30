@@ -10,6 +10,7 @@ public class ClassDemanda
     public string descricao;
     public int nivelUrgencia;
     public bool resolvida;
+    public bool selecionada;
     public List<Efetividade> acoesEficazes;
 
     public ClassAluno student
