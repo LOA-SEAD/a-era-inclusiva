@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Internal.Experimental.UIElements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = System.Random;
