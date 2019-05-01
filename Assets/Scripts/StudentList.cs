@@ -27,7 +27,8 @@ public class StudentList : ScrollList<ClassAluno>
             button.AddListener(delegate { OnSelect(student); });
             AddGameObject(button.transform);
         }
-        UpdateShown();
+
+        Selected = 0;
 
 
     }

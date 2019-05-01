@@ -28,7 +28,7 @@ public class ActionList : ScrollList<ClassAcao>
             AddGameObject(acaoIcon.transform);
         }
 
-        UpdateShown();
+        Selected=0;
 
     }
 
