@@ -9,17 +9,33 @@ using UnityEngine.UI;
 public class HTPIController : MonoBehaviour
 {
     private ClassAluno _selectedStudent;
+    public AcaoIcon acaoPrefab;
 
     public ClassAluno SelectedStudent
     {
-        get { return _selectedStudent; }
+        get => _selectedStudent;
         set
         {
             _selectedStudent = value;
             nameObj.SetText(_selectedStudent.nome);
             descriptionObj.SetText(_selectedStudent.descricao);
             portrait.sprite = _selectedStudent.LoadPortrait();
-            selectedActionListHtpi.UpdateList();
+            ShowSelected();
+        }
+    }
+
+    private void ShowSelected()
+    {
+        foreach (Transform children in selectedActionListHtpi.transform)
+        {
+            Destroy(children.gameObject);
+        }
+
+        if (!_selectedActions.ContainsKey(_selectedStudent)) return;
+        foreach (var action in _selectedActions[_selectedStudent])
+        {
+            var botao = Instantiate(acaoPrefab, selectedActionListHtpi.transform, false);
+            acaoPrefab.Acao = action;
         }
     }
 
@@ -27,7 +43,7 @@ public class HTPIController : MonoBehaviour
     public TextMeshProUGUI nameObj;
     public TextMeshProUGUI descriptionObj;
     public Image portrait;
-    public SelectedActionListHTPI selectedActionListHtpi;
+    public GameObject selectedActionListHtpi;
     public Confirmation _confirmation;
     public GameObject EditandoAcoes;
 
@@ -60,8 +76,8 @@ public class HTPIController : MonoBehaviour
         if (_selectedActions[_selectedStudent].Contains(acao))
         {
             _selectedActions[_selectedStudent].Remove(acao);
-            selectedActionListHtpi.UpdateList();
-            return;
+ShowSelected();
+return;
         }
 
         if (_selectedActions[_selectedStudent].Count >= 3)
@@ -72,8 +88,7 @@ public class HTPIController : MonoBehaviour
 
         _selectedActions[_selectedStudent].Add(acao);
 
-        selectedActionListHtpi.UpdateList();
-
+ShowSelected();
         if (_selectedActions.Sum(x => x.Value.Count) == 9)
         {
             ShowEndConfirmation();

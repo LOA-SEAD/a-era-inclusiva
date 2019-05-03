@@ -15,7 +15,6 @@ public class SelectedActionListHTPI : ActionList
 
     private new void Awake()
     {
-        base.Awake();
     
         htpiController = FindObjectOfType<HTPIController>();
         if (htpiController == null)

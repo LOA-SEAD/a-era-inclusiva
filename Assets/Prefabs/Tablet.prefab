@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 8881723164640021747}
   - component: {fileID: 4304500314239646253}
   m_Layer: 2
-  m_Name: Tela (1)
+  m_Name: ScreenCover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -271,7 +271,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3752174222545665174}
   - component: {fileID: 4858680593975971853}
-  - component: {fileID: 7958411872621401429}
   - component: {fileID: 4502033516858313640}
   m_Layer: 0
   m_Name: Tela
@@ -307,21 +306,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8974874069086151296}
   m_CullTransparentMesh: 0
---- !u!114 &7958411872621401429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8974874069086151296}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 1, g: 1, b: 1, a: 0.23921569}
-  m_EffectDistance: {x: 3, y: -3}
-  m_UseGraphicAlpha: 1
 --- !u!114 &4502033516858313640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.74509805, g: 0.83137256, b: 0.84705883, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
