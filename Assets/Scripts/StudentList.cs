@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StudentList : ScrollList<ClassAluno>
+public class StudentList : SimpleScroll
 {
     public StudentIcon prefabButton;
    
@@ -15,6 +15,14 @@ public class StudentList : ScrollList<ClassAluno>
     new void Start()
     {
         base.Start();
+        UpdateList();
+    }
+
+    private void UpdateList()
+    {
+        if (Game.Students.alunos == null) return;
+        Clear();
+        BackToTop();
         foreach (var student in Game.Students.alunos)
         {
             if (importantOnly && !student.importante)
@@ -25,13 +33,12 @@ public class StudentList : ScrollList<ClassAluno>
             var button = Instantiate(prefabButton);
             button.Student = student;
             button.AddListener(delegate { OnSelect(student); });
-            AddGameObject(button.transform);
+            Add(button.gameObject);
         }
-
-        Selected = 0;
-
-
     }
 
-  
+    protected virtual void OnSelect(ClassAluno student)
+    {
+        throw new System.NotImplementedException();
+    }
 }
