@@ -20,7 +20,7 @@ public class StudentList : SimpleScroll
 
     private void UpdateList()
     {
-        if (Game.Students.alunos == null) return;
+        if (Game.Students == null || Game.Students.alunos == null) return;
         Clear();
         BackToTop();
         foreach (var student in Game.Students.alunos)

@@ -9,6 +9,10 @@ public class ClassAcao
     public bool selected;
     public string icone;
 
+    public void ToggleSelection()
+    {
+        selected = !selected;
+    }
 }
 
 [System.Serializable]
@@ -19,4 +23,6 @@ public class ClassAcoes
     {
         acoes = new List<ClassAcao>();
     }
+
+   
 }
