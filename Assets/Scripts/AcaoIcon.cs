@@ -25,6 +25,11 @@ public class AcaoIcon : Toggle
         }
     }
 
+    public void Toggle()
+    {
+        _acao.ToggleSelection();
+    }
+
    
 
 }

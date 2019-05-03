@@ -10,6 +10,7 @@ public class HTPIController : MonoBehaviour
 {
     private ClassAluno _selectedStudent;
     public AcaoIcon acaoPrefab;
+    public Button EditButton;
 
     public ClassAluno SelectedStudent
     {
@@ -26,6 +27,8 @@ public class HTPIController : MonoBehaviour
 
     private void ShowSelected()
     {
+        EditButton.interactable = true;
+
         foreach (Transform children in selectedActionListHtpi.transform)
         {
             Destroy(children.gameObject);
@@ -46,10 +49,12 @@ public class HTPIController : MonoBehaviour
     public GameObject selectedActionListHtpi;
     public Confirmation _confirmation;
     public GameObject EditandoAcoes;
+    public ActionConfirmation _actionConfirmation;
 
 
     private void Start()
     {
+        EditButton.interactable = false;
         _selectedActions = new Dictionary<ClassAluno, List<ClassAcao>>();
         _confirmation.OnAccept(delegate
         {
@@ -76,23 +81,39 @@ public class HTPIController : MonoBehaviour
         if (_selectedActions[_selectedStudent].Contains(acao))
         {
             _selectedActions[_selectedStudent].Remove(acao);
-ShowSelected();
-return;
-        }
-
-        if (_selectedActions[_selectedStudent].Count >= 3)
-        {
-            Debug.Log("Cannot select more than three actions");
+            ShowSelected();
             return;
         }
 
-        _selectedActions[_selectedStudent].Add(acao);
+      
 
-ShowSelected();
+        _selectedActions[_selectedStudent].Add(acao);
+        ShowSelected();
         if (_selectedActions.Sum(x => x.Value.Count) == 9)
         {
             ShowEndConfirmation();
+            return;
         }
+        if (_selectedActions[_selectedStudent].Count == 3)
+        {
+            _actionConfirmation.gameObject.SetActive(true);
+            _actionConfirmation.ActionsToShow = _selectedActions[_selectedStudent];
+            _actionConfirmation.OnAccept(delegate { _actionConfirmation.gameObject.SetActive(false); });
+            _actionConfirmation.OnDeny(delegate
+            {
+                
+                _selectedActions[_selectedStudent].Clear();
+                ShowSelected();
+
+                _actionConfirmation.gameObject.SetActive(false);
+                
+            });
+
+            Debug.Log("Cannot select more than three actions");
+            return;
+        }
+     
+        
     }
 
     private void ShowEndConfirmation()
