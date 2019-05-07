@@ -1,21 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+
 public class GridMetodologias : MonoBehaviour
 {
-    public GameObject ActionPrefab;
+    public GameObject gridAcoes;
+    public AcaoIcon ActionPrefab;
+    public MetodologiasTab metodologiasTab;
+
     // Start is called before the first frame update
-    void Start()
+    public void UpdateList()
     {
-        foreach(var action in Game.Actions.acoes)
+        foreach (Transform child in gridAcoes.transform)
         {
-            var actionObj = Instantiate(ActionPrefab, transform);
-            if (action.selected) {
-                actionObj.GetComponent<Toggle>().isOn = true;
-            }
-            actionObj.GetComponentInChildren<Text>().text = action.nome;
-            actionObj.GetComponent<Acao>().acao = action;
+            Destroy(child.gameObject);
         }
+
+        var actions = Game.Actions.acoes.Where(x => x.tipo == metodologiasTab.MetodologiaSelecionada && x.selected)
+            .ToArray();
+
+        foreach (var action in actions)
+        {
+            var actionObj = Instantiate(ActionPrefab, gridAcoes.transform);
+            actionObj.Acao = action;
+        }
+
     }
 }

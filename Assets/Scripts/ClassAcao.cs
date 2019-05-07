@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 
 [System.Serializable]
-public class ClassAcao{
+public class ClassAcao
+{
+    public int id;
 	public string nome;
     public string tipo;
     public bool selected;
+    public string icone;
 
 }
 
