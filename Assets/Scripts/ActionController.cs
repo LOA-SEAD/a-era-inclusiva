@@ -5,18 +5,14 @@ using UnityEngine.UI;
 
 public class ActionController : MonoBehaviour
 {
-    public ActionButton prefabBotaoAcao;
+    public AcaoIcon prefabBotaoAcao;
 
     void Awake()
     {
         foreach (var action in Game.Actions.acoes.FindAll(x => x.selected))
         {
-            if (action.selected)
-            {
-                var actionButton = Instantiate(prefabBotaoAcao, transform);
-                actionButton.Action = action;
-            }
+            var actionButton = Instantiate(prefabBotaoAcao, transform);
+            actionButton.Acao = action;
         }
     }
-
 }

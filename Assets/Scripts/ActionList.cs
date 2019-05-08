@@ -1,34 +1,44 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿
 using System.Linq;
-using UnityEngine;
 
-public class ActionList : MonoBehaviour
+public class ActionList : SimpleScroll
 {
     public AcaoIcon actionPrefab;
-    private ScrollList scrollList;
-    public MetodologiasTab metodologiasTab;
-    private void Start()
+
+    public new void Start()
     {
-        scrollList = GetComponent<ScrollList>();
+        base.Start();
+
         UpdateList();
-        
-      
+
     }
 
     public void UpdateList()
     {
-        scrollList.Clear();
-
         if (Game.Actions == null) return;
-        
-        foreach (var action in Game.Actions.acoes.Where(x=>x.tipo == metodologiasTab.MetodologiaSelecionada))
+        Clear();
+        BackToTop();
+        foreach (var action in Game.Actions.acoes.Where(WhichActions))
         {
             var acaoIcon = Instantiate(actionPrefab);
             acaoIcon.Acao = action;
-            scrollList.AddGameObject(acaoIcon.transform);
+            acaoIcon.AddListener(delegate { OnSelect(action); });
+            Add(acaoIcon.gameObject);
         }
 
+
     }
+
+    protected virtual void OnSelect(ClassAcao action)
+    {
+        throw new System.NotImplementedException();
+    }
+
+
+    protected virtual bool WhichActions(ClassAcao acao)
+    {
+        return true;
+    }
+
+  
 }
