@@ -11,6 +11,7 @@ public class GameSetup : MonoBehaviour
     public TextAsset AcoesJson;
     public TextAsset AlunosJson;
     public TextAsset DemandasJson;
+    public TextAsset ResourcesJson;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,8 @@ public class GameSetup : MonoBehaviour
             JsonUtility.FromJsonOverwrite(AcoesJson.text, Game.Actions);
             JsonUtility.FromJsonOverwrite(AlunosJson.text, Game.Students);
             JsonUtility.FromJsonOverwrite(DemandasJson.text, Game.Demands);
+            JsonUtility.FromJsonOverwrite(ResourcesJson.text, Game.Resources);
+
         }
         catch (Exception e) {
             Debug.LogException(e);

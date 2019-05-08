@@ -83,5 +83,15 @@ public class SimpleScroll : MonoBehaviour
         
     }
 
+    public void AddList(List<GameObject> _gameObjects)
+    {
+        foreach (var obj in _gameObjects)
+        {
+            obj.transform.SetParent(parent.transform);
+            obj.transform.SetAsLastSibling();  
+        }
+        UpdateChildrenCount();
+    }
+
 
 }
