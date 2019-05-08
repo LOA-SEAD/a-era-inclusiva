@@ -5,12 +5,6 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     public bool StartAtStartScreen = true;
-
-    void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
-
     private void Start()
     {
         if (!StartAtStartScreen) return;
@@ -20,9 +14,8 @@ public class SceneController : MonoBehaviour
 
     public void ChangeTo(string scene)
     {
-        Initiate.Fade(scene, Color.black, 3);
+        Initiate.Fade(scene,Color.black, 3);
     }
-
     public void LeaveGame()
     {
 #if UNITY_EDITOR
