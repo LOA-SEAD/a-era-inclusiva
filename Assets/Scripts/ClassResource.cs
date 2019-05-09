@@ -1,4 +1,4 @@
-using Boo.Lang;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class ClassResource
@@ -8,7 +8,7 @@ public class ClassResource
     public string type;
     public string category;
 }
-
+[System.Serializable]
 public class ClassResources
 {
     public List<ClassResource> resources;

@@ -5,26 +5,34 @@ using UnityEngine;
 
 public class ResourceList : MonoBehaviour
 {
-    public string ResourceType = "Leituras";
+    private string _resourceCategory;
+
+    public string ResourceCategory
+    {
+        get => _resourceCategory;
+        set { _resourceCategory = value;  UpdateList();}
+        
+    }
 
     public SimpleScroll simpleScroll;
 
-    public GameObject ResourceButtonPrefab;
+    public GameObject resourceButtonPrefab;
     // Start is called before the first frame update
     void Start()
     {
-        UpdateList();
+        ResourceCategory = "Leitura";
     }
 
     // Update is called once per frame
     void UpdateList()
     {
-        Debug.Log(Game.Resources.resources.Count);
-        List<GameObject> resourceButtons = new List<GameObject>();
-        foreach (var resource in Game.Resources.resources)
+        simpleScroll.Clear();
+        var resourceButtons = new List<GameObject>();
+        foreach (var resource in Game.Resources.resources.FindAll(x=>x.category==_resourceCategory))
         {
-            var resourceButton = Instantiate(ResourceButtonPrefab);
+            var resourceButton = Instantiate(resourceButtonPrefab);
             resourceButton.GetComponentInChildren<TextMeshProUGUI>().SetText(resource.name);
+            resourceButtons.Add(resourceButton);
         }
         simpleScroll.AddList(resourceButtons);
     }
