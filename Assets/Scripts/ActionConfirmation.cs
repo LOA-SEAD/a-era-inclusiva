@@ -14,12 +14,7 @@ public class ActionConfirmation : Confirmation
 
     public List<ClassAcao> ActionsToShow
     {
-        get
-        {
-          
-
-            return actionsToShow;
-        }
+        get => actionsToShow;
         set
         {
             actionsToShow = value;

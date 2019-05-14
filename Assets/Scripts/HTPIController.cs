@@ -38,7 +38,7 @@ public class HTPIController : MonoBehaviour
         foreach (var action in _selectedActions[_selectedStudent])
         {
             var botao = Instantiate(acaoPrefab, selectedActionListHtpi.transform, false);
-            acaoPrefab.Acao = action;
+            botao.Acao = action;
         }
     }
 
