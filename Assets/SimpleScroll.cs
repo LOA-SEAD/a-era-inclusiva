@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class SimpleScroll : MonoBehaviour
 {
-    public float step = 80;
+    public float spacing = 10;
+    public int maxShown = 3;
+    private float step;
     public Button UpButton;
     public Button DownButton;
     public GameObject parent;
@@ -23,6 +25,7 @@ public class SimpleScroll : MonoBehaviour
 
         UpButton.onClick.AddListener(delegate { GoUp(); });
         DownButton.onClick.AddListener(delegate { GoDown(); });
+        step = (parent.GetComponent<RectTransform>().rect.height+spacing) / maxShown;
     }
 
     public void BackToTop()
@@ -37,6 +40,8 @@ public class SimpleScroll : MonoBehaviour
         foreach (Transform child in parent.transform) {
             Destroy(child.gameObject);
         }
+
+        BackToTop();
     }
     private void GoDown()
     {
@@ -57,7 +62,6 @@ public class SimpleScroll : MonoBehaviour
 
     IEnumerator AnimateMove()
     {
-        Debug.Log(newPosition);
 
         while (localPosition.y - newPosition.y < 0.01f || localPosition.y - newPosition.y > -0.01f)
         {
@@ -79,8 +83,20 @@ public class SimpleScroll : MonoBehaviour
     {
         _gameObject.transform.SetParent(parent.transform);
         _gameObject.transform.SetAsLastSibling();
+        _gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, step-spacing);
         UpdateChildrenCount();
         
+    }
+
+    public void AddList(List<GameObject> _gameObjects)
+    {
+        foreach (var obj in _gameObjects)
+        {
+            obj.transform.SetParent(parent.transform);
+            obj.transform.SetAsLastSibling();  
+            obj.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, step-spacing);
+        }
+        UpdateChildrenCount();
     }
 
 

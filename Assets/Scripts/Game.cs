@@ -9,6 +9,7 @@ public static class Game
     public static ClassDemandas Demands;
     public static ClassAcoes Actions;
     public static ClassPersonagens Characters;
+    public static ClassResources Resources;
     private static int _happiness;
     public static int UrgenciaMinima;
 
@@ -35,6 +36,7 @@ public static class Game
         Demands = new ClassDemandas();
         Actions = new ClassAcoes();
         Characters = new ClassPersonagens();
+        Resources = new ClassResources();
         LevelDemandingStudents = new int[] {4,12,17};
     }
 
