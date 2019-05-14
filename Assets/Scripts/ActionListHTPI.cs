@@ -7,17 +7,6 @@ using UnityEngine;
 public class ActionListHTPI : ActionList
 {
     protected HTPIController htpiController;
-    private string tipo = "Diálogos";
-
-    public string Tipo
-    {
-        get => tipo;
-        set
-        {
-            tipo = value;
-            UpdateList();
-        }
-    }
 
     private new void Awake()
     {
@@ -32,12 +21,6 @@ public class ActionListHTPI : ActionList
 
     }
 
-    protected override bool WhichActions(ClassAcao x)
-    {
-        if(!string.IsNullOrEmpty(Tipo))
-            return x.tipo==Tipo;
-        return true;
-    }
 
     protected override void OnSelect(ClassAcao acao)
     {

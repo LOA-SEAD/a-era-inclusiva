@@ -1,16 +1,23 @@
-﻿
-using System.Linq;
+﻿using System.Linq;
 
 public class ActionList : SimpleScroll
 {
     public AcaoIcon actionPrefab;
+    private string _type;
+
+    public string Type
+    {
+        get => _type;
+        set
+        {
+            _type = value;
+            UpdateList();
+        }
+    }
 
     public void Start()
     {
-       
-
         UpdateList();
-
     }
 
     public void UpdateList()
@@ -25,9 +32,8 @@ public class ActionList : SimpleScroll
             acaoIcon.AddListener(delegate { OnSelect(action); });
             Add(acaoIcon.gameObject);
         }
+
         UpdateChildrenCount();
-
-
     }
 
     protected virtual void OnSelect(ClassAcao action)
@@ -36,10 +42,10 @@ public class ActionList : SimpleScroll
     }
 
 
-    protected virtual bool WhichActions(ClassAcao acao)
+    protected virtual bool WhichActions(ClassAcao x)
     {
+        if (!string.IsNullOrEmpty(Type))
+            return x.tipo == Type;
         return true;
     }
-
-  
 }
