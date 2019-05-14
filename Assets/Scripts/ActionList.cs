@@ -5,9 +5,9 @@ public class ActionList : SimpleScroll
 {
     public AcaoIcon actionPrefab;
 
-    public new void Start()
+    public void Start()
     {
-        base.Start();
+       
 
         UpdateList();
 
@@ -25,6 +25,7 @@ public class ActionList : SimpleScroll
             acaoIcon.AddListener(delegate { OnSelect(action); });
             Add(acaoIcon.gameObject);
         }
+        UpdateChildrenCount();
 
 
     }

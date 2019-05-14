@@ -12,9 +12,9 @@ public class StudentList : SimpleScroll
     public bool importantOnly;
 
 
-    new void Start()
+     void Start()
     {
-        base.Start();
+
         UpdateList();
     }
 
