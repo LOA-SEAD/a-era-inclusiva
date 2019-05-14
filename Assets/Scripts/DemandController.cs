@@ -11,6 +11,8 @@ public class DemandController : MonoBehaviour
     public DemandToggle prefabBotaoDemanda;
 
     public ControladorSalaDeAula controller;
+    public SimpleScroll simpleScroll;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -27,18 +29,14 @@ public class DemandController : MonoBehaviour
         {
             yield return new WaitForSeconds(delayBetweenEachDemand);
 
-            /*if (transform.childCount > 2)
-            {
-                Destroy(transform.GetChild(2).gameObject);
-            }*/
-
             var demanda = demandList.First();
             demandList.RemoveAt(0);
             demanda.resolvida = true;
-            var button = Instantiate(prefabBotaoDemanda, transform);
-            button.gameObject.transform.SetAsFirstSibling();
+            var button = Instantiate(prefabBotaoDemanda/*, transform*/);
+            //button.gameObject.transform.SetAsFirstSibling();
             button.Demand = demanda;
             controller.Speak(demanda.descricao);
+            simpleScroll.Add(button.gameObject);
         }
     }
 

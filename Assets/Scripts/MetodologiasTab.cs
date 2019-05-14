@@ -47,7 +47,6 @@ public class MetodologiasTab : MonoBehaviour
         }
     }
 
-
     private void Awake()
     {
         if (Game.Actions != null)

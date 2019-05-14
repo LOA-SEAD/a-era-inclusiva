@@ -1,27 +1,44 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine;
 
 public class ScrollRectScript : MonoBehaviour
 {
     public ScrollRect scrollRect;
+    public RectTransform scrollRectTransform;
     private bool mouseDown, buttonDown, buttonUp;
     private float normVertPos;
-    
-    // Start is called before the first frame update
+    private List<Transform> demandToggles;
+    private int selectedDemandIndex, distanceBetweenObjects;
+
     void Start()
-    {    
-        Debug.Log("Nome do componente: "+ scrollRect.name);
-        //scrollRect = GetComponent<ScrollRect>();
+    {   
+        demandToggles = new List<Transform>();
+        selectedDemandIndex = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        demandToggles.Clear();
+        if (scrollRectTransform.childCount != 0)
+        {
+            if (selectedDemandIndex < 0)
+                selectedDemandIndex = scrollRectTransform.childCount - 1;
+            else if (selectedDemandIndex >= scrollRectTransform.childCount)
+                selectedDemandIndex = 0;
+            
+            for (int i = 0; i < scrollRectTransform.childCount; i++)
+            {
+                demandToggles.Add(scrollRectTransform.GetChild(i));
+            }
+        }
+        
         if (mouseDown)
         {
-            Debug.Log("Entrou em mouseDown");
             if (buttonDown)
                 ScrollDown();
             else if (buttonUp)
@@ -31,21 +48,18 @@ public class ScrollRectScript : MonoBehaviour
 
     public void ButtonDownIsPressed()
     {
-        Debug.Log("ButtonDownIsPressed");
         mouseDown = true;
         buttonDown = true;
     }
 
     public void ButtonUpIsPressed()
     {
-        Debug.Log("ButtonUpIsPressed");
         mouseDown = true;
         buttonUp = true;
     }
 
     private void ScrollDown()
     {
-        Debug.Log("Entrou em ScrollDown");
         if (Input.GetMouseButtonUp(0))
         {
             mouseDown = false;
@@ -53,17 +67,15 @@ public class ScrollRectScript : MonoBehaviour
         }
         else
         {
+            selectedDemandIndex += 1;
             normVertPos = scrollRect.verticalNormalizedPosition;
-            Debug.Log("1. Posição na vertical: "+normVertPos);
             normVertPos += 0.01f;
             scrollRect.verticalNormalizedPosition = normVertPos;
-            Debug.Log("2. Posição na vertical: "+normVertPos);
         }
     }
 
     private void ScrollUp()
     {
-        Debug.Log("entrou em ScrollUp");
         if (Input.GetMouseButtonUp(0))
         {
             mouseDown = false;
@@ -71,11 +83,18 @@ public class ScrollRectScript : MonoBehaviour
         }
         else
         {
+            selectedDemandIndex-= 1;    
             normVertPos = scrollRect.verticalNormalizedPosition;
-            Debug.Log("1. Posição na vertical: "+normVertPos);
             normVertPos -= 0.01f;
             scrollRect.verticalNormalizedPosition = normVertPos;
-            Debug.Log("2. Posição na vertical: "+normVertPos);
         }
+    }
+    
+    void LerpToBttn(int position)
+    {
+        float newY = Mathf.Lerp(position, scrollRectTransform.anchoredPosition.x, Time.deltaTime * 10f);
+        Vector2 newPosition = new Vector2(scrollRectTransform.anchoredPosition.x, newY );
+
+        scrollRectTransform.anchoredPosition = newPosition;
     }
 }
