@@ -18,11 +18,6 @@ public class ResourceList : MonoBehaviour
 
     public GameObject resourceButtonPrefab;
     // Start is called before the first frame update
-    void Start()
-    {
-        ResourceCategory = "Leitura";
-    }
-
     // Update is called once per frame
     void UpdateList()
     {
@@ -33,6 +28,7 @@ public class ResourceList : MonoBehaviour
             var resourceButton = Instantiate(resourceButtonPrefab);
             resourceButton.GetComponentInChildren<TextMeshProUGUI>().SetText(resource.name);
             resourceButtons.Add(resourceButton);
+            resourceButton.transform.localScale = Vector3.one;
         }
         simpleScroll.AddList(resourceButtons);
     }

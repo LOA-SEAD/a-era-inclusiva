@@ -8,8 +8,9 @@ public class StudentListHTPI : StudentList
 {
     private HTPIController htpiController;
 
-    private void Awake()
+    private new void Awake()
     {
+        base.Awake();
     
         htpiController = FindObjectOfType<HTPIController>();
         if (htpiController == null)

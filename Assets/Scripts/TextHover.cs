@@ -1,16 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class TextHover : MonoBehaviour
 {
     public TextMeshProUGUI text;
 
-    public float sizeAfterHover;
+    public float sizeAfterHover = 1.2f;
 
-    public float defaultSize;
+    public float defaultSize =1;
     // Start is called before the first frame update
     public void OnPointerHover()
     {
@@ -27,9 +25,9 @@ public class TextHover : MonoBehaviour
     
     private IEnumerator ChangeFontSize(float to)
     {
-        while (!Mathf.Approximately(text.fontSize,to))
+        while (!Mathf.Approximately(text.fontScale,to))
         {
-            text.fontSize = Mathf.Lerp(text.fontSize, to, 0.1f);
+            text.fontSize = Mathf.Lerp(text.fontScale, to, 0.1f);
             yield return new WaitForSeconds(0.01f);
 
         }

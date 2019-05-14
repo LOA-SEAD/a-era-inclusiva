@@ -17,7 +17,7 @@ public class SimpleScroll : MonoBehaviour
     private Vector3 newPosition;
 
 
-    protected void Start()
+    protected void Awake()
     {
         UpdateChildrenCount();
         localPosition = parent.transform.localPosition;
