@@ -63,7 +63,7 @@ public class SimpleScroll : MonoBehaviour
     IEnumerator AnimateMove()
     {
 
-        while (Mathf.Approximately(localPosition.y,newPosition.y))
+        while (Mathf.Abs(localPosition.y - newPosition.y) > 1.0f)
         {
             localPosition = Vector3.Lerp(localPosition, newPosition, Time.deltaTime * 10);
             parent.transform.localPosition = localPosition;
@@ -84,6 +84,7 @@ public class SimpleScroll : MonoBehaviour
         _gameObject.transform.SetParent(parent.transform);
         _gameObject.transform.SetAsLastSibling();
         _gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, step-spacing);
+        _gameObject.transform.localScale = Vector3.one;
         UpdateChildrenCount();
         
     }
