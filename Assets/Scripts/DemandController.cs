@@ -12,6 +12,7 @@ public class DemandController : MonoBehaviour
 
     public ControladorSalaDeAula controller;
     public SimpleScroll simpleScroll;
+    public GameObject categoriesMenu, actionListMenu ;
     
     // Start is called before the first frame update
     void Start()
@@ -32,7 +33,12 @@ public class DemandController : MonoBehaviour
             var demanda = demandList.First();
             demandList.RemoveAt(0);
             demanda.resolvida = true;
-            var button = Instantiate(prefabBotaoDemanda/*, transform*/);
+            var button = Instantiate(prefabBotaoDemanda);
+            button.GetComponent<Button>().onClick.AddListener(delegate
+            {
+                actionListMenu.SetActive(false);
+                categoriesMenu.SetActive(true);
+            });
             //button.gameObject.transform.SetAsFirstSibling();
             button.Demand = demanda;
             controller.Speak(demanda.descricao);

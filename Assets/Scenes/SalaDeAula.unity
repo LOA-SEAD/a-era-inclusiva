@@ -724,6 +724,7 @@ MonoBehaviour:
   parent: {fileID: 2290856433973788124}
   actionPrefab: {fileID: 5234202977815101274, guid: e9f52d04477fc854886f40bcd5fc5245,
     type: 3}
+  controller: {fileID: 530032265}
 --- !u!1 &347062194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1271,7 +1272,7 @@ MonoBehaviour:
     linkCount: 0
     lineCount: 1
     pageCount: 1
-    materialCount: 2
+    materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -1574,6 +1575,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SimpleScrollList
       objectReference: {fileID: 0}
+    - target: {fileID: 7471718304264905267, guid: 6cd4f5f447242154e84719b0f8a38478,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3315501491527839936, guid: 6cd4f5f447242154e84719b0f8a38478,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1811,6 +1817,16 @@ PrefabInstance:
       propertyPath: m_Spacing
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2509705959929694466, guid: 6cd4f5f447242154e84719b0f8a38478,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1901306738066829310, guid: 6cd4f5f447242154e84719b0f8a38478,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cd4f5f447242154e84719b0f8a38478, type: 3}
 --- !u!224 &2002811068 stripped
@@ -1854,6 +1870,8 @@ MonoBehaviour:
     type: 3}
   controller: {fileID: 530032265}
   simpleScroll: {fileID: 2002811070}
+  categoriesMenu: {fileID: 6508764127211447505}
+  actionListMenu: {fileID: 4459450150956808957}
 --- !u!1 &256296316605852424
 GameObject:
   m_ObjectHideFlags: 0
@@ -2209,7 +2227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4625489401717094192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2765,7 +2783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &6508764127300690512
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3195,7 +3213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &6508764127725251214
 CanvasRenderer:
   m_ObjectHideFlags: 0
