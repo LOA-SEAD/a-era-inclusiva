@@ -39,9 +39,8 @@ public class DemandController : MonoBehaviour
                 actionListMenu.SetActive(false);
                 categoriesMenu.SetActive(true);
             });
-            //button.gameObject.transform.SetAsFirstSibling();
             button.Demand = demanda;
-            controller.Speak(demanda.descricao);
+            //controller.Speak(demanda.descricao);
             simpleScroll.Add(button.gameObject);
         }
     }
