@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class ResourceList : MonoBehaviour
 {
     private string _resourceCategory;
+    public BibliotecaController bibliotecaController;
 
     public string ResourceCategory
     {
@@ -29,6 +32,11 @@ public class ResourceList : MonoBehaviour
             resourceButton.GetComponentInChildren<TextMeshProUGUI>().SetText(resource.name);
             resourceButtons.Add(resourceButton);
             resourceButton.transform.localScale = Vector3.one;
+            
+            resourceButton.GetComponentInChildren<Button>().onClick.AddListener(delegate
+            {
+                bibliotecaController.Display(resource);
+            });
         }
         simpleScroll.AddList(resourceButtons);
     }
