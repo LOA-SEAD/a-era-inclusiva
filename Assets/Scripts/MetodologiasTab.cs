@@ -17,9 +17,7 @@ public class MetodologiasTab : MonoBehaviour
     private List<string> Metodologias;
     public TextMeshProUGUI Titulo;
     public TextMeshProUGUI Texto;
-    public Button UndoButton;
     public ActionListSalaProfessores actionListSalaProfessores;
-    public GameObject ExitButton;
     public ActionConfirmation confirmation;
 
     public string MetodologiaSelecionada
@@ -82,8 +80,7 @@ public class MetodologiasTab : MonoBehaviour
             gridMetodologias.ActionsToShow = null;
         }
 
-        ExitButton.GetComponentInChildren<TextMeshProUGUI>().SetText("\uf00d");
-        ExitButton.GetComponent<Image>().color = new Color32(255, 80, 66, 255);
+        
     }
 
 
