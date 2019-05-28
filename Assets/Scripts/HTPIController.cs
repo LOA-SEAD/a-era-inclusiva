@@ -85,37 +85,41 @@ public class HTPIController : MonoBehaviour
             return;
         }
 
-      
-
+        if (_selectedActions[_selectedStudent].Count >= 3)
+        {
+            return;
+        }
         _selectedActions[_selectedStudent].Add(acao);
         ShowSelected();
+
         if (_selectedActions.Sum(x => x.Value.Count) == 9)
         {
             ShowEndConfirmation();
             return;
         }
+        
         if (_selectedActions[_selectedStudent].Count == 3)
         {
-            _actionConfirmation.gameObject.SetActive(true);
-            _actionConfirmation.ActionsToShow = _selectedActions[_selectedStudent];
-            _actionConfirmation.OnAccept(delegate { _actionConfirmation.gameObject.SetActive(false); });
-            _actionConfirmation.OnDeny(delegate
-            {
-                
-                _selectedActions[_selectedStudent].Clear();
-                ShowSelected();
-
-                _actionConfirmation.gameObject.SetActive(false);
-                
-            });
-
-            Debug.Log("Cannot select more than three actions");
-            return;
+            ShowConfirmation();
         }
-     
         
+
+        return;
     }
 
+    private void ShowConfirmation()
+    {
+        _actionConfirmation.gameObject.SetActive(true);
+        _actionConfirmation.ActionsToShow = _selectedActions[_selectedStudent];
+        _actionConfirmation.OnAccept(delegate { _actionConfirmation.gameObject.SetActive(false); });
+        _actionConfirmation.OnDeny(delegate
+        {
+            _selectedActions[_selectedStudent].Clear();
+            ShowSelected();
+
+            _actionConfirmation.gameObject.SetActive(false);
+        });
+    }
     private void ShowEndConfirmation()
     {
         EditandoAcoes.SetActive(false);
