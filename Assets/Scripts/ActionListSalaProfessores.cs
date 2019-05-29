@@ -11,8 +11,8 @@ public class ActionListSalaProfessores : ActionList
 
     protected override void OnSelect(ClassAcao acao)
     {
-        acao.selected = !acao.selected;
-        metodologiasTab.SelectionHasChanged(true);
+        if(metodologiasTab.TrySelect(acao)) 
+            metodologiasTab.SelectionHasChanged(true);
   
     }
 }

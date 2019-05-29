@@ -12,7 +12,7 @@ public class SimpleScroll : MonoBehaviour
     public Button UpButton;
     public Button DownButton;
     public GameObject parent;
-    private int childrenCount;
+    protected int childrenCount;
     private Vector3 localPosition;
     private Vector3 newPosition;
 
@@ -49,6 +49,7 @@ public class SimpleScroll : MonoBehaviour
         newPosition.y += step;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
+        Debug.Log(childrenCount);
     }
 
     private void GoUp()
@@ -74,7 +75,7 @@ public class SimpleScroll : MonoBehaviour
         parent.transform.localPosition = newPosition;
     }
 
-    public void UpdateChildrenCount()
+    public virtual void UpdateChildrenCount()
     {
         childrenCount = parent.transform.childCount;
     }
@@ -95,6 +96,7 @@ public class SimpleScroll : MonoBehaviour
         {
             obj.transform.SetParent(parent.transform);
             obj.transform.SetAsLastSibling();  
+            obj.transform.localScale = Vector3.one;
             obj.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, step-spacing);
         }
         UpdateChildrenCount();

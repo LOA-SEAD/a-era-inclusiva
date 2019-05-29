@@ -33,7 +33,10 @@ public class ActionList : SimpleScroll
             Add(acaoIcon.gameObject);
         }
 
-        UpdateChildrenCount();
+    }
+    public override void UpdateChildrenCount()
+    {
+        childrenCount = Game.Actions.acoes.Where(WhichActions).Count();
     }
 
     protected virtual void OnSelect(ClassAcao action)

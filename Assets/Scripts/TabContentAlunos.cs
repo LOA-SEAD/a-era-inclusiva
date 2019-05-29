@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,12 @@ public class TabContentAlunos : MonoBehaviour
         nome.SetText(aluno.nome);
         portrait.sprite = aluno.LoadPortrait();
         description.SetText(aluno.descricao);
+
+    }
+
+    public void Start()
+    {
+        SetAluno(Game.Students.alunos.First(x=>x.importante));
 
     }
 }

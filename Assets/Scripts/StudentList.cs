@@ -12,7 +12,7 @@ public class StudentList : SimpleScroll
     public bool importantOnly;
 
 
-     void Start()
+     public void Start()
     {
 
         UpdateList();

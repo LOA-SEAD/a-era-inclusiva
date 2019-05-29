@@ -124,7 +124,12 @@ public class HTPIController : MonoBehaviour
     {
         EditandoAcoes.SetActive(false);
         _confirmation.gameObject.SetActive(true);
-        _confirmation.OnAccept(delegate { SceneManager.LoadScene("Scenes/Corredor"); });
+        _confirmation.OnAccept(delegate
+        {
+            Game.LevelCounter++;
+            Game.Actions.acoes.ForEach(x=>x.selected = false);
+            SceneManager.LoadScene("Scenes/Corredor");
+        });
         _confirmation.OnDeny(delegate
             {
                 EditandoAcoes.SetActive(true);
