@@ -91,29 +91,43 @@ public class MetodologiasTab : MonoBehaviour
         gridMetodologias.ActionsToShow = selected;
         if (notificate && selected.Count >= 3)
         {
-            confirmation.gameObject.SetActive(true);
-            confirmation.ActionsToShow = selected;
-            if (HasNextMethodology())
-            {
-                confirmation.OnAccept(delegate
-                {
-                    GoToNextMethodology();
-                    confirmation.Hide();
-                });
-                confirmation.SetText(String.Format("Você selecionou as seguintes ações na categoria {0}, você deseja avançar para a proxima ou alterar suas escolhas?", MetodologiaSelecionada));
-
-            }
-            else
-            {
-                confirmation.OnAccept(delegate
-                {
-                    Initiate.Fade("Scenes/SalaDeAula", Color.black, 3);
-                });
-                confirmation.SetText("Você terminou a seleção, deseja ir para a aula?");
-
-            }
-
-            confirmation.OnDeny(confirmation.Hide);
+            Confirmation(selected);
         }
+    }
+
+    private void Confirmation(List<ClassAcao> selected)
+    {
+        confirmation.gameObject.SetActive(true);
+        confirmation.ActionsToShow = selected;
+        if (HasNextMethodology())
+        {
+            confirmation.OnAccept(delegate
+            {
+                GoToNextMethodology();
+                confirmation.Hide();
+            });
+            confirmation.SetText(String.Format(
+                "Você selecionou as seguintes ações na categoria {0}, você deseja avançar para a proxima ou alterar suas escolhas?",
+                MetodologiaSelecionada));
+        }
+        else
+        {
+            confirmation.OnAccept(delegate { Initiate.Fade("Scenes/SalaDeAula", Color.black, 3); });
+            confirmation.SetText("Você terminou a seleção, deseja ir para a aula?");
+        }
+
+        confirmation.OnDeny(confirmation.Hide);
+    }
+
+    public bool TrySelect(ClassAcao acao)
+    {
+        var actions = Game.Actions.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
+        if (actions.Count >= 3 && !acao.selected)
+        {
+            return false;
+        }
+
+        acao.selected = !acao.selected;
+        return true;
     }
 }

@@ -1,4 +1,5 @@
 
+using System.Linq;
 using UnityEngine;
 
     public class StudentListSalaProfessores:StudentList
@@ -9,4 +10,5 @@ using UnityEngine;
                tca.SetAluno(aluno);
             
         }
+     
     }
