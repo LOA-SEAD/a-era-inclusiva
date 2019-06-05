@@ -56,6 +56,7 @@ public class ControladorSalaDeAula : MonoBehaviour
         }
         
         Efetividade e = _selectedDemand.Demand.acoesEficazes.FirstOrDefault(x => x.idAcao == action.id);
+        _selectedDemand.Demand.resolvida = true;
         if (e != null)
         {
             
@@ -80,6 +81,10 @@ public class ControladorSalaDeAula : MonoBehaviour
         }
         Destroy(_selectedDemand.gameObject);
         _selectedDemand = null;
+        if (Game.Demands.demandas.FindAll(x => !x.resolvida).Count == 0)
+        {
+            FindObjectOfType<SceneController>().ChangeTo("Scenes/HTPI");
+        }
     }
 
     public void Speak(string demandaDescricao)

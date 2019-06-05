@@ -32,7 +32,6 @@ public class DemandController : MonoBehaviour
 
             var demanda = demandList.First();
             demandList.RemoveAt(0);
-            demanda.resolvida = true;
             var button = Instantiate(prefabBotaoDemanda);
             button.GetComponent<Button>().onClick.AddListener(delegate
             {
