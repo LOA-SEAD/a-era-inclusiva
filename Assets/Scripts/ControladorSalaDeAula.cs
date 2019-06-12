@@ -18,7 +18,8 @@ public class ControladorSalaDeAula : MonoBehaviour
     public float decreaseHappinessRate = 1.0f;
     public int DemandCounter { get; set; }
     public float levelTimeInSeconds;
-
+    public AudioSource audioSource;
+    public AudioClip acertoClip;
     public DemandToggle SelectedDemand
     {
         set
@@ -59,7 +60,8 @@ public class ControladorSalaDeAula : MonoBehaviour
         _selectedDemand.Demand.resolvida = true;
         if (e != null)
         {
-            
+            audioSource.clip = acertoClip;
+            audioSource.Play();
             switch (e.efetividade)
             {
                 case 100:

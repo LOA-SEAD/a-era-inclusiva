@@ -58,6 +58,7 @@ public class Fader : MonoBehaviour
 
     IEnumerator FadeIt()
     {
+     
 
         while (!start)
         {
