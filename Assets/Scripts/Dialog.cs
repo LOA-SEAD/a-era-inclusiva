@@ -15,6 +15,7 @@ public class Dialog : MonoBehaviour
     public TextMeshProUGUI textMesh;
     public float speed = 0.2f;
     public UnityEvent AtEndOfDialog;
+    private Coroutine reveal = null;
     private int id = 0;
     private bool revealing;
 
@@ -22,12 +23,31 @@ public class Dialog : MonoBehaviour
     {
         if(LoadFromJson && Game.Characters!=null)
             Dialogs = Game.Characters.personagens.Find(x => x.nome == Name).dialogos.Find(x => x.local == Local).frases;
+
         ShowNextDialog();
+    }
+
+    void Update()
+    {
+        // Press ENTER or SPACE to show next sentence
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+            ShowNextDialog();
+
+        // Press Q to repeat last sentence
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (!revealing)
+            {
+                id--;
+                ShowNextDialog();
+            }
+        }
     }
 
     public void ShowNextDialog()
     {
-        StopAllCoroutines();
+        if (reveal != null)
+            StopCoroutine(reveal);
 
         if (revealing)
         {
@@ -36,10 +56,11 @@ public class Dialog : MonoBehaviour
             revealing = false;
             return;
         }
+
         if (Dialogs.Count > id)
         {
             audioSource.Stop();
-            StartCoroutine(revealPhrase());
+            reveal = StartCoroutine(revealPhrase());
         }
         else
         {
