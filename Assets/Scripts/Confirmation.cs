@@ -18,6 +18,16 @@ public class Confirmation : MonoBehaviour
     public TextMeshProUGUI Title;
 
 
+    private void Update()
+    {
+        if (Input.GetKeyDown("escape"))
+        {
+         gameObject.SetActive(false);   
+        }
+        
+    }
+
+
     public void OnAccept(UnityAction x)
     {
         

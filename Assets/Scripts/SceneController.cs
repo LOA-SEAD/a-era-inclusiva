@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     public bool StartAtStartScreen = true;
+    //public Transform optionMenu;
     private void Start()
     {
         if (!StartAtStartScreen) return;
@@ -12,6 +13,13 @@ public class SceneController : MonoBehaviour
             SceneManager.LoadScene(0);
 
     }
+
+    /*void Update()
+    {
+        if(Input.GetKey("escape"))
+            optionMenu.gameObject.SetActive(true);
+            
+    }*/
 
     public void ChangeTo(string scene)
     {
