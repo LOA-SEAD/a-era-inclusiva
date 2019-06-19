@@ -585,7 +585,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartAtStartScreen: 1
-  soundController: {fileID: 0}
 --- !u!4 &806027854
 Transform:
   m_ObjectHideFlags: 0
@@ -672,7 +671,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 001b07a6b93618543a5f08e0a95ae917, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec3ea0aa68d43284180abefbcfbc76de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -837,6 +836,12 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3168841423391593514, guid: f83690b1f23799d42aa7ec5bd85b327a,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 057841d00f176c34b8c10dfa6b224b16,
+        type: 3}
     - target: {fileID: 3168841424375070407, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
       propertyPath: m_havePropertiesChanged

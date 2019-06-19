@@ -494,7 +494,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 001b07a6b93618543a5f08e0a95ae917, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec3ea0aa68d43284180abefbcfbc76de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -778,7 +778,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartAtStartScreen: 1
-  soundController: {fileID: 0}
 --- !u!4 &930320349
 Transform:
   m_ObjectHideFlags: 0
@@ -2106,6 +2105,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1600540304}
     m_Modifications:
+    - target: {fileID: 7578394537096218012, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4456972496384677555, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2215,11 +2219,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ExitButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 7578394537096218012, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4456972496384677553, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
@@ -2731,6 +2730,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1600540304}
     m_Modifications:
+    - target: {fileID: 7578394537096218012, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4456972496384677555, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2840,11 +2844,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SettingsButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 7578394537096218012, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4456972496384677553, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
