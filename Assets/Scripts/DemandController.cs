@@ -12,7 +12,7 @@ public class DemandController : MonoBehaviour
     public ControladorSalaDeAula controller;
     public SimpleScroll simpleScroll;
     public GameObject categoriesMenu, actionListMenu ;
-    public AudioSource audioSource;
+    public AudioSource demandSound;
     public List<AudioClip> AudioClips;
     // Start is called before the first frame update
     void Start()
@@ -39,8 +39,8 @@ public class DemandController : MonoBehaviour
                 categoriesMenu.SetActive(true);
             });
             button.Demand = demanda;
-            audioSource.clip = AudioClips[demanda.nivelUrgencia - 1];
-            audioSource.Play();
+            demandSound.clip = AudioClips[demanda.nivelUrgencia - 1];
+            demandSound.Play();
             //controller.Speak(demanda.descricao);
             simpleScroll.Add(button.gameObject);
         }
