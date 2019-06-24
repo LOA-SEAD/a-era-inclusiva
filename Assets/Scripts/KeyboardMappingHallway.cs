@@ -16,7 +16,6 @@ public class KeyboardMappingHallway : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {  
-        //optionReferences = new Transform[];
         foreach (Transform child in confirmation.GetChild(0))
         {
             Debug.Log("Child: " +child.name+"\n");
@@ -46,6 +45,14 @@ public class KeyboardMappingHallway : MonoBehaviour
         {
            ShowMessage(3);
         }
+
+        if (Input.GetKeyDown("enter"))
+        {
+            if(confirmation.gameObject.activeInHierarchy)
+                GoToRoom();
+        }
+        if (Input.GetKeyDown("escape"))
+            confirmation.gameObject.SetActive(false);
     }
 
     void ChangeMessage(string message, Transform gameObjectTransform)
@@ -70,13 +77,13 @@ public class KeyboardMappingHallway : MonoBehaviour
                 SceneManager.LoadScene("Scenes/Biblioteca");
                 break;
             case 1:
-                SceneManager.LoadScene("Scenes/Biblioteca");
+                SceneManager.LoadScene("Scenes/SalaDeAula");
                 break;
             case 2:
-                SceneManager.LoadScene("Scenes/Biblioteca");
+                SceneManager.LoadScene("Scenes/SalaProfessores");
                 break;
             case 3:
-                SceneManager.LoadScene("Scenes/Biblioteca");
+                SceneManager.LoadScene("Scenes/SalaRecursosMultifuncionais");
                 break;
         }
     }
