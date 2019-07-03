@@ -65,7 +65,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: d5fb57089026957448c767b40e5af20b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ac12060604f6a54988da0b3692ec8d8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 2930320183347255989}
   - component: {fileID: 2930320183347255994}
   m_Layer: 5
-  m_Name: RightPanelWrapper
+  m_Name: LeftPanelWrapper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,11 +108,11 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 448.65, y: 0}
-  m_Pivot: {x: 1, y: 0.5}
+  m_SizeDelta: {x: 448.65002, y: 0}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!95 &2930320183347255994
 Animator:
   serializedVersion: 3
@@ -139,11 +139,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2930320183347255989}
     m_Modifications:
-    - target: {fileID: 6059747073236959275, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
-        type: 3}
-      propertyPath: m_Name
-      value: RightPanel
-      objectReference: {fileID: 0}
     - target: {fileID: 6059747073236959276, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -212,7 +207,7 @@ PrefabInstance:
     - target: {fileID: 6059747073236959276, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 144.8
+      value: 144.79999
       objectReference: {fileID: 0}
     - target: {fileID: 6059747073236959276, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
         type: 3}
@@ -222,7 +217,7 @@ PrefabInstance:
     - target: {fileID: 6059747073236959276, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6059747073236959276, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
         type: 3}
@@ -232,7 +227,7 @@ PrefabInstance:
     - target: {fileID: 6059747073236959276, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6059747073236959276, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
         type: 3}
@@ -242,17 +237,43 @@ PrefabInstance:
     - target: {fileID: 6059747073236959276, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
         type: 3}
       propertyPath: m_Pivot.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6059747073236959276, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6059747073236959275, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
+        type: 3}
+      propertyPath: m_Name
+      value: LeftPanel
+      objectReference: {fileID: 0}
     - target: {fileID: 6059747071685629048, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
         type: 3}
       propertyPath: m_LocalScale.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6059747071685629048, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6059747071685629048, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6059747073236959278, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ec766c6671db68642a196c95e4489626,
+        type: 3}
+    - target: {fileID: 6059747071685629049, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
+        type: 3}
+      propertyPath: m_ChildAlignment
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc33dbab9d6e5eb4d8e79d95e992bc18, type: 3}
