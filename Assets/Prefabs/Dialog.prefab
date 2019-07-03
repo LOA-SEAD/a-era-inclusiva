@@ -972,6 +972,25 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, Unity.ugui,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!95 &3590093535564184311
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7414982535614206571}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b8f24c4aa3c9b244bab2039383cb5cf5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9179964535574993366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1054,6 +1073,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3168841423110026519}
     m_Modifications:
+    - target: {fileID: 4456972496384677554, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_Name
+      value: RoundButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677554, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4456972496384677555, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1159,14 +1188,19 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4456972496384677554, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+    - target: {fileID: 4456972496384677555, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
-      propertyPath: m_Name
-      value: RoundButton
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4456972496384677554, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+    - target: {fileID: 4456972496384677555, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
-      propertyPath: m_IsActive
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677553, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4456972496384677553, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
@@ -1178,6 +1212,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ShowNextDialog
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677553, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677553, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677553, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_Transition
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677553, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4456972496384677550, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
