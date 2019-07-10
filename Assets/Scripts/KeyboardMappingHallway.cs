@@ -3,26 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class KeyboardMappingHallway : MonoBehaviour
 {
-    public Transform[] optionReferences;
     public Transform confirmation;
-    private int option;
+    public EventSystem eventSystem;
+    public Transform optionsParent;
+    public Transform confirmationMessage;
 
-    private Transform confirmationMessage;
-    
+    private List<Transform> optionList;
+    private int selectedOption = 0;
+    private int listLength;
     // Start is called before the first frame update
     void Start()
-    {  
-        foreach (Transform child in confirmation.GetChild(0))
+    {
+        optionList = new List<Transform>();
+        foreach (Transform child in optionsParent.GetChild(0))
         {
             Debug.Log("Child: " +child.name+"\n");
-            if (child.gameObject.name.Equals("Message"))
-                confirmationMessage = child;
+            optionList.Add(child);
         }
-        
+
+        listLength = optionList.Count - 1;
     }
 
     // Update is called once per frame    
@@ -30,29 +34,36 @@ public class KeyboardMappingHallway : MonoBehaviour
     {
         if (Input.GetKeyDown("up"))
         {
-            ShowMessage(0);
-        }
-        if (Input.GetKeyDown("right"))
-        {
-            ShowMessage(1);
+            if (selectedOption == 0)
+                selectedOption = listLength;
+            else
+                selectedOption--;
+            Debug.Log("Opção selecionada: "+selectedOption);
+            
+            eventSystem.SetSelectedGameObject(optionList[selectedOption].gameObject);
         }
         if (Input.GetKeyDown("down"))
         {
-            ShowMessage(2);  
+            if (selectedOption == listLength)
+                selectedOption = 0;
+            else
+                selectedOption++;
+            Debug.Log("Opção selecionada: "+selectedOption);
+            eventSystem.SetSelectedGameObject(optionList[selectedOption].gameObject);
         }
-
-        if (Input.GetKeyDown("left"))
+        if (Input.GetKeyDown("enter") || Input.GetKeyDown("return") || Input.GetKeyDown("space"))
         {
-           ShowMessage(3);
-        }
-
-        if (Input.GetKeyDown("enter") || Input.GetKeyDown("return"))
-        {
+            string message = "Você deseja ir para " + optionList[selectedOption].name;
+            ChangeMessage(message, confirmationMessage);
+            confirmation.gameObject.SetActive(true);
             if(confirmation.gameObject.activeInHierarchy)
                 GoToRoom();
         }
         if (Input.GetKeyDown("escape"))
-            confirmation.gameObject.SetActive(false);
+        {
+            if (confirmation.gameObject.activeInHierarchy)
+                confirmation.gameObject.SetActive(false);
+        }
     }
 
     void ChangeMessage(string message, Transform gameObjectTransform)
@@ -60,18 +71,10 @@ public class KeyboardMappingHallway : MonoBehaviour
         gameObjectTransform.gameObject.GetComponent<TextMeshProUGUI>().text = message;
     }
 
-    void ShowMessage(int optionReferenceIndex)
-    {
-        Debug.Log("Seta para cima clicada + mensagem: "+ confirmationMessage.gameObject.GetComponent<TextMeshProUGUI>().text);
-        ChangeMessage("Deseja ir para " + optionReferences[optionReferenceIndex].gameObject.name+" ?", confirmationMessage);
-        option = optionReferenceIndex;
-        confirmation.gameObject.SetActive(true);
-    }
-
     public void GoToRoom()
     {
         
-        switch (option)
+        switch (selectedOption)
         {
             case 0:
                 SceneManager.LoadScene("Scenes/Biblioteca");

@@ -12,7 +12,6 @@ public class KeyboardMappingLibrary : MonoBehaviour
 
     private List<Transform> optionList;
     private int selectedIndex = 0, listLength;
-    //private Button btn;
     private Color buttonDefault;
     // Start is called before the first frame update
     void Start()
