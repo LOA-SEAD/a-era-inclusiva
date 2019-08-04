@@ -17,7 +17,7 @@ public class MetodologiasTab : MonoBehaviour
     private List<string> Metodologias;
     public TextMeshProUGUI Titulo;
     public TextMeshProUGUI Texto;
-    public ActionListSalaProfessores actionListSalaProfessores;
+    public ActionList actionListSalaProfessores;
     public ActionConfirmation confirmation;
 
     public string MetodologiaSelecionada
@@ -53,12 +53,14 @@ public class MetodologiasTab : MonoBehaviour
             Metodologias = new List<string>();
         IdMetodologia = 0;
         SelectionHasChanged(false);
+        actionListSalaProfessores.SetWhenSelected(OnSelect);
     }
 
 
     public void GoToNextMethodology()
     {
         IdMetodologia++;
+        actionListSalaProfessores.Type = MetodologiaSelecionada;
     }
 
     public void Reset()
@@ -129,5 +131,13 @@ public class MetodologiasTab : MonoBehaviour
 
         acao.selected = !acao.selected;
         return true;
+    }
+
+
+    protected void OnSelect(ClassAcao acao)
+    {
+        if(TrySelect(acao)) 
+            SelectionHasChanged(true);
+  
     }
 }

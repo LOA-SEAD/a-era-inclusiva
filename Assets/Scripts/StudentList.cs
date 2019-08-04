@@ -1,20 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.UI;
-
-public class StudentList : SimpleScroll
+﻿public class StudentList : SimpleScroll
 {
-    public StudentIcon prefabButton;
-   
+    public delegate void StudentAction(ClassAluno aluno);
+
     public bool importantOnly;
+    public StudentIcon prefabButton;
 
+    private StudentAction whenSelected;
 
-     public void Start()
+    public void SetWhenSelectedAction(StudentAction action)
     {
+        whenSelected = action;
+    }
 
+
+    public void Start()
+    {
         UpdateList();
     }
 
@@ -25,20 +25,13 @@ public class StudentList : SimpleScroll
         BackToTop();
         foreach (var student in Game.Students.alunos)
         {
-            if (importantOnly && !student.importante)
-            {
-                continue;
-            }
+            if (importantOnly && !student.importante) continue;
 
             var button = Instantiate(prefabButton);
             button.Student = student;
-            button.AddListener(delegate { OnSelect(student); });
+            if (whenSelected != null)
+                button.AddListener(delegate { whenSelected(student); });
             Add(button.gameObject);
         }
-    }
-
-    protected virtual void OnSelect(ClassAluno student)
-    {
-        throw new System.NotImplementedException();
     }
 }

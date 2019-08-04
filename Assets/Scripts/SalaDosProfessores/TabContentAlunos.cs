@@ -10,6 +10,7 @@ public class TabContentAlunos : MonoBehaviour
     public TextMeshProUGUI nome;
     public Image portrait;
     public TextMeshProUGUI description;
+    public StudentList studentList;
     public void SetAluno(ClassAluno aluno)
     {
         nome.SetText(aluno.nome);
@@ -18,9 +19,10 @@ public class TabContentAlunos : MonoBehaviour
 
     }
 
-    public void Start()
+    public void Awake()
     {
         SetAluno(Game.Students.alunos.First(x=>x.importante));
+        studentList.SetWhenSelectedAction(SetAluno);
 
     }
 }
