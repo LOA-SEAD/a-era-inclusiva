@@ -14,9 +14,7 @@ public class Confirmation : MonoBehaviour
     public Button AcceptButton;
 
     public TextMeshProUGUI Message;
-
-    public TextMeshProUGUI Title;
-
+    
 
     public void OnAccept(UnityAction x)
     {
@@ -38,7 +36,6 @@ public class Confirmation : MonoBehaviour
 
     public void SetTitle(string title)
     {
-        Title.SetText(title);
     }
 
     public void Hide()
