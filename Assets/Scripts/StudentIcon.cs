@@ -1,11 +1,14 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class StudentIcon : Toggle
 {
     private ClassAluno _student;
     public Image portraitObj;
-    
+    public TextMeshProUGUI nameObj;
+
 
     public ClassAluno Student
     {
@@ -15,10 +18,23 @@ public class StudentIcon : Toggle
             _student = value;
             portraitObj.sprite = _student.LoadPortrait();
             ;
-            nameObj.SetText(_student.nome);
+            if(nameObj!=null)
+                nameObj.SetText(_student.nome);
         }
     }
 
   
+    private Button _button;
+   
+    private void Awake()
+    {
+        _button = GetComponent<Button>();
+    }
     
+    
+    public void AddListener(UnityAction action)
+    {
+        _button.onClick.AddListener(action);
+    }
+
 }

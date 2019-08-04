@@ -1,9 +1,12 @@
-﻿using System.Linq;
+using System;
+using System.Linq;
 
 public class ActionList : SimpleScroll
 {
     public AcaoIcon actionPrefab;
-    private string _type;
+    private string _type = "";
+    public bool selectedOnly = false;
+    
 
     public string Type
     {
@@ -29,7 +32,8 @@ public class ActionList : SimpleScroll
         {
             var acaoIcon = Instantiate(actionPrefab);
             acaoIcon.Acao = action;
-            acaoIcon.AddListener(delegate { OnSelect(action); });
+            if(whenSelected!=null)
+                acaoIcon.AddListener(delegate { whenSelected(action); });
             Add(acaoIcon.gameObject);
         }
 
@@ -39,14 +43,33 @@ public class ActionList : SimpleScroll
         childrenCount = Game.Actions.acoes.Where(WhichActions).Count();
     }
 
-    protected virtual void OnSelect(ClassAcao action)
+    public delegate void AcaoAction(ClassAcao acao);
+
+    public delegate bool AcaoFilter(ClassAcao acao);
+
+    public AcaoFilter actionFilter;
+    
+    public AcaoAction whenSelected;
+
+    public void SetWhenSelected(AcaoAction func)
     {
-        throw new System.NotImplementedException();
+        whenSelected = func;
     }
-
-
+    public void SetAcaoFilter(AcaoFilter func)
+    {
+        actionFilter = func;
+    }
     protected virtual bool WhichActions(ClassAcao x)
     {
+        if (actionFilter!=null)
+        {
+            return actionFilter(x);
+        }
+
+        if (selectedOnly && !x.selected)
+        {
+            return false;
+        }
         if (!string.IsNullOrEmpty(Type))
             return x.tipo == Type;
         return true;
