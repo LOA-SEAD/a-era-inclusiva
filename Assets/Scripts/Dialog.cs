@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
@@ -19,11 +20,15 @@ public class Dialog : MonoBehaviour
     private int id = 0;
     private bool revealing;
 
-    void Start()
+    void Awake()
     {
         if(LoadFromJson && Game.Characters!=null)
             Dialogs = Game.Characters.personagens.Find(x => x.nome == Name).dialogos.Find(x => x.local == Local).frases;
-
+    }
+    void OnEnable()
+    {
+        id = 0;
+        
         ShowNextDialog();
     }
 

@@ -39,7 +39,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 30}
+  m_AnchoredPosition: {x: 0, y: 20}
   m_SizeDelta: {x: -120, y: 120}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &3168841422558859639
@@ -626,6 +626,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3168841424462443159}
+  - component: {fileID: 3317172237574009840}
   m_Layer: 5
   m_Name: Dialog
   m_TagString: Untagged
@@ -655,6 +656,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &3317172237574009840
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3168841424462443156}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6036b4757f6d33b429112274cbcb8690, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4349246974342598663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,7 +1069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.3137255}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.49019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1073,16 +1093,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3168841423110026519}
     m_Modifications:
-    - target: {fileID: 4456972496384677554, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
-        type: 3}
-      propertyPath: m_Name
-      value: RoundButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 4456972496384677554, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4456972496384677555, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1198,15 +1208,20 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677554, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_Name
+      value: RoundButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677554, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1981975736637784801, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
       propertyPath: Pan2D
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1670320432919671181, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4456972496384677553, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
@@ -1324,6 +1339,11 @@ PrefabInstance:
       propertyPath: m_subTextObjects.Array.data[3]
       value: 
       objectReference: {fileID: 3609294418237112645}
+    - target: {fileID: 1670320432919671181, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64f6f3719a3a18a49bc6e1f05ca528de, type: 3}
 --- !u!1 &7414982535614206571 stripped
