@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -702,7 +702,7 @@ PrefabInstance:
     - target: {fileID: 4961366314547826415, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
       propertyPath: m_Name
-      value: BotaoArredondadoComIcone (2)
+      value: HTPI
       objectReference: {fileID: 0}
     - target: {fileID: 4961366314547826414, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
@@ -819,6 +819,11 @@ PrefabInstance:
       propertyPath: m_Transition
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4961366314547826417, guid: 709d2acb6252aba4faaafdff14d78e00,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4961366312816597851, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -853,6 +858,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: \uf518  HTPI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961366314547826416, guid: 709d2acb6252aba4faaafdff14d78e00,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.5660378
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961366314547826416, guid: 709d2acb6252aba4faaafdff14d78e00,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.5660378
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961366314547826416, guid: 709d2acb6252aba4faaafdff14d78e00,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.5660378
       objectReference: {fileID: 0}
     - target: {fileID: 4961366314390208849, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
@@ -1402,6 +1422,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 482878618}
     m_Modifications:
+    - target: {fileID: 2348093875362029979, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
+        type: 3}
+      propertyPath: m_Name
+      value: TabContentObjetivo
+      objectReference: {fileID: 0}
+    - target: {fileID: 2348093875362029979, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2348093875362029978, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1506,16 +1536,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2348093875362029979, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
-        type: 3}
-      propertyPath: m_Name
-      value: TabContentObjetivo
-      objectReference: {fileID: 0}
-    - target: {fileID: 2348093875362029979, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2348093874404551313, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
         type: 3}
@@ -2166,7 +2186,7 @@ PrefabInstance:
     - target: {fileID: 4961366314547826415, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
       propertyPath: m_Name
-      value: BotaoArredondadoComIcone (1)
+      value: Upgrades
       objectReference: {fileID: 0}
     - target: {fileID: 4961366314547826414, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
@@ -2283,6 +2303,11 @@ PrefabInstance:
       propertyPath: m_Transition
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4961366314547826417, guid: 709d2acb6252aba4faaafdff14d78e00,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4961366312816597851, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -2317,6 +2342,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: \uf518  Upgrades
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961366314547826416, guid: 709d2acb6252aba4faaafdff14d78e00,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.5660378
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961366314547826416, guid: 709d2acb6252aba4faaafdff14d78e00,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.5660378
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961366314547826416, guid: 709d2acb6252aba4faaafdff14d78e00,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.5660378
       objectReference: {fileID: 0}
     - target: {fileID: 4961366314390208849, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
@@ -3149,6 +3189,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 482878618}
     m_Modifications:
+    - target: {fileID: 2348093875362029979, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
+        type: 3}
+      propertyPath: m_Name
+      value: TabContentAcoes
+      objectReference: {fileID: 0}
+    - target: {fileID: 2348093875362029979, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2348093875362029978, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3253,16 +3303,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2348093875362029979, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
-        type: 3}
-      propertyPath: m_Name
-      value: TabContentAcoes
-      objectReference: {fileID: 0}
-    - target: {fileID: 2348093875362029979, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2348093874404551313, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
         type: 3}
@@ -5920,6 +5960,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1340746895}
     m_Modifications:
+    - target: {fileID: 2930320183347255988, guid: 4461220c5796b2646a8c9c9b2fd7ed71,
+        type: 3}
+      propertyPath: m_Name
+      value: LeftPanelWrapper
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930320183347255988, guid: 4461220c5796b2646a8c9c9b2fd7ed71,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2930320183347255989, guid: 4461220c5796b2646a8c9c9b2fd7ed71,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6024,16 +6074,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2930320183347255988, guid: 4461220c5796b2646a8c9c9b2fd7ed71,
-        type: 3}
-      propertyPath: m_Name
-      value: LeftPanelWrapper
-      objectReference: {fileID: 0}
-    - target: {fileID: 2930320183347255988, guid: 4461220c5796b2646a8c9c9b2fd7ed71,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2930320183256966179, guid: 4461220c5796b2646a8c9c9b2fd7ed71,
         type: 3}
@@ -6496,7 +6536,7 @@ PrefabInstance:
     - target: {fileID: 4961366314547826415, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
       propertyPath: m_Name
-      value: BotaoArredondadoComIcone (3)
+      value: Voltar
       objectReference: {fileID: 0}
     - target: {fileID: 4961366314547826414, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
@@ -6710,7 +6750,7 @@ PrefabInstance:
     - target: {fileID: 4961366314547826415, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
       propertyPath: m_Name
-      value: BotaoArredondadoComIcone
+      value: Planejamento
       objectReference: {fileID: 0}
     - target: {fileID: 4961366314547826414, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
@@ -7422,6 +7462,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1340746895}
     m_Modifications:
+    - target: {fileID: 7911112380648052570, guid: 9bf4d004d8da1ad4c87b5e61cf3dddc5,
+        type: 3}
+      propertyPath: m_Name
+      value: "Confirma\xE7\xE3oAcoes"
+      objectReference: {fileID: 0}
     - target: {fileID: 7911112380648052571, guid: 9bf4d004d8da1ad4c87b5e61cf3dddc5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7526,11 +7571,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7911112380648052570, guid: 9bf4d004d8da1ad4c87b5e61cf3dddc5,
-        type: 3}
-      propertyPath: m_Name
-      value: "Confirma\xE7\xE3oAcoes"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bf4d004d8da1ad4c87b5e61cf3dddc5, type: 3}
@@ -8101,6 +8141,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 482878618}
     m_Modifications:
+    - target: {fileID: 2348093875362029979, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
+        type: 3}
+      propertyPath: m_Name
+      value: TabContentAlunos
+      objectReference: {fileID: 0}
+    - target: {fileID: 2348093875362029979, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2348093875362029978, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8205,16 +8255,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2348093875362029979, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
-        type: 3}
-      propertyPath: m_Name
-      value: TabContentAlunos
-      objectReference: {fileID: 0}
-    - target: {fileID: 2348093875362029979, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2348093874404551313, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
         type: 3}
