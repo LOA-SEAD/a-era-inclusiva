@@ -515,7 +515,7 @@ PrefabInstance:
     - target: {fileID: 3168841422558859637, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
       propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3168841422558859637, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
@@ -530,12 +530,12 @@ PrefabInstance:
     - target: {fileID: 3168841422558859637, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
       propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
+      value: SetTrigger
       objectReference: {fileID: 0}
     - target: {fileID: 3168841422558859637, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
       propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3168841422558859637, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
@@ -556,12 +556,12 @@ PrefabInstance:
         type: 3}
       propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1038394116}
+      objectReference: {fileID: 1340746896}
     - target: {fileID: 3168841422558859637, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
       propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 859432825}
+      objectReference: {fileID: 1038394116}
     - target: {fileID: 3168841422558859637, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
       propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -580,7 +580,7 @@ PrefabInstance:
     - target: {fileID: 3168841422558859637, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
       propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3168841422558859637, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
@@ -615,7 +615,7 @@ PrefabInstance:
     - target: {fileID: 3168841422558859637, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
       propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3168841422558859637, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
@@ -631,6 +631,11 @@ PrefabInstance:
         type: 3}
       propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3168841422558859637, guid: f83690b1f23799d42aa7ec5bd85b327a,
+        type: 3}
+      propertyPath: AtEndOfDialog.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: show
       objectReference: {fileID: 0}
     - target: {fileID: 3168841423391593514, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
@@ -1871,7 +1876,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 302db052a95385446b97d49a30cee2af,
+      objectReference: {fileID: 3343379411826689967, guid: 302db052a95385446b97d49a30cee2af,
         type: 3}
     - target: {fileID: 2348093875362029976, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
         type: 3}
@@ -2322,7 +2327,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 302db052a95385446b97d49a30cee2af, type: 3}
+  m_Sprite: {fileID: 3343379411826689967, guid: 302db052a95385446b97d49a30cee2af,
+    type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3117,12 +3123,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1 &859432825 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3168841424462443156, guid: f83690b1f23799d42aa7ec5bd85b327a,
-    type: 3}
-  m_PrefabInstance: {fileID: 74645724}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &859432826 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3168841424462443159, guid: f83690b1f23799d42aa7ec5bd85b327a,
@@ -3320,7 +3320,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 302db052a95385446b97d49a30cee2af,
+      objectReference: {fileID: 3343379411826689967, guid: 302db052a95385446b97d49a30cee2af,
         type: 3}
     - target: {fileID: 2348093875339321108, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
         type: 3}
@@ -4226,12 +4226,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1871409528}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1038394117 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2930320183347255994, guid: 4461220c5796b2646a8c9c9b2fd7ed71,
-    type: 3}
-  m_PrefabInstance: {fileID: 1871409528}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1050914935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5037,6 +5031,7 @@ GameObject:
   - component: {fileID: 1340746894}
   - component: {fileID: 1340746893}
   - component: {fileID: 1340746892}
+  - component: {fileID: 1340746896}
   m_Layer: 0
   m_Name: SalaProfessores
   m_TagString: Untagged
@@ -5128,6 +5123,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!95 &1340746896
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340746891}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f47497fb0e954654297880ef2afe1b3d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1363478334
 GameObject:
   m_ObjectHideFlags: 0
@@ -6894,7 +6908,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 1038394117}
+      objectReference: {fileID: 0}
     - target: {fileID: 6388116665372586148, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
@@ -6924,7 +6938,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[4].m_Target
       value: 
-      objectReference: {fileID: 1038394117}
+      objectReference: {fileID: 0}
     - target: {fileID: 6388116665372586148, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
@@ -8233,7 +8247,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 302db052a95385446b97d49a30cee2af,
+      objectReference: {fileID: 3343379411826689967, guid: 302db052a95385446b97d49a30cee2af,
         type: 3}
     - target: {fileID: 2348093875339321108, guid: 41f4cc1fb0ad8c84d877e2dd2106aeea,
         type: 3}

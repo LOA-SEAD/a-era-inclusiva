@@ -9,15 +9,29 @@ public class BarraInferior : MonoBehaviour
     public TextMeshProUGUI happinessIcon;
     private List<string> happinessIcons;
 
-    void Start()
+    private int _happiness;
+    private int Happiness
     {
- 
+        get => _happiness;
+        set
+        {
+            _happiness = value;
+            UpdateHappinessIcon();
+        }
+    }
+
+    private void Awake()
+    {
         happinessIcons = new List<string>
         {
             "\uf556","\uf57a","\uf11a","\uf118","\uf59a"
         };
+        Happiness = Game.Happiness;
+        UpdateHappinessIcon();
+    }
+    void Start()
+    {
         pointsText.SetText(Game.Points.ToString());
-        InvokeRepeating("UpdateHappinessIcon", 0, 1.0f);
     }
 
     public void IncrementScore(int quantity)
@@ -26,10 +40,17 @@ public class BarraInferior : MonoBehaviour
         StartCoroutine(_incrementScore(quantity));
     }
 
-    private void UpdateHappinessIcon()
+    void Update()
     {
-        int id = Game.Happiness / 25;
-        float t = Game.Happiness / 100.0f;
+        if (Happiness != Game.Happiness)
+        {
+            Happiness = Game.Happiness;
+        }    
+    }
+    public void UpdateHappinessIcon()
+    {
+        int id = Happiness / 25;
+        float t = Happiness / 100.0f;
         happinessIcon.SetText(happinessIcons[id]);
         happinessIcon.color = Color.Lerp(Color.red,Color.green, t);
 

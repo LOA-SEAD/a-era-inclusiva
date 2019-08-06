@@ -36,6 +36,18 @@ public class DemandToggle : MonoBehaviour,ISelectHandler
             studentPhoto.sprite = _demand.student.LoadPortrait();
         }
     }
+
+    public void Start()
+    {
+        InvokeRepeating("decreaseHappiness", 2, 5);
+        
+    }
+
+    private void decreaseHappiness()
+    {
+        Game.Happiness -= _demand.nivelUrgencia;
+    }
+
     public void OnSelect(BaseEventData eventData)
     {
         // Do something.

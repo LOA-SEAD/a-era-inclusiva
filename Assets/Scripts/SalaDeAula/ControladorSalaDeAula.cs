@@ -12,11 +12,8 @@ using Random = System.Random;
 public class ControladorSalaDeAula : MonoBehaviour
 {
     private DemandToggle _selectedDemand;
-    public TextMeshProUGUI pointsText;
     public SpeechBubble speechBubble;
     public BarraInferior barraInferior;
-    public float decreaseHappinessRate = 1.0f;
-    public int DemandCounter { get; set; }
     public float levelTimeInSeconds;
     public AudioSource audioSource;
     public AudioClip acertoClip;
@@ -34,7 +31,6 @@ public class ControladorSalaDeAula : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("DecreaseHappiness", 0, decreaseHappinessRate);
         actionListWrapper.actionList.SetWhenSelected(UseAction);
     }
 
@@ -44,12 +40,7 @@ public class ControladorSalaDeAula : MonoBehaviour
         levelTimeInSeconds -= Time.deltaTime;
         CheckIfEnd();
     }
-
-    public void DecreaseHappiness()
-    {
-        // Debug.Log(string.Format("Felicidade = {0} - {1}", Game.Happiness, DemandCounter));
-        Game.Happiness -= DemandCounter;
-    }
+    
 
     public void UseAction(ClassAcao action)
     {
