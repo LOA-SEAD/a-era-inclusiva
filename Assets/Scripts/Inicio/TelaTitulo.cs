@@ -1,44 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TelaTitulo : MonoBehaviour
+
 {
-    public GameObject invisibleButton;
+    public SceneController sceneController;
 
-    private void Start()
+    public void StartGame()
     {
-        animator = instructions.GetComponent<Animator>();
+        sceneController.ChangeTo("Scenes/ConversaAndre");
     }
 
-    public GameObject instructions;
-    public GameObject buttons;
-    private static readonly int Hiding = Animator.StringToHash("Hiding");
-    private Animator animator;
-    private bool menuVisible = false;
-
-    private void Update()
+    public void Exit()
     {
-        if (Input.anyKeyDown && !menuVisible)
-        {
-            HideInstructionsAndShowMenu();
-        }
+        Application.Quit();
     }
 
-    public void HideInstructionsAndShowMenu()
-    {
-        Destroy(invisibleButton);
-        animator.SetBool(Hiding, true);
-        Destroy(instructions, 1f);
-        buttons.SetActive(true);
-        menuVisible = true;
-    }
-
-
-    public void ShowSettings()
-    {
-        //TODO
-    }
 
 }
