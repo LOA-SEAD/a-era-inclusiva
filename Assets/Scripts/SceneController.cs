@@ -5,10 +5,18 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     public bool StartAtStartScreen = true;
+    public string StartScreen = "Scenes/TelaTitulo";
+    public GameManager gameManager;
+    
     private void Start()
     {
-        if (!StartAtStartScreen) return;
-        if (Game.Actions == null || Game.Demands == null || Game.Students == null || Game.Characters == null)
+
+        if (gameManager == null)
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+        if (!StartAtStartScreen || SceneManager.GetActiveScene().name == StartScreen) return;
+        if (GameManager.GameData == null)
             SceneManager.LoadScene(0);
 
     }

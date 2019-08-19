@@ -19,11 +19,14 @@ public class Dialog : MonoBehaviour
     private Coroutine reveal = null;
     private int id = 0;
     private bool revealing;
-
+    public GameManager gameManager;
+    
+    
     void Awake()
     {
-        if(LoadFromJson && Game.Characters!=null)
-            Dialogs = Game.Characters.personagens.Find(x => x.nome == Name).dialogos.Find(x => x.local == Local).frases;
+        
+        if(LoadFromJson && GameManager.GameData.Characters!=null)
+            Dialogs = GameManager.GameData.Characters.personagens.Find(x => x.nome == Name).dialogos.Find(x => x.local == Local).frases;
     }
     void OnEnable()
     {

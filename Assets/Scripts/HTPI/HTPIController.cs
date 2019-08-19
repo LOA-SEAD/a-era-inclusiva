@@ -138,7 +138,6 @@ public class HTPIController : MonoBehaviour
                 _confirmation.gameObject.SetActive(false);
             }
         );
-        _confirmation.SetTitle("Finalizar HTPI?");
 
         int points = CalculatePoints();
 

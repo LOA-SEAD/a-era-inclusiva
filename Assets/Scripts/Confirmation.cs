@@ -15,12 +15,17 @@ public class Confirmation : MonoBehaviour
 
     public TextMeshProUGUI Message;
     
-
     public void OnAccept(UnityAction x)
     {
         
        AcceptButton.onClick.RemoveAllListeners();
        AcceptButton.onClick.AddListener(x);
+    }
+    public void OnAccept(UnityAction x, bool clear)
+    {
+        
+        if(clear) AcceptButton.onClick.RemoveAllListeners();
+        AcceptButton.onClick.AddListener(x);
     }
     public void OnDeny(UnityAction x)
     {
@@ -28,15 +33,18 @@ public class Confirmation : MonoBehaviour
         DenyButton.onClick.RemoveAllListeners();
         DenyButton.onClick.AddListener(x);
     }
+    public void OnDeny(UnityAction x, bool clear)
+    {
+        
+        if(clear) DenyButton.onClick.RemoveAllListeners();
+        DenyButton.onClick.AddListener(x);
+    }
 
     public void SetText(string text)
     {
         Message.SetText(text);
     }
-
-    public void SetTitle(string title)
-    {
-    }
+    
 
     public void Hide()
     {

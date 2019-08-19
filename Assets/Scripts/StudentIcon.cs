@@ -26,8 +26,9 @@ public class StudentIcon : Toggle
   
     private Button _button;
    
-    private void Awake()
+    private new void Awake()
     {
+        base.Awake();
         _button = GetComponent<Button>();
     }
     
