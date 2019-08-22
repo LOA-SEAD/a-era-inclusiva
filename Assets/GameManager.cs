@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private static GraphicsManager _graphicsManager;
     
     private static GameData _gameData;
+    private static PlayerData _playerData;
 
     public static SoundManager SoundManager => _soundManager;
 
@@ -20,8 +21,17 @@ public class GameManager : MonoBehaviour
     public static GraphicsManager GraphicsManager => _graphicsManager;
     
     public static GameData GameData => _gameData;
-    
+    public static PlayerData PlayerData=> _playerData;
 
+
+    public void Awake()
+    {
+        if (_gameData == null)
+        {
+            _gameData = new GameData();
+        }  
+    }
+     
     public void Load(string name)
     {
         if (_saveManager == null)
@@ -33,9 +43,9 @@ public class GameManager : MonoBehaviour
         {
             _soundManager = new SoundManager(saveData);
         }
-        if (_gameData == null)
+        if (_playerData == null)
         {
-            _gameData = new GameData(saveData);
+            _playerData = new PlayerData(saveData);
         }  
         if (_graphicsManager == null)
         {
@@ -55,15 +65,15 @@ public class GameManager : MonoBehaviour
         {
             _graphicsManager = new GraphicsManager();
         }  
-        if (_gameData == null)
+        if (_playerData == null)
         {
-            _gameData = new GameData();
+            _playerData = new PlayerData();
         }  
         if (_saveManager == null)
         {
             _saveManager = new SaveManager();
         }
-        var saveData = new SaveData(name, GraphicsManager,SoundManager,GameData);
+        var saveData = new SaveData(name, GraphicsManager,SoundManager,PlayerData);
         SaveManager.Save(saveData);
     }
     

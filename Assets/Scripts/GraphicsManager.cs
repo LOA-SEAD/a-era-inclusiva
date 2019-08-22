@@ -5,6 +5,7 @@ using UnityEngine;
 public class GraphicsManager
 {
     private Resolution _selectedResolution;
+    private bool _isFullscreen;
     private string _selectedQuality;
     
     public string SelectedQuality
@@ -33,10 +34,21 @@ public class GraphicsManager
         }
     }
 
+    public bool IsFullscreen
+    {
+        get => _isFullscreen;
+        set
+        {
+            _isFullscreen = value;
+            Screen.fullScreen = _isFullscreen;
+        }
+    }
+
     public GraphicsManager(SaveData save)
     {
         SelectedResolution = save.Resolution;
         SelectedQuality = save.Quality;
+        IsFullscreen = save.Fullscreen;
     }
 
 
@@ -44,5 +56,6 @@ public class GraphicsManager
     {
         SelectedQuality = QualitySettings.names.Last();
         SelectedResolution = Screen.resolutions.Last();
+        IsFullscreen = true;
     }
 }
