@@ -4,18 +4,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class InputConfirmation : Confirmation
 {
     public TMP_InputField InputField;
-    public UnityAction<string> acao;
 
-    private void Start()
+    private void Awake()
     {
-       OnAccept(delegate {  acao.Invoke(InputField.text); });
+        InputField.ActivateInputField();
+        InputField.Select();
+        
     }
-    // Start is called before the first frame update
-    
-    // Update is called once per frame
-   
 }

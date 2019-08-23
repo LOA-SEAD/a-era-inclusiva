@@ -15,7 +15,7 @@ public class GameSetup : MonoBehaviour
     public GameManager gameManager;
   
     // Start is called before the first frame update
-    public void Setup()
+    public void Start()
     {
    
         try

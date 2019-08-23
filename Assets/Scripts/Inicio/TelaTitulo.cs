@@ -12,13 +12,12 @@ public class TelaTitulo : MonoBehaviour
     public GameSetup gameSetup;
     public void Start()
     {
-        inputConfirmation.acao += CreateGame;
+        inputConfirmation.OnAccept(delegate { CreateGame(inputConfirmation.InputField.text); });
     }
 
     private void CreateGame(string saveName)
     {
-        gameSetup.Setup();
-        gameManager.New(saveName);
+        GameManager.New(saveName);
         GetComponent<Animator>().SetTrigger("iniciar_jogo");
 
     }

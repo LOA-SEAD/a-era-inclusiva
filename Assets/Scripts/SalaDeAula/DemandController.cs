@@ -24,8 +24,8 @@ public class DemandController : MonoBehaviour
 
     IEnumerator SpawnDemands()
     {
-        var studentList = Game.DemandingStudents;
-        var demandList = Game.Demands.demandas
+        var studentList = GameManager.GameData.Students.alunos.Where(x=>x.importante);
+        var demandList = GameManager.GameData.Demands.demandas
             .Where(x => studentList.Select(y => y.id).Contains(x.idAluno) && !x.resolvida).OrderBy(x => x.ordem)
             .ToList();
         while (demandList.Any())

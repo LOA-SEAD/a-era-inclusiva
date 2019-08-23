@@ -75,7 +75,7 @@ public class ControladorSalaDeAula : MonoBehaviour
 
     private void CheckIfEnd()
     {
-        if (Game.Demands.demandas.FindAll(x => !x.resolvida).Count == 0 || levelTimeInSeconds <= 0f)
+        if (GameManager.GameData.Demands.demandas.FindAll(x => !x.resolvida).Count == 0 || levelTimeInSeconds <= 0f)
         {
             sceneController.ChangeTo("Scenes/HTPI");
         }

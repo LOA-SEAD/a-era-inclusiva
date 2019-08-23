@@ -10,7 +10,7 @@ public class ControladorCorredor : MonoBehaviour
     public GameObject dialog;
     public void TryToStartClass()
     {
-        if (Game.Actions.acoes.Count(x => x.selected) == 9)
+        if (GameManager.GameData.Actions.acoes.Count(x => x.selected) == 9)
         {
             sceneController.ChangeTo("Scenes/SalaDeAula");
         }

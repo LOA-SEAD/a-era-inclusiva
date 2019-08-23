@@ -45,7 +45,7 @@ public class DemandToggle : MonoBehaviour,ISelectHandler
 
     private void decreaseHappiness()
     {
-        Game.Happiness -= _demand.nivelUrgencia;
+        GameManager.PlayerData.Happiness -= _demand.nivelUrgencia;
     }
 
     public void OnSelect(BaseEventData eventData)

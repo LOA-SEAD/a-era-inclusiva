@@ -25,10 +25,10 @@ public class ActionList : SimpleScroll
 
     public void UpdateList()
     {
-        if (Game.Actions == null) return;
+        if (GameManager.GameData.Actions == null) return;
         Clear();
         BackToTop();
-        foreach (var action in Game.Actions.acoes.Where(WhichActions))
+        foreach (var action in GameManager.GameData.Actions.acoes.Where(WhichActions))
         {
             var acaoIcon = Instantiate(actionPrefab);
             acaoIcon.Acao = action;
@@ -40,7 +40,7 @@ public class ActionList : SimpleScroll
     }
     public override void UpdateChildrenCount()
     {
-        childrenCount = Game.Actions.acoes.Where(WhichActions).Count();
+        childrenCount = GameManager.GameData.Actions.acoes.Where(WhichActions).Count();
     }
 
     public delegate void AcaoAction(ClassAcao acao);

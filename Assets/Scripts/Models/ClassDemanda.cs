@@ -17,7 +17,7 @@ public class ClassDemanda
     {
         get
         {
-            return Game.Students.alunos.Find(x=>x.id == idAluno);
+            return GameManager.GameData.Students.alunos.Find(x=>x.id == idAluno);
         }
     }
 }

@@ -47,8 +47,8 @@ public class MetodologiasTab : MonoBehaviour
 
     private void Awake()
     {
-        if (Game.Actions != null)
-            Metodologias = Game.Actions.acoes.Select(x => x.tipo).Distinct().ToList();
+        if (GameManager.GameData.Actions != null)
+            Metodologias = GameManager.GameData.Actions.acoes.Select(x => x.tipo).Distinct().ToList();
         else
             Metodologias = new List<string>();
         IdMetodologia = 0;
@@ -66,12 +66,12 @@ public class MetodologiasTab : MonoBehaviour
     public void Reset()
     {
         IdMetodologia = 0;
-        Game.Actions.acoes.ForEach(x => x.selected = false);
+        GameManager.GameData.Actions.acoes.ForEach(x => x.selected = false);
     }
 
     public void Undo()
     {
-        var actions = Game.Actions.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
+        var actions = GameManager.GameData.Actions.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
         if (actions.Count == 0)
         {
             IdMetodologia = idMetodologia > 0 ? idMetodologia - 1 : 0;
@@ -89,7 +89,7 @@ public class MetodologiasTab : MonoBehaviour
 
     public void SelectionHasChanged(bool notificate)
     {
-        var selected = Game.Actions.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
+        var selected = GameManager.GameData.Actions.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
         gridMetodologias.ActionsToShow = selected;
         if (notificate && selected.Count >= 3)
         {
@@ -123,7 +123,7 @@ public class MetodologiasTab : MonoBehaviour
 
     public bool TrySelect(ClassAcao acao)
     {
-        var actions = Game.Actions.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
+        var actions = GameManager.GameData.Actions.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
         if (actions.Count >= 3 && !acao.selected)
         {
             return false;

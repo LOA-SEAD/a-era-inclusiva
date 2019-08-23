@@ -26,12 +26,12 @@ public class BarraInferior : MonoBehaviour
         {
             "\uf556","\uf57a","\uf11a","\uf118","\uf59a"
         };
-        Happiness = Game.Happiness;
+        Happiness = GameManager.PlayerData.Happiness;
         UpdateHappinessIcon();
     }
     void Start()
     {
-        pointsText.SetText(Game.Points.ToString());
+        pointsText.SetText(GameManager.PlayerData.Points.ToString());
     }
 
     public void IncrementScore(int quantity)
@@ -42,9 +42,9 @@ public class BarraInferior : MonoBehaviour
 
     void Update()
     {
-        if (Happiness != Game.Happiness)
+        if (Happiness != GameManager.PlayerData.Happiness)
         {
-            Happiness = Game.Happiness;
+            Happiness = GameManager.PlayerData.Happiness;
         }    
     }
     public void UpdateHappinessIcon()
@@ -58,16 +58,16 @@ public class BarraInferior : MonoBehaviour
 
     private IEnumerator _incrementScore(int quantity)
     {
-        var oldPoints = Game.Points;
-        Game.Points += quantity;
+        var oldPoints = GameManager.PlayerData.Points;
+        GameManager.PlayerData.Points += quantity;
         for (float timer = 0; timer < 0.5f; timer += Time.deltaTime)
         {
             float progress = timer / 0.5f;
-            oldPoints = (int) Mathf.Lerp(oldPoints, Game.Points, progress);
+            oldPoints = (int) Mathf.Lerp(oldPoints, GameManager.PlayerData.Points, progress);
             pointsText.SetText(oldPoints.ToString());
             yield return null;
         }
 
-        pointsText.SetText(Game.Points.ToString());
+        pointsText.SetText(GameManager.PlayerData.Points.ToString());
     }
 }

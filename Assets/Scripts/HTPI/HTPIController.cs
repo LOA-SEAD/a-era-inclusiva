@@ -128,8 +128,8 @@ public class HTPIController : MonoBehaviour
         _confirmation.gameObject.SetActive(true);
         _confirmation.OnAccept(delegate
         {
-            Game.LevelCounter++;
-            Game.Actions.acoes.ForEach(x=>x.selected = false);
+            GameManager.PlayerData.Day++;
+            GameManager.GameData.Actions.acoes.ForEach(x=>x.selected = false);
             SceneManager.LoadScene("Scenes/Corredor");
         });
         _confirmation.OnDeny(delegate
@@ -152,7 +152,7 @@ public class HTPIController : MonoBehaviour
         foreach (var student in _selectedActions)
         {
             var selectedActions = student.Value;
-            var acoesEficazes = Game.Demands.demandas.Find(x => x.student == student.Key).acoesEficazes;
+            var acoesEficazes = GameManager.GameData.Demands.demandas.Find(x => x.student == student.Key).acoesEficazes;
             int points = acoesEficazes.Where(x => selectedActions.Exists(y => y.id == x.idAcao))
                 .Sum(x => x.efetividade);
             totalPoints += points;

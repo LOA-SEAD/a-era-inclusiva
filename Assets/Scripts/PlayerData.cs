@@ -5,7 +5,7 @@
 
     public int Day;
     public int Points;
-    public float Happiness;
+    public int Happiness;
 
         public PlayerData()
         {

@@ -20,10 +20,10 @@
 
     private void UpdateList()
     {
-        if (Game.Students == null || Game.Students.alunos == null) return;
+        if (GameManager.GameData.Students == null || GameManager.GameData.Students.alunos == null) return;
         Clear();
         BackToTop();
-        foreach (var student in Game.Students.alunos)
+        foreach (var student in GameManager.GameData.Students.alunos)
         {
             if (importantOnly && !student.importante) continue;
 

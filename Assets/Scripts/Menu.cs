@@ -7,8 +7,7 @@ public class Menu : MonoBehaviour
     private bool _shown;
     public Animator animator;
     public Image bg;
-
-
+    public GameObject ConfigPanel;
     private void Start()
     {
         bg.raycastTarget = false;
@@ -56,6 +55,7 @@ public class Menu : MonoBehaviour
 
     public void ShowConfig()
     {
+        ConfigPanel.SetActive(true);
     }
 
     public void Resume()
