@@ -44,11 +44,30 @@ public class GraphicsManager
         }
     }
 
-    public GraphicsManager(SaveData save)
+    public GraphicsManager(ConfigData data)
     {
-        SelectedResolution = save.Resolution;
-        SelectedQuality = save.Quality;
-        IsFullscreen = save.Fullscreen;
+        Resolution resolution = new Resolution
+        {
+            height = data.Height,
+            width = data.Width,
+            refreshRate = data.RefreshRate
+        };
+        SelectedResolution = resolution;
+        IsFullscreen = data.Fullscreen;
+    }
+
+    public void Load(object obj, EventArgs e)
+    {
+        var data = (ConfigData) obj;
+        Resolution resolution = new Resolution
+        {
+            height = data.Height,
+            width = data.Width,
+            refreshRate = data.RefreshRate
+        };
+        SelectedResolution = resolution;
+        IsFullscreen = data.Fullscreen;
+        
     }
 
 

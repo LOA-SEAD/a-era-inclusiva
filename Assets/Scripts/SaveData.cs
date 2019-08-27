@@ -6,26 +6,16 @@ public class SaveData
 {
     public string Name;
     public int Day;
-    public string Quality;
-    public Resolution Resolution;
     public int Happiness;
     public int Points;
-    public float BackgroundVol;
-    public float EffectsVol;
-    public float VoicesVol;
-    public bool Fullscreen;
 
     public SaveData(string name, GraphicsManager graphicsManager, SoundManager soundManager, PlayerData data)
     {
         Name = name;
         Day = 1;
-        Quality = graphicsManager.SelectedQuality;
-        Resolution = graphicsManager.SelectedResolution;
-        Fullscreen = graphicsManager.IsFullscreen;
         Happiness = data.Happiness;
         Points = data.Points;
-        BackgroundVol = soundManager.Background;
-        EffectsVol = soundManager.Effects;
+
     }
 
 
@@ -33,13 +23,8 @@ public class SaveData
     {
         Name = name;
         Day = day;
-        Quality = quality;
-        Resolution = resolution;
         Happiness = happiness;
         Points = points;
-        BackgroundVol = backgroundVol;
-        EffectsVol = effectsVol;
-        VoicesVol = voicesVol;
-        Fullscreen = fullscreen;
+
     }
 }
