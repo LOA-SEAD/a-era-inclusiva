@@ -16,8 +16,15 @@ public class ConfigPanel : MonoBehaviour
 // Start is called before the first frame update
     private void Start()
     {
+
+#if !UNITY_STANDALONE
+        fullscreenToggle.gameObject.SetActive(false);
+        screenResDropdown.gameObject.SetActive(false);
+#else
         PopulateScreensizeList();
+#endif
     }
+    
 
 
     private void PopulateScreensizeList()
