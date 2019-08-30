@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
@@ -12,7 +10,7 @@ public class Timer : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         tempo.SetText("Tempo: " + csd.levelTimeInSeconds.ToString("0"));
     }

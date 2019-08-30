@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
@@ -8,6 +7,7 @@ public class Menu : MonoBehaviour
     public Animator animator;
     public Image bg;
     public GameObject ConfigPanel;
+
     private void Start()
     {
         bg.raycastTarget = false;
@@ -28,11 +28,12 @@ public class Menu : MonoBehaviour
 
     public void Toggle()
     {
-        if(_shown)
+        if (_shown)
             Hide();
         else
             Show();
     }
+
     public void Show()
     {
         bg.raycastTarget = true;
@@ -62,7 +63,4 @@ public class Menu : MonoBehaviour
     {
         Hide();
     }
-
-
-    
 }

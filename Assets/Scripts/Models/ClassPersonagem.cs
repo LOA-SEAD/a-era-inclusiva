@@ -1,17 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-[System.Serializable]
-public class ClassPersonagem{
-    public string nome;
-    public List<ClassFala> dialogos;
-}
-
-[System.Serializable]
-public class ClassPersonagens
+[Serializable]
+public class ClassPersonagem
 {
-    public List<ClassPersonagem> personagens;
-    public ClassPersonagens()
-    {
-        personagens = new List<ClassPersonagem>();
-    }
+    public List<ClassFala> dialogos;
+    public string nome;
 }

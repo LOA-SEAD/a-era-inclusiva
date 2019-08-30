@@ -1,36 +1,29 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using UnityEngine;
 
 public class GameSetup : MonoBehaviour
 {
-    public TextAsset DialogosJson;
     public TextAsset AcoesJson;
     public TextAsset AlunosJson;
     public TextAsset DemandasJson;
+    public TextAsset DialogosJson;
     public TextAsset ResourcesJson;
-    public GameManager gameManager;
-  
+
     // Start is called before the first frame update
     public void Start()
     {
-   
+        return;
         try
         {
-            JsonUtility.FromJsonOverwrite(DialogosJson.text, GameManager.GameData.Characters);
-            JsonUtility.FromJsonOverwrite(AcoesJson.text, GameManager.GameData.Actions);
-            JsonUtility.FromJsonOverwrite(AlunosJson.text, GameManager.GameData.Students);
-            JsonUtility.FromJsonOverwrite(DemandasJson.text, GameManager.GameData.Demands);
-            JsonUtility.FromJsonOverwrite(ResourcesJson.text, GameManager.GameData.Resources);
-
+            JsonUtility.FromJsonOverwrite(DialogosJson.text, GameManager.GameData);
+            JsonUtility.FromJsonOverwrite(AcoesJson.text, GameManager.GameData);
+            JsonUtility.FromJsonOverwrite(AlunosJson.text, GameManager.GameData);
+            JsonUtility.FromJsonOverwrite(DemandasJson.text, GameManager.GameData);
+            JsonUtility.FromJsonOverwrite(ResourcesJson.text, GameManager.GameData);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             Debug.LogException(e);
         }
     }
-
-
 }

@@ -1,30 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SimpleScroll : MonoBehaviour
 {
-    public float spacing = 10;
+    protected int childrenCount;
+    public Button DownButton;
+    private Vector3 localPosition;
     public int maxShown = 3;
+    private Vector3 newPosition;
+    public GameObject parent;
+    public float spacing = 10;
     private float step;
     public Button UpButton;
-    public Button DownButton;
-    public GameObject parent;
-    protected int childrenCount;
-    private Vector3 localPosition;
-    private Vector3 newPosition;
 
-    
+
     protected void Awake()
     {
         UpdateChildrenCount();
         localPosition = parent.transform.localPosition;
         newPosition = localPosition;
-        if(UpButton!=null)
+        if (UpButton != null)
             UpButton.onClick.AddListener(delegate { GoUp(); });
-        if(DownButton!=null)
+        if (DownButton != null)
             DownButton.onClick.AddListener(delegate { GoDown(); });
         step = (parent.GetComponent<RectTransform>().rect.height + spacing) / maxShown;
     }
@@ -38,10 +37,7 @@ public class SimpleScroll : MonoBehaviour
 
     public void Clear()
     {
-        foreach (Transform child in parent.transform)
-        {
-            Destroy(child.gameObject);
-        }
+        foreach (Transform child in parent.transform) Destroy(child.gameObject);
 
         BackToTop();
     }
@@ -64,7 +60,7 @@ public class SimpleScroll : MonoBehaviour
     }
 
 
-    IEnumerator AnimateMove()
+    private IEnumerator AnimateMove()
     {
         while (Mathf.Abs(localPosition.y - newPosition.y) > 1.0f)
         {
@@ -82,22 +78,19 @@ public class SimpleScroll : MonoBehaviour
         childrenCount = parent.transform.childCount;
         if (childrenCount > maxShown)
         {
-            if(UpButton!=null)
-                UpButton.enabled = (true);
-            if(DownButton!=null)
-                DownButton.enabled = (true);
+            if (UpButton != null)
+                UpButton.enabled = true;
+            if (DownButton != null)
+                DownButton.enabled = true;
         }
         else
         {
-            if(UpButton!=null)
-                UpButton.enabled = (false);
-            if(DownButton!=null)
-                DownButton.enabled = (false);
+            if (UpButton != null)
+                UpButton.enabled = false;
+            if (DownButton != null)
+                DownButton.enabled = false;
         }
-        
     }
-
-   
 
 
     public void Add(GameObject _gameObject)

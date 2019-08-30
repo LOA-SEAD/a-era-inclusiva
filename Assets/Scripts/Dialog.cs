@@ -1,41 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class Dialog : MonoBehaviour
 {
-    public string Name;
-    public string Local;
-    public List<string> Dialogs;
-    public bool LoadFromJson;
-    public List<AudioClip> DialogsAudio;
-    public AudioSource audioSource;
-    public TextMeshProUGUI textMesh;
-    public float speed = 0.2f;
     public UnityEvent AtEndOfDialog;
-    private Coroutine reveal = null;
-    private int id = 0;
-    private bool revealing;
+    public AudioSource audioSource;
+    public List<string> Dialogs;
+    public List<AudioClip> DialogsAudio;
     public GameManager gameManager;
-    
-    
-    void Awake()
+    private int id;
+    public bool LoadFromJson;
+    public string Local;
+    public string Name;
+    private Coroutine reveal;
+    private bool revealing;
+    public float speed = 0.2f;
+    public TextMeshProUGUI textMesh;
+
+
+
+    private void Awake()
     {
-        
-        if(LoadFromJson && GameManager.GameData.Characters!=null)
-            Dialogs = GameManager.GameData.Characters.personagens.Find(x => x.nome == Name).dialogos.Find(x => x.local == Local).frases;
+        if (LoadFromJson && GameManager.GameData.personagens != null)
+            Dialogs = GameManager.GameData.personagens.Find(x => x.nome == Name).dialogos
+                .Find(x => x.local == Local).frases;
     }
-    void OnEnable()
+
+    private void OnEnable()
     {
         id = 0;
-        
+
         ShowNextDialog();
     }
 
-    void Update()
+    private void Update()
     {
         // Press ENTER or SPACE to show next sentence
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
@@ -43,13 +44,11 @@ public class Dialog : MonoBehaviour
 
         // Press Q to repeat last sentence
         if (Input.GetKeyDown(KeyCode.Q))
-        {
             if (!revealing)
             {
                 id--;
                 ShowNextDialog();
             }
-        }
     }
 
     public void ShowNextDialog()
@@ -76,7 +75,7 @@ public class Dialog : MonoBehaviour
         }
     }
 
-    IEnumerator revealPhrase()
+    private IEnumerator revealPhrase()
     {
         revealing = true;
         if (DialogsAudio.Count >= id + 1)
@@ -85,15 +84,16 @@ public class Dialog : MonoBehaviour
             audioSource.Play();
         }
 
-        string phrase = Dialogs[id];
+        var phrase = Dialogs[id];
         textMesh.maxVisibleCharacters = 0;
         textMesh.SetText(phrase);
-        int size = phrase.Length;
+        var size = phrase.Length;
         while (textMesh.maxVisibleCharacters < size)
         {
             textMesh.maxVisibleCharacters++;
             yield return new WaitForSeconds(speed);
         }
+
         id++;
         revealing = false;
     }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ActionListWrapper : MonoBehaviour
 {
@@ -22,20 +19,15 @@ public class ActionListWrapper : MonoBehaviour
     public void Hide()
     {
         _animator.SetTrigger("Hide");
-
     }
 
     public void ShowActions()
     {
         _animator.SetTrigger("Actions");
-
     }
 
     public void Return()
     {
         _animator.SetTrigger("Return");
-   
     }
-
-
 }

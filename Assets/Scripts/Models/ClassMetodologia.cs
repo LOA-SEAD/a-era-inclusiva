@@ -1,5 +1,8 @@
-﻿[System.Serializable]
-public class ClassMetodologia{
-	public string tipo;
-	public ClassAcao[] acoes;
+﻿using System;
+
+[Serializable]
+public class ClassMetodologia
+{
+    public ClassAcao[] acoes;
+    public string tipo;
 }

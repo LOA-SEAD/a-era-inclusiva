@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-[System.Serializable]
-public class ClassFala{
-    public string local;
+[Serializable]
+public class ClassFala
+{
     public List<string> frases;
+    public string local;
 }

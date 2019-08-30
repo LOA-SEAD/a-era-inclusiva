@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -8,19 +7,20 @@ using UnityEngine.UI;
 
 public class HTPIController : MonoBehaviour
 {
+    public ActionConfirmation _actionConfirmation;
+    public Confirmation _confirmation;
+    private Dictionary<ClassAluno, List<ClassAcao>> _selectedActions;
     private ClassAluno _selectedStudent;
     public AcaoIcon acaoPrefab;
-    public Button EditButton;
-    private Dictionary<ClassAluno, List<ClassAcao>> _selectedActions;
-    public TextMeshProUGUI nameObj;
+    public ActionList actionList;
     public TextMeshProUGUI descriptionObj;
+    public GameObject EditandoAcoes;
+    public Button EditButton;
+    public TextMeshProUGUI nameObj;
     public Image portrait;
     public GameObject selectedActionListHtpi;
-    public Confirmation _confirmation;
-    public GameObject EditandoAcoes;
-    public ActionConfirmation _actionConfirmation;
-    public ActionList actionList;
     public StudentList studentList;
+
     public ClassAluno SelectedStudent
     {
         get => _selectedStudent;
@@ -38,10 +38,7 @@ public class HTPIController : MonoBehaviour
     {
         EditButton.interactable = true;
 
-        foreach (Transform children in selectedActionListHtpi.transform)
-        {
-            Destroy(children.gameObject);
-        }
+        foreach (Transform children in selectedActionListHtpi.transform) Destroy(children.gameObject);
 
         if (!_selectedActions.ContainsKey(_selectedStudent)) return;
         foreach (var action in _selectedActions[_selectedStudent])
@@ -51,7 +48,7 @@ public class HTPIController : MonoBehaviour
         }
     }
 
-   
+
     private void Start()
     {
         EditButton.interactable = false;
@@ -63,21 +60,16 @@ public class HTPIController : MonoBehaviour
         });
         _confirmation.OnDeny(delegate { Initiate.Fade("Scene/Corredor", Color.black, 1); });
         actionList.SetWhenSelected(AddAction);
-        studentList.SetWhenSelectedAction((student) => { SelectedStudent = student; });
+        studentList.SetWhenSelectedAction(student => { SelectedStudent = student; });
     }
 
 
     public void AddAction(ClassAcao acao)
     {
-        if (_selectedStudent == null)
-        {
-            return;
-        }
+        if (_selectedStudent == null) return;
 
         if (!_selectedActions.ContainsKey(_selectedStudent) || _selectedActions[_selectedStudent] == null)
-        {
             _selectedActions[_selectedStudent] = new List<ClassAcao>();
-        }
 
 
         if (_selectedActions[_selectedStudent].Contains(acao))
@@ -87,10 +79,7 @@ public class HTPIController : MonoBehaviour
             return;
         }
 
-        if (_selectedActions[_selectedStudent].Count >= 3)
-        {
-            return;
-        }
+        if (_selectedActions[_selectedStudent].Count >= 3) return;
         _selectedActions[_selectedStudent].Add(acao);
         ShowSelected();
 
@@ -99,14 +88,8 @@ public class HTPIController : MonoBehaviour
             ShowEndConfirmation();
             return;
         }
-        
-        if (_selectedActions[_selectedStudent].Count == 3)
-        {
-            ShowConfirmation();
-        }
-        
 
-        return;
+        if (_selectedActions[_selectedStudent].Count == 3) ShowConfirmation();
     }
 
     private void ShowConfirmation()
@@ -122,6 +105,7 @@ public class HTPIController : MonoBehaviour
             _actionConfirmation.gameObject.SetActive(false);
         });
     }
+
     private void ShowEndConfirmation()
     {
         EditandoAcoes.SetActive(false);
@@ -129,7 +113,7 @@ public class HTPIController : MonoBehaviour
         _confirmation.OnAccept(delegate
         {
             GameManager.PlayerData.Day++;
-            GameManager.GameData.Actions.acoes.ForEach(x=>x.selected = false);
+            GameManager.GameData.acoes.ForEach(x => x.selected = false);
             SceneManager.LoadScene("Scenes/Corredor");
         });
         _confirmation.OnDeny(delegate
@@ -139,7 +123,7 @@ public class HTPIController : MonoBehaviour
             }
         );
 
-        int points = CalculatePoints();
+        var points = CalculatePoints();
 
         _confirmation.SetText(
             "Você selecionou ações para todos os estudantes e obteve " + points +
@@ -148,12 +132,12 @@ public class HTPIController : MonoBehaviour
 
     private int CalculatePoints()
     {
-        int totalPoints = 0;
+        var totalPoints = 0;
         foreach (var student in _selectedActions)
         {
             var selectedActions = student.Value;
-            var acoesEficazes = GameManager.GameData.Demands.demandas.Find(x => x.student == student.Key).acoesEficazes;
-            int points = acoesEficazes.Where(x => selectedActions.Exists(y => y.id == x.idAcao))
+            var acoesEficazes = GameManager.GameData.demandas.Find(x => x.student == student.Key).acoesEficazes;
+            var points = acoesEficazes.Where(x => selectedActions.Exists(y => y.id == x.idAcao))
                 .Sum(x => x.efetividade);
             totalPoints += points;
         }
@@ -164,9 +148,7 @@ public class HTPIController : MonoBehaviour
     public List<ClassAcao> GetSelectedActions()
     {
         if (!_selectedActions.ContainsKey(_selectedStudent) || _selectedActions[_selectedStudent] == null)
-        {
             _selectedActions[_selectedStudent] = new List<ClassAcao>();
-        }
 
         return _selectedActions[_selectedStudent];
     }

@@ -1,19 +1,16 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using UnityEngine.Video;
 
 public class BibliotecaController : MonoBehaviour
 {
-    public GameObject textoPages;
-    public StreamVideo player;
     public Image image;
     public GameObject Media;
+    public StreamVideo player;
+    public GameObject textoPages;
 
     public void Display(ClassResource resource)
     {
@@ -49,8 +46,8 @@ public class BibliotecaController : MonoBehaviour
         var caminho = Application.streamingAssetsPath + resource.src;
         if (!File.Exists(caminho))
             return;
-        FileStream file = new FileStream(caminho, FileMode.Open, FileAccess.Read);
-        StreamReader sr = new StreamReader(file);
+        var file = new FileStream(caminho, FileMode.Open, FileAccess.Read);
+        var sr = new StreamReader(file);
         var conteudo = sr.ReadToEnd();
         textoPages.GetComponentInChildren<TextMeshProUGUI>().SetText(conteudo);
     }

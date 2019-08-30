@@ -1,9 +1,9 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
+
 public static class Initiate
 {
-    static bool areWeFading = false;
+    private static bool areWeFading;
 
     //Create Fader object and assing the fade scripts and assign all the variables
     public static void Fade(string scene, Color col, float multiplier)
@@ -14,26 +14,26 @@ public static class Initiate
             return;
         }
 
-        GameObject init = new GameObject();
+        var init = new GameObject();
         init.name = "Fader";
-        Canvas myCanvas = init.AddComponent<Canvas>();
+        var myCanvas = init.AddComponent<Canvas>();
         myCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
         myCanvas.sortingOrder = 1;
         init.AddComponent<Fader>();
         init.AddComponent<CanvasGroup>();
         init.AddComponent<Image>();
 
-        Fader scr = init.GetComponent<Fader>();
+        var scr = init.GetComponent<Fader>();
         scr.fadeDamp = multiplier;
         scr.fadeScene = scene;
         scr.fadeColor = col;
         scr.start = true;
         areWeFading = true;
         scr.InitiateFader();
-        
     }
 
-    public static void DoneFading() {
+    public static void DoneFading()
+    {
         areWeFading = false;
     }
 }

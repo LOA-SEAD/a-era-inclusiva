@@ -1,108 +1,121 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 namespace Lean.Touch
 {
-	/// <summary>This script will modify LeanFingerTrail to draw a straight line.</summary>
-	[HelpURL(LeanTouch.HelpUrlPrefix + "LeanFingerLine")]
-	public class LeanFingerLine : LeanFingerTrail
-	{
-		// Event signatures
-		[System.Serializable] public class Vector3Vector3Event : UnityEvent<Vector3, Vector3> {}
-		[System.Serializable] public class Vector3Event : UnityEvent<Vector3> {}
+    /// <summary>This script will modify LeanFingerTrail to draw a straight line.</summary>
+    [HelpURL(LeanTouch.HelpUrlPrefix + "LeanFingerLine")]
+    public class LeanFingerLine : LeanFingerTrail
+    {
+        [Tooltip("Should the line appear on the opposite side?")]
+        public bool Inverse;
 
-		[Tooltip("Should the line appear on the opposite side?")]
-		public bool Inverse;
+        [Tooltip("Limit the length (0 = none)")]
+        public float LengthMax;
 
-		[Tooltip("The thickness scale per unit (0 = no scaling)")]
-		public float ThicknessScale;
+        [Tooltip("Limit the length (0 = none)")]
+        public float LengthMin;
 
-		[Tooltip("Limit the length (0 = none)")]
-		public float LengthMin;
+        [FormerlySerializedAs("OnReleasedFromTo")] [SerializeField]
+        private Vector3Vector3Event onReleasedFromTo;
 
-		[Tooltip("Limit the length (0 = none)")]
-		public float LengthMax;
+        [FormerlySerializedAs("OnReleasedTo")] [SerializeField]
+        private Vector3Event onReleasedTo;
 
-		[Tooltip("Should the line originate from a target point?")]
-		public Transform Target;
+        [Tooltip("Should the line originate from a target point?")]
+        public Transform Target;
 
-		public Vector3Vector3Event OnReleasedFromTo { get { if (onReleasedFromTo == null) onReleasedFromTo = new Vector3Vector3Event(); return onReleasedFromTo; } } [FormerlySerializedAs("OnReleasedFromTo")] [SerializeField] private Vector3Vector3Event onReleasedFromTo;
+        [Tooltip("The thickness scale per unit (0 = no scaling)")]
+        public float ThicknessScale;
 
-		public Vector3Event OnReleasedTo { get { if (onReleasedTo == null) onReleasedTo = new Vector3Event(); return onReleasedTo; } } [FormerlySerializedAs("OnReleasedTo")] [SerializeField] private Vector3Event onReleasedTo;
+        public Vector3Vector3Event OnReleasedFromTo
+        {
+            get
+            {
+                if (onReleasedFromTo == null) onReleasedFromTo = new Vector3Vector3Event();
+                return onReleasedFromTo;
+            }
+        }
 
-		protected override void LinkFingerUp(FingerData link)
-		{
-			// Calculate points
-			var start = GetStartPoint(link.Finger);
-			var end   = GetEndPoint(link.Finger, start);
+        public Vector3Event OnReleasedTo
+        {
+            get
+            {
+                if (onReleasedTo == null) onReleasedTo = new Vector3Event();
+                return onReleasedTo;
+            }
+        }
 
-			if (onReleasedFromTo != null)
-			{
-				onReleasedFromTo.Invoke(start, end);
-			}
+        protected override void LinkFingerUp(FingerData link)
+        {
+            // Calculate points
+            var start = GetStartPoint(link.Finger);
+            var end = GetEndPoint(link.Finger, start);
 
-			if (onReleasedTo != null)
-			{
-				onReleasedTo.Invoke(end);
-			}
-		}
+            if (onReleasedFromTo != null) onReleasedFromTo.Invoke(start, end);
 
-		protected override void WritePositions(LineRenderer line, LeanFinger finger)
-		{
-			// Calculate points
-			var start = GetStartPoint(finger);
-			var end   = GetEndPoint(finger, start);
+            if (onReleasedTo != null) onReleasedTo.Invoke(end);
+        }
 
-			// Adjust thickness?
-			if (ThicknessScale > 0.0f)
-			{
-				var thickness = Vector3.Distance(start, end) * ThicknessScale;
+        protected override void WritePositions(LineRenderer line, LeanFinger finger)
+        {
+            // Calculate points
+            var start = GetStartPoint(finger);
+            var end = GetEndPoint(finger, start);
 
-				line.startWidth = thickness;
-				line.endWidth   = thickness;
-			}
+            // Adjust thickness?
+            if (ThicknessScale > 0.0f)
+            {
+                var thickness = Vector3.Distance(start, end) * ThicknessScale;
 
-			// Write positions
-			line.positionCount = 2;
+                line.startWidth = thickness;
+                line.endWidth = thickness;
+            }
 
-			line.SetPosition(0, start);
-			line.SetPosition(1, end);
-		}
+            // Write positions
+            line.positionCount = 2;
 
-		private Vector3 GetStartPoint(LeanFinger finger)
-		{
-			// Use target position?
-			if (Target != null)
-			{
-				return Target.position;
-			}
+            line.SetPosition(0, start);
+            line.SetPosition(1, end);
+        }
 
-			// Convert
-			return ScreenDepth.Convert(finger.StartScreenPosition, gameObject);
-		}
+        private Vector3 GetStartPoint(LeanFinger finger)
+        {
+            // Use target position?
+            if (Target != null) return Target.position;
 
-		private Vector3 GetEndPoint(LeanFinger finger, Vector3 start)
-		{
-			// Cauculate distance based on start position, because the Target point may override Distance
-			var end      = ScreenDepth.Convert(finger.ScreenPosition, gameObject);
-			var length   = Vector3.Distance(start, end);
+            // Convert
+            return ScreenDepth.Convert(finger.StartScreenPosition, gameObject);
+        }
 
-			// Limit the length?
-			if (LengthMin > 0.0f && length < LengthMin)
-			{
-				length = LengthMin;
-			}
+        private Vector3 GetEndPoint(LeanFinger finger, Vector3 start)
+        {
+            // Cauculate distance based on start position, because the Target point may override Distance
+            var end = ScreenDepth.Convert(finger.ScreenPosition, gameObject);
+            var length = Vector3.Distance(start, end);
 
-			if (LengthMax > 0.0f && length > LengthMax)
-			{
-				length = LengthMax;
-			}
+            // Limit the length?
+            if (LengthMin > 0.0f && length < LengthMin) length = LengthMin;
 
-			// Recalculate end
-			var delta = Vector3.Normalize(end - start) * length;
+            if (LengthMax > 0.0f && length > LengthMax) length = LengthMax;
 
-			return Inverse == true ? start - delta : start + delta;
-		}
-	}
+            // Recalculate end
+            var delta = Vector3.Normalize(end - start) * length;
+
+            return Inverse ? start - delta : start + delta;
+        }
+
+        // Event signatures
+        [Serializable]
+        public class Vector3Vector3Event : UnityEvent<Vector3, Vector3>
+        {
+        }
+
+        [Serializable]
+        public class Vector3Event : UnityEvent<Vector3>
+        {
+        }
+    }
 }

@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TelaTitulo : MonoBehaviour
 
 {
-    public SceneController sceneController;
-    public InputConfirmation inputConfirmation;
     public GameManager gameManager;
     public GameSetup gameSetup;
+    public InputConfirmation inputConfirmation;
+    public SceneController sceneController;
+
     public void Start()
     {
         inputConfirmation.OnAccept(delegate { CreateGame(inputConfirmation.InputField.text); });
@@ -19,7 +17,6 @@ public class TelaTitulo : MonoBehaviour
     {
         GameManager.New(saveName);
         GetComponent<Animator>().SetTrigger("iniciar_jogo");
-
     }
 
     public void StartGame()
@@ -31,6 +28,4 @@ public class TelaTitulo : MonoBehaviour
     {
         Application.Quit();
     }
-
-
 }

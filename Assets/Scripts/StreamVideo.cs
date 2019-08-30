@@ -1,29 +1,30 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class StreamVideo : MonoBehaviour
 {
+    public AudioSource audioSource;
     public RawImage rawImage;
     public VideoPlayer videoPlayer;
-    public AudioSource audioSource;
 
 // Use this for initialization
     public void Play()
     {
         StartCoroutine(PlayVideo());
     }
-    public void SetSource(string src)  {
+
+    public void SetSource(string src)
+    {
         videoPlayer.Stop();
         videoPlayer.url = src;
     }
 
-    IEnumerator PlayVideo()
+    private IEnumerator PlayVideo()
     {
         videoPlayer.Prepare();
-        WaitForSeconds waitForSeconds = new WaitForSeconds(1);
+        var waitForSeconds = new WaitForSeconds(1);
         while (!videoPlayer.isPrepared)
         {
             yield return waitForSeconds;

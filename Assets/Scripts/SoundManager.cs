@@ -1,57 +1,74 @@
-using System;
+using System.IO;
 using UnityEngine;
 
 public class SoundManager
 {
-    private float _background;
-    private float _effects;
+    private readonly string _configFile = Path.Combine(Application.persistentDataPath, "saves", "audio_settings.json");
+    private readonly string _savePath = Path.Combine(Application.persistentDataPath, "saves");
+    private SoundData _soundData;
+
+
+    public SoundManager()
+    {
+        if (ConfigExists())
+        {
+            Load();
+        }
+        else
+        {
+            Background = 100f;
+            Effects = 100f;
+            Save();
+        }
+    }
+
 
     public float Background
     {
-        get => _background;
+        get => _soundData.BackgroundVol;
         set
         {
-            _background = value;
+            _soundData.BackgroundVol = value;
             var audioSources = GameObject.FindGameObjectsWithTag("BackgroundAudioSource");
-            foreach (var audioSource in audioSources)
-            {
-                audioSource.GetComponent<AudioSource>().volume = _background;
-            }
+            foreach (var audioSource in audioSources) audioSource.GetComponent<AudioSource>().volume = _soundData.BackgroundVol;
+            Save();
         }
     }
 
     public float Effects
     {
-        get => _effects;
+        get => _soundData.EffectsVol;
         set
         {
-            _effects = value;
+            _soundData.EffectsVol = value;
             var audioSources = GameObject.FindGameObjectsWithTag("EffectAudioSource");
-            foreach (var audioSource in audioSources)
-            {
-                audioSource.GetComponent<AudioSource>().volume = _effects;
-            }
+            foreach (var audioSource in audioSources) audioSource.GetComponent<AudioSource>().volume = _soundData.EffectsVol;
+            Save();
         }
     }
 
-
-
-    public SoundManager()
+    public bool ConfigExists()
     {
-        this.Background = 100f;
-        this.Effects = 100f;
+        if (!Directory.Exists(_savePath)) Directory.CreateDirectory(_savePath);
+        return File.Exists(_configFile);
     }
 
-    public SoundManager(ConfigData data)
+    public void Load()
     {
-        this.Background = data.BackgroundVol;
-        this.Effects = data.EffectsVol;
+        using (var streamReader = File.OpenText(_configFile))
+        {
+            var jsonString = streamReader.ReadToEnd();
+            _soundData = JsonUtility.FromJson<SoundData>(jsonString);
+        }
     }
 
-    public void Load(object obj, EventArgs e)
+    public void Save()
     {
-        var data = (ConfigData) obj;
-        this.Background = data.BackgroundVol;
-        this.Effects = data.EffectsVol;
+        var jsonString = JsonUtility.ToJson(_soundData);
+
+        using (var streamWriter = File.CreateText(_configFile))
+        {
+            streamWriter.Write(jsonString);
+        }
     }
 }
