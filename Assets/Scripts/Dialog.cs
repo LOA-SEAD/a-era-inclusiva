@@ -24,8 +24,8 @@ public class Dialog : MonoBehaviour
 
     private void Awake()
     {
-        if (LoadFromJson && GameManager.GameData.personagens != null)
-            Dialogs = GameManager.GameData.personagens.Find(x => x.nome == Name).dialogos
+        if (LoadFromJson && GameManager.GameData.Personagens != null)
+            Dialogs = GameManager.GameData.Personagens.Find(x => x.nome == Name).dialogos
                 .Find(x => x.local == Local).frases;
     }
 

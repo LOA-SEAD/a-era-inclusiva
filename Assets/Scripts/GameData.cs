@@ -11,11 +11,11 @@ public class GameData
     string filePath = Path.Combine(Application.streamingAssetsPath, "Json");
 
     public int[] LevelDemandingStudents;
-    public List<ClassAcao> acoes;
-    public List<ClassPersonagem> personagens;
-    public List<ClassDemanda> demandas;
-    public List<ClassResource> resources;
-    public List<ClassAluno> alunos;
+    public List<ClassAcao> Acoes;
+    public List<ClassPersonagem> Personagens;
+    public List<ClassDemanda> Demandas;
+    public List<ClassResource> Recursos;
+    public List<ClassAluno> Alunos;
 
 
     public int UrgenciaMinima;

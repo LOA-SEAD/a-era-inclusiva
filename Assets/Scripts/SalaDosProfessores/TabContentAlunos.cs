@@ -19,7 +19,7 @@ public class TabContentAlunos : MonoBehaviour
 
     public void Awake()
     {
-        SetAluno(GameManager.GameData.alunos.First(x => x.importante));
+        SetAluno(GameManager.GameData.Alunos.First(x => x.importante));
         studentList.SetWhenSelectedAction(SetAluno);
     }
 }

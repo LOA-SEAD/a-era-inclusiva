@@ -28,7 +28,7 @@ public class ResourceList : MonoBehaviour
     {
         simpleScroll.Clear();
         var resourceButtons = new List<GameObject>();
-        foreach (var resource in GameManager.GameData.resources.FindAll(x => x.category == _resourceCategory))
+        foreach (var resource in GameManager.GameData.Recursos.FindAll(x => x.category == _resourceCategory))
         {
             var resourceButton = Instantiate(resourceButtonPrefab);
             resourceButton.GetComponentInChildren<TextMeshProUGUI>().SetText(resource.name);

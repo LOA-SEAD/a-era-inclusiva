@@ -38,8 +38,8 @@ public class MetodologiasTab : MonoBehaviour
 
     private void Awake()
     {
-        if (GameManager.GameData.acoes != null)
-            Metodologias = GameManager.GameData.acoes.Select(x => x.tipo).Distinct().ToList();
+        if (GameManager.GameData.Acoes != null)
+            Metodologias = GameManager.GameData.Acoes.Select(x => x.tipo).Distinct().ToList();
         else
             Metodologias = new List<string>();
         IdMetodologia = 0;
@@ -57,12 +57,12 @@ public class MetodologiasTab : MonoBehaviour
     public void Reset()
     {
         IdMetodologia = 0;
-        GameManager.GameData.acoes.ForEach(x => x.selected = false);
+        GameManager.GameData.Acoes.ForEach(x => x.selected = false);
     }
 
     public void Undo()
     {
-        var actions = GameManager.GameData.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
+        var actions = GameManager.GameData.Acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
         if (actions.Count == 0)
         {
             IdMetodologia = idMetodologia > 0 ? idMetodologia - 1 : 0;
@@ -77,7 +77,7 @@ public class MetodologiasTab : MonoBehaviour
 
     public void SelectionHasChanged(bool notificate)
     {
-        var selected = GameManager.GameData.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
+        var selected = GameManager.GameData.Acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
         gridMetodologias.ActionsToShow = selected;
         if (notificate && selected.Count >= 3) Confirmation(selected);
     }
@@ -108,7 +108,7 @@ public class MetodologiasTab : MonoBehaviour
 
     public bool TrySelect(ClassAcao acao)
     {
-        var actions = GameManager.GameData.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
+        var actions = GameManager.GameData.Acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
         if (actions.Count >= 3 && !acao.selected) return false;
 
         acao.selected = !acao.selected;
