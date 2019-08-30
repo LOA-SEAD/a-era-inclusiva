@@ -8,19 +8,22 @@ using UnityEngine.UI;
 public class ConfigPanel : MonoBehaviour
 {
     public TMP_Dropdown screenResDropdown;
-
-    public TMP_Dropdown graphicsDropdown;
-
+    
     public Slider audioEffectsSlider;
     public Slider audioBackgroundSlider;
 
     public Toggle fullscreenToggle;
 
+    private ConfigData _configData;
     // Start is called before the first frame update
     void Start()
     {
         PopulateScreensizeList();
-        PopulateQualitiesList();
+    }
+
+    void Awake()
+    {
+        _configData = GameManager.ConfigData;
     }
 
     void PopulateScreensizeList()
@@ -29,44 +32,39 @@ public class ConfigPanel : MonoBehaviour
 
         screenResDropdown.options = screenOptions;
     }
-    void PopulateQualitiesList()
-    {
-        var graphicOptions = QualitySettings.names.Select(res => new TMP_Dropdown.OptionData(res.ToString())).ToList();
-
-        graphicsDropdown.options = graphicOptions;
-    }
+  
     
-    public void OnQualityChanged(int index)
-    {
-        GameManager.GraphicsManager.SelectedQuality = graphicsDropdown.options[index].text;
-        Debug.Log(index);
-    }
+
     public void OnResolutionChanged(int index)
     {
-        
-        GameManager.GraphicsManager.SelectedResolution = Screen.resolutions[index];
-
-        Debug.Log(index);
+        var res = Screen.resolutions[index];
+        _configData.Height = res.height;
+        _configData.Width = res.width;
+        _configData.RefreshRate = res.refreshRate;
 
     }
     public void OnBackgroundChanged(float value)
     {
-        GameManager.SoundManager.Background = value;
-        Debug.Log(value);
+        _configData.BackgroundVol = value;
 
     }
     public void OnEffectChanged(float value)
     {
-        GameManager.SoundManager.Effects = value;
+        _configData.EffectsVol = value;
 
-        Debug.Log(value);
 
     }
 
     public void OnFullscreenChanged(bool value)
     {
-        GameManager.GraphicsManager.IsFullscreen  =value;
-        Debug.Log(value);
+        _configData.Fullscreen = value;
 
+    }
+
+    public void Save()
+    {
+        GameManager.ConfigData = _configData;
+        GameManager.SaveManager.SaveConfig(GameManager.ConfigData);
+        Debug.Log(GameManager.ConfigData.Height);
     }
 }

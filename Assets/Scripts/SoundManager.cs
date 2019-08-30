@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class SoundManager
@@ -41,9 +42,16 @@ public class SoundManager
         this.Effects = 100f;
     }
 
-    public SoundManager(SaveData saveData)
+    public SoundManager(ConfigData data)
     {
-        this.Background = saveData.BackgroundVol;
-        this.Effects = saveData.EffectsVol;
+        this.Background = data.BackgroundVol;
+        this.Effects = data.EffectsVol;
+    }
+
+    public void Load(object obj, EventArgs e)
+    {
+        var data = (ConfigData) obj;
+        this.Background = data.BackgroundVol;
+        this.Effects = data.EffectsVol;
     }
 }
