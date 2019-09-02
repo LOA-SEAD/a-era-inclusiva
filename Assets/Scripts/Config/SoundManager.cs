@@ -16,8 +16,8 @@ public class SoundManager
         }
         else
         {
-            Background = 100f;
-            Effects = 100f;
+            Background = 1f;
+            Effects = 1f;
             Save();
         }
     }

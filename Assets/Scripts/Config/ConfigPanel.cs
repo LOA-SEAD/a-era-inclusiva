@@ -17,7 +17,9 @@ public class ConfigPanel : MonoBehaviour
 #if !UNITY_STANDALONE
         fullscreenToggle.gameObject.SetActive(false);
 #else
-        OnFullscreenChanged();
+        fullscreenToggle.text = Screen.fullScreen ? "Trocar para modo janela" : "Trocar para tela cheia";
+        accessibilityMode.text = GameManager.AccessibilityMode ? "Desativar acessibilidade" : "Ativar acessibilidade";
+
 #endif
     }
 
@@ -46,20 +48,30 @@ public class ConfigPanel : MonoBehaviour
     
     public void OnBackgroundChanged(float value)
     {
-        sliderAudioSource.volume = value / 100;
+        sliderAudioSource.volume = value;
         GameManager.SoundManager.Background = value;
     }
 
     public void OnEffectChanged(float value)
     {
-        sliderAudioSource.volume = value / 100;
+        sliderAudioSource.volume = value;
         GameManager.SoundManager.Effects = value;
     }
 
     public void OnFullscreenChanged()
     {
-        Screen.fullScreen = !Screen.fullScreen;
-        fullscreenToggle.text = Screen.fullScreen ? "Trocar para modo janela" : "Trocar para tela cheia";
+        if (Screen.fullScreen)
+        {
+            Screen.fullScreen = false;
+            fullscreenToggle.text = "Trocar para tela cheia";
+
+        }
+        else
+        {
+            Resolution res = Screen.resolutions.Last();
+            Screen.SetResolution(res.width, res.width, FullScreenMode.MaximizedWindow);
+            fullscreenToggle.text = "Trocar para modo janela";
+        }
     }
     public void OnAccessibilityChanged()
     {
@@ -69,6 +81,7 @@ public class ConfigPanel : MonoBehaviour
 
     public void Show()
     {
+
         animator.SetTrigger("Show");
         Shown = true;
     }

@@ -43,6 +43,8 @@ public class Menu : MonoBehaviour
 
     public void Show()
     {
+        if (configPanel.Shown)
+            return;
         bg.raycastTarget = true;
         animator.SetTrigger("Show");
         _shown = true;
