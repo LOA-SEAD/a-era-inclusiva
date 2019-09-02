@@ -6,7 +6,7 @@ public class Menu : MonoBehaviour
     private bool _shown;
     public Animator animator;
     public Image bg;
-    public GameObject ConfigPanel;
+    public ConfigPanel configPanel;
 
     private void Start()
     {
@@ -23,7 +23,13 @@ public class Menu : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            Toggle();
+        {
+            if (configPanel.Shown)
+                configPanel.Hide();
+            else
+                Toggle();
+        }
+
     }
 
     public void Toggle()
@@ -32,21 +38,24 @@ public class Menu : MonoBehaviour
             Hide();
         else
             Show();
+        
     }
 
     public void Show()
     {
         bg.raycastTarget = true;
-        _shown = true;
         animator.SetTrigger("Show");
+        _shown = true;
+
     }
 
     public void Hide()
     {
+     
         bg.raycastTarget = false;
-
-        _shown = false;
         animator.SetTrigger("Hide");
+        _shown = false;
+
     }
 
     public void ExitGame()
@@ -56,11 +65,14 @@ public class Menu : MonoBehaviour
 
     public void ShowConfig()
     {
-        ConfigPanel.SetActive(true);
-    }
+        if(_shown)
+            Hide();
+        //animator.SetTrigger("Hide");
 
-    public void Resume()
+        configPanel.Show();
+    }
+    public void HideConfig()
     {
-        Hide();
+        configPanel.Hide();
     }
 }

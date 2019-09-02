@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     private static SoundData soundData;
 
     public static bool IsLoaded;
-
+    public static bool AccessibilityMode;
     public static SoundManager SoundManager { get; private set; }
 
     public static SaveManager SaveManager { get; private set; }
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     public static void New(string name)
     {
-        if (PlayerData == null) PlayerData = new PlayerData(100, 0, 1);
+        if (PlayerData == null) PlayerData = new PlayerData();
         var saveData = new SaveData(name, SoundManager, PlayerData);
         SaveManager.Save(saveData);
     }

@@ -5,53 +5,79 @@ using UnityEngine.UI;
 
 public class ConfigPanel : MonoBehaviour
 {
-    public Slider audioBackgroundSlider;
+    public Slider slider;
 
-    public Slider audioEffectsSlider;
-
-    public Toggle fullscreenToggle;
-
-    public TMP_Dropdown screenResDropdown;
-
-// Start is called before the first frame update
+    public TextMeshProUGUI fullscreenToggle;
+    public TextMeshProUGUI accessibilityMode;
+    public Animator animator;
+    public AudioSource sliderAudioSource;
+    public bool Shown;
     private void Start()
     {
-
 #if !UNITY_STANDALONE
         fullscreenToggle.gameObject.SetActive(false);
-        screenResDropdown.gameObject.SetActive(false);
 #else
-        PopulateScreensizeList();
+        OnFullscreenChanged();
 #endif
     }
+
+    public void ShowBackgroundSlider()
+    {
+        slider.onValueChanged.RemoveAllListeners();
+        slider.value = GameManager.SoundManager.Background;
+        slider.onValueChanged.AddListener(OnBackgroundChanged);
+
+        animator.SetTrigger("SlideIn");
+
+        slider.Select();
+    }
     
-
-
-    private void PopulateScreensizeList()
+    public void ShowEffectSlider()
     {
-        var screenOptions = Screen.resolutions.Select(res => new TMP_Dropdown.OptionData(res.ToString())).ToList();
+        slider.onValueChanged.RemoveAllListeners();
+        slider.value = GameManager.SoundManager.Effects;
+        slider.onValueChanged.AddListener(OnEffectChanged);
 
-        screenResDropdown.options = screenOptions;
+        animator.SetTrigger("SlideIn");
+
+        slider.Select();
     }
 
-
-    public void OnResolutionChanged(int index)
-    {
-        var res = Screen.resolutions[index];
-    }
-
+    
     public void OnBackgroundChanged(float value)
     {
+        sliderAudioSource.volume = value / 100;
         GameManager.SoundManager.Background = value;
     }
 
     public void OnEffectChanged(float value)
     {
+        sliderAudioSource.volume = value / 100;
         GameManager.SoundManager.Effects = value;
     }
 
-    public void OnFullscreenChanged(bool value)
+    public void OnFullscreenChanged()
     {
-        Screen.fullScreen = value;
+        Screen.fullScreen = !Screen.fullScreen;
+        fullscreenToggle.text = Screen.fullScreen ? "Trocar para modo janela" : "Trocar para tela cheia";
+    }
+    public void OnAccessibilityChanged()
+    {
+        GameManager.AccessibilityMode = !GameManager.AccessibilityMode;
+        accessibilityMode.text = GameManager.AccessibilityMode ? "Desativar acessibilidade" : "Ativar acessibilidade";
+    }
+
+    public void Show()
+    {
+        animator.SetTrigger("Show");
+        Shown = true;
+    }
+
+    public void Hide()
+    {
+     
+        animator.SetTrigger("Hide");
+        Shown = false;
+
     }
 }

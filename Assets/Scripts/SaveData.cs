@@ -21,4 +21,5 @@ public class SaveData
         Happiness = happiness;
         Points = points;
     }
+
 }

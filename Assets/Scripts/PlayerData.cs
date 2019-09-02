@@ -4,7 +4,7 @@ public class PlayerData
     public int Happiness;
     public int Points;
 
-    public PlayerData(int happiness, int points, int day)
+    public PlayerData()
     {
         Happiness = 100;
         Points = 0;
