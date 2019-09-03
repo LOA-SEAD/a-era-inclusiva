@@ -1,33 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class KeyboardMappingLibrary : MonoBehaviour
 {
+    private Color buttonDefault;
     public EventSystem m_EventSystem;
+
+    private List<Transform> optionList;
     public Transform optionListBoxTransform;
     public Transform originButton;
 
-    private List<Transform> optionList;
-    private int selectedIndex = 0, listLength;
-    private Color buttonDefault;
+    private int selectedIndex, listLength;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         optionList = new List<Transform>();
         foreach (Transform child in optionListBoxTransform.GetChild(0))
         {
-            Debug.Log("Child: "+ child.name);
+            Debug.Log("Child: " + child.name);
             optionList.Add(child);
         }
-        listLength = (optionList.Count - 1);
+
+        listLength = optionList.Count - 1;
         buttonDefault = optionList[selectedIndex].GetChild(1).GetComponent<Image>().color;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown("down"))
         {
@@ -50,18 +53,17 @@ public class KeyboardMappingLibrary : MonoBehaviour
         if (Input.GetKeyDown("left"))
         {
             StartCoroutine("ReactivateButton");
-            transform.parent.gameObject.SetActive(false);   
+            transform.parent.gameObject.SetActive(false);
         }
-        
+
         m_EventSystem.SetSelectedGameObject(optionList[selectedIndex].gameObject);
         optionList[selectedIndex].GetChild(1).GetComponent<Image>().color = Color.black;
     }
 
-    IEnumerator ReactivateButton()
+    private IEnumerator ReactivateButton()
     {
         m_EventSystem.SetSelectedGameObject(null);
         yield return null;
         m_EventSystem.SetSelectedGameObject(m_EventSystem.firstSelectedGameObject);
     }
-    
 }

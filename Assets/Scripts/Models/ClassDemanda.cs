@@ -1,39 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-[System.Serializable]
+[Serializable]
 public class ClassDemanda
 {
-    
+    public List<Efetividade> acoesEficazes;
+    public string descricao;
+
 
     public int idAluno;
-    public int ordem;
-    public string descricao;
     public int nivelUrgencia;
+    public int ordem;
     public bool resolvida;
     public bool selecionada;
-    public List<Efetividade> acoesEficazes;
 
     public ClassAluno student
     {
-        get
-        {
-            return Game.Students.alunos.Find(x=>x.id == idAluno);
-        }
-    }
-}
-[System.Serializable]
-public class Efetividade
-{
-    public int idAcao;
-    public int efetividade;
-}
-[System.Serializable]
-public class ClassDemandas
-{
-    public List<ClassDemanda> demandas;
-    public ClassDemandas()
-    {
-        demandas = new List<ClassDemanda>();
+        get { return GameManager.GameData.Alunos.Find(x => x.id == idAluno); }
     }
 }
 
+[Serializable]
+public class Efetividade
+{
+    public int efetividade;
+    public int idAcao;
+}

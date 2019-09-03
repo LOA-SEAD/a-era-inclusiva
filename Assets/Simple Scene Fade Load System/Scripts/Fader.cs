@@ -1,40 +1,43 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Fader : MonoBehaviour
 {
-    [HideInInspector]
-    public bool start = false;
-    [HideInInspector]
-    public float fadeDamp = 0.0f;
-    [HideInInspector]
-    public string fadeScene;
-    [HideInInspector]
-    public float alpha = 0.0f;
-    [HideInInspector]
-    public Color fadeColor;
-    [HideInInspector]
-    public bool isFadeIn = false;
-    CanvasGroup myCanvas;
-    Image bg;
-    float lastTime = 0;
-    bool startedLoading = false;
+    [HideInInspector] public float alpha;
+
+    private Image bg;
+
+    [HideInInspector] public Color fadeColor;
+
+    [HideInInspector] public float fadeDamp;
+
+    [HideInInspector] public string fadeScene;
+
+    [HideInInspector] public bool isFadeIn;
+
+    private float lastTime;
+    private CanvasGroup myCanvas;
+
+    [HideInInspector] public bool start;
+
+    private bool startedLoading;
+
     //Set callback
-    void OnEnable()
+    private void OnEnable()
     {
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
+
     //Remove callback
-    void OnDisable()
+    private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
 
     public void InitiateFader()
     {
-
         DontDestroyOnLoad(gameObject);
 
         //Getting the visual elements
@@ -46,6 +49,7 @@ public class Fader : MonoBehaviour
             bg = transform.GetComponent<Image>();
             bg.color = fadeColor;
         }
+
         //Checking and starting the coroutine
         if (myCanvas && bg)
         {
@@ -53,21 +57,19 @@ public class Fader : MonoBehaviour
             StartCoroutine(FadeIt());
         }
         else
+        {
             Debug.LogWarning("Something is missing please reimport the package.");
+        }
     }
 
-    IEnumerator FadeIt()
+    private IEnumerator FadeIt()
     {
-     
-
         while (!start)
-        {
             //waiting to start
             yield return null;
-        }
         lastTime = Time.time;
-        float coDelta = lastTime;
-        bool hasFadedIn = false;
+        var coDelta = lastTime;
+        var hasFadedIn = false;
 
         while (!hasFadedIn)
         {
@@ -81,19 +83,14 @@ public class Fader : MonoBehaviour
                     startedLoading = true;
                     SceneManager.LoadScene(fadeScene);
                 }
-
             }
             else
             {
                 //Fade out
                 alpha = newAlpha(coDelta, 0, alpha);
-                if (alpha == 0)
-                {
-                    hasFadedIn = true;
-                }
-
-
+                if (alpha == 0) hasFadedIn = true;
             }
+
             lastTime = Time.time;
             myCanvas.alpha = alpha;
             yield return null;
@@ -109,9 +106,8 @@ public class Fader : MonoBehaviour
     }
 
 
-    float newAlpha(float delta, int to, float currAlpha)
+    private float newAlpha(float delta, int to, float currAlpha)
     {
-
         switch (to)
         {
             case 0:
@@ -131,7 +127,7 @@ public class Fader : MonoBehaviour
         return currAlpha;
     }
 
-    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+    private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
         StartCoroutine(FadeIt());
         //We can now fade in

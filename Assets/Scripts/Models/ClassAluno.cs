@@ -1,29 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class ClassAluno{
-    public int id;
-	public string nome;
+[Serializable]
+public class ClassAluno
+{
+    private const string CharacterPortraitLocation = "Illustrations/CharacterPortraits/Students/";
     public string deficiencia;
     public string descricao;
+    public int id;
     public bool importante;
-    private const string CharacterPortraitLocation = "Illustrations/CharacterPortraits/Students/";
+    public string nome;
 
     public Sprite LoadPortrait()
     {
-	    return Resources.Load<Sprite>(
-		    CharacterPortraitLocation + id);
+        return Resources.Load<Sprite>(
+            CharacterPortraitLocation + id);
     }
-}
-
-
-public class ClassAlunos
-{
-	public List<ClassAluno> alunos;
-
-	public ClassAlunos()
-	{
-		alunos = new List<ClassAluno>();
-	}
 }

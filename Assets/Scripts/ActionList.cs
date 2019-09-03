@@ -1,12 +1,19 @@
-using System;
 using System.Linq;
 
 public class ActionList : SimpleScroll
 {
-    public AcaoIcon actionPrefab;
+    public delegate void AcaoAction(ClassAcao acao);
+
+    public delegate bool AcaoFilter(ClassAcao acao);
+
     private string _type = "";
-    public bool selectedOnly = false;
-    
+
+    public AcaoFilter actionFilter;
+    public AcaoIcon actionPrefab;
+    public bool selectedOnly;
+
+    public AcaoAction whenSelected;
+
 
     public string Type
     {
@@ -25,51 +32,39 @@ public class ActionList : SimpleScroll
 
     public void UpdateList()
     {
-        if (Game.Actions == null) return;
+        if (GameManager.GameData.Acoes == null) return;
         Clear();
         BackToTop();
-        foreach (var action in Game.Actions.acoes.Where(WhichActions))
+        foreach (var action in GameManager.GameData.Acoes.Where(WhichActions))
         {
             var acaoIcon = Instantiate(actionPrefab);
             acaoIcon.Acao = action;
-            if(whenSelected!=null)
+            if (whenSelected != null)
                 acaoIcon.AddListener(delegate { whenSelected(action); });
             Add(acaoIcon.gameObject);
         }
-
     }
+
     public override void UpdateChildrenCount()
     {
-        childrenCount = Game.Actions.acoes.Where(WhichActions).Count();
+        childrenCount = GameManager.GameData.Acoes.Where(WhichActions).Count();
     }
-
-    public delegate void AcaoAction(ClassAcao acao);
-
-    public delegate bool AcaoFilter(ClassAcao acao);
-
-    public AcaoFilter actionFilter;
-    
-    public AcaoAction whenSelected;
 
     public void SetWhenSelected(AcaoAction func)
     {
         whenSelected = func;
     }
+
     public void SetAcaoFilter(AcaoFilter func)
     {
         actionFilter = func;
     }
+
     protected virtual bool WhichActions(ClassAcao x)
     {
-        if (actionFilter!=null)
-        {
-            return actionFilter(x);
-        }
+        if (actionFilter != null) return actionFilter(x);
 
-        if (selectedOnly && !x.selected)
-        {
-            return false;
-        }
+        if (selectedOnly && !x.selected) return false;
         if (!string.IsNullOrEmpty(Type))
             return x.tipo == Type;
         return true;

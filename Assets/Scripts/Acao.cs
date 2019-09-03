@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Acao: MonoBehaviour
+public class Acao : MonoBehaviour
 {
     public ClassAcao acao;
+
     // Start is called before the first frame update
     public void OnChange(bool selected)
     {
-        acao.selected = true; 
+        acao.selected = true;
     }
-
-  
 }

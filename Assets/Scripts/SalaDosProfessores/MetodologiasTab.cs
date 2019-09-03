@@ -1,28 +1,34 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
-using System.Text;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class MetodologiasTab : MonoBehaviour
 {
-    public GridMetodologias gridMetodologias;
-    private int idMetodologia = 0;
-
-    private List<string> Metodologias;
-    public TextMeshProUGUI Titulo;
-    public TextMeshProUGUI Texto;
     public ActionList actionListSalaProfessores;
     public ActionConfirmation confirmation;
+    public GridMetodologias gridMetodologias;
+    private int idMetodologia;
 
-    public string MetodologiaSelecionada
+    private List<string> Metodologias;
+    public TextMeshProUGUI Texto;
+    public TextMeshProUGUI Titulo;
+
+    public string MetodologiaSelecionada => Metodologias[idMetodologia];
+
+    public int IdMetodologia
     {
-        get { return Metodologias[idMetodologia]; }
+        get => idMetodologia;
+        set
+        {
+            idMetodologia = value;
+            actionListSalaProfessores.UpdateList();
+            Titulo.SetText(MetodologiaSelecionada);
+            Texto.SetText(string.Format(
+                "Escolha 3 ações da categoria {0} que você considera mais eficazes para esta aula, levando em consideração os perfis dos estudantes",
+                MetodologiaSelecionada));
+            SelectionHasChanged(value > idMetodologia);
+        }
     }
 
     public bool HasNextMethodology()
@@ -30,25 +36,10 @@ public class MetodologiasTab : MonoBehaviour
         return idMetodologia + 1 < Metodologias.Count;
     }
 
-    public int IdMetodologia
-    {
-        get { return idMetodologia; }
-        set
-        {
-            idMetodologia = value;
-            actionListSalaProfessores.UpdateList();
-            Titulo.SetText(MetodologiaSelecionada);
-            Texto.SetText(String.Format(
-                "Escolha 3 ações da categoria {0} que você considera mais eficazes para esta aula, levando em consideração os perfis dos estudantes",
-                MetodologiaSelecionada));
-            SelectionHasChanged(value > idMetodologia);
-        }
-    }
-
     private void Awake()
     {
-        if (Game.Actions != null)
-            Metodologias = Game.Actions.acoes.Select(x => x.tipo).Distinct().ToList();
+        if (GameManager.GameData.Acoes != null)
+            Metodologias = GameManager.GameData.Acoes.Select(x => x.tipo).Distinct().ToList();
         else
             Metodologias = new List<string>();
         IdMetodologia = 0;
@@ -66,12 +57,12 @@ public class MetodologiasTab : MonoBehaviour
     public void Reset()
     {
         IdMetodologia = 0;
-        Game.Actions.acoes.ForEach(x => x.selected = false);
+        GameManager.GameData.Acoes.ForEach(x => x.selected = false);
     }
 
     public void Undo()
     {
-        var actions = Game.Actions.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
+        var actions = GameManager.GameData.Acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
         if (actions.Count == 0)
         {
             IdMetodologia = idMetodologia > 0 ? idMetodologia - 1 : 0;
@@ -81,20 +72,14 @@ public class MetodologiasTab : MonoBehaviour
             actions.ForEach(x => x.selected = false);
             gridMetodologias.ActionsToShow = null;
         }
-
-        
     }
-
 
 
     public void SelectionHasChanged(bool notificate)
     {
-        var selected = Game.Actions.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
+        var selected = GameManager.GameData.Acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
         gridMetodologias.ActionsToShow = selected;
-        if (notificate && selected.Count >= 3)
-        {
-            Confirmation(selected);
-        }
+        if (notificate && selected.Count >= 3) Confirmation(selected);
     }
 
     private void Confirmation(List<ClassAcao> selected)
@@ -108,7 +93,7 @@ public class MetodologiasTab : MonoBehaviour
                 GoToNextMethodology();
                 confirmation.Hide();
             });
-            confirmation.SetText(String.Format(
+            confirmation.SetText(string.Format(
                 "Você selecionou as seguintes ações na categoria {0}, você deseja avançar para a proxima ou alterar suas escolhas?",
                 MetodologiaSelecionada));
         }
@@ -123,11 +108,8 @@ public class MetodologiasTab : MonoBehaviour
 
     public bool TrySelect(ClassAcao acao)
     {
-        var actions = Game.Actions.acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
-        if (actions.Count >= 3 && !acao.selected)
-        {
-            return false;
-        }
+        var actions = GameManager.GameData.Acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
+        if (actions.Count >= 3 && !acao.selected) return false;
 
         acao.selected = !acao.selected;
         return true;
@@ -136,8 +118,7 @@ public class MetodologiasTab : MonoBehaviour
 
     protected void OnSelect(ClassAcao acao)
     {
-        if(TrySelect(acao)) 
+        if (TrySelect(acao))
             SelectionHasChanged(true);
-  
     }
 }

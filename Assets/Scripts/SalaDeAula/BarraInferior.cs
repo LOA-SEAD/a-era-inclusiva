@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class BarraInferior : MonoBehaviour
 {
-    public TextMeshProUGUI pointsText;
+    private int _happiness;
     public TextMeshProUGUI happinessIcon;
     private List<string> happinessIcons;
+    public TextMeshProUGUI pointsText;
 
-    private int _happiness;
     private int Happiness
     {
         get => _happiness;
@@ -24,14 +24,15 @@ public class BarraInferior : MonoBehaviour
     {
         happinessIcons = new List<string>
         {
-            "\uf556","\uf57a","\uf11a","\uf118","\uf59a"
+            "\uf556", "\uf57a", "\uf11a", "\uf118", "\uf59a"
         };
-        Happiness = Game.Happiness;
+        Happiness = GameManager.PlayerData.Happiness;
         UpdateHappinessIcon();
     }
-    void Start()
+
+    private void Start()
     {
-        pointsText.SetText(Game.Points.ToString());
+        pointsText.SetText(GameManager.PlayerData.Points.ToString());
     }
 
     public void IncrementScore(int quantity)
@@ -40,34 +41,31 @@ public class BarraInferior : MonoBehaviour
         StartCoroutine(_incrementScore(quantity));
     }
 
-    void Update()
+    private void Update()
     {
-        if (Happiness != Game.Happiness)
-        {
-            Happiness = Game.Happiness;
-        }    
+        if (Happiness != GameManager.PlayerData.Happiness) Happiness = GameManager.PlayerData.Happiness;
     }
+
     public void UpdateHappinessIcon()
     {
-        int id = Happiness / 25;
-        float t = Happiness / 100.0f;
+        var id = Happiness / 25;
+        var t = Happiness / 100.0f;
         happinessIcon.SetText(happinessIcons[id]);
-        happinessIcon.color = Color.Lerp(Color.red,Color.green, t);
-
+        happinessIcon.color = Color.Lerp(Color.red, Color.green, t);
     }
 
     private IEnumerator _incrementScore(int quantity)
     {
-        var oldPoints = Game.Points;
-        Game.Points += quantity;
+        var oldPoints = GameManager.PlayerData.Points;
+        GameManager.PlayerData.Points += quantity;
         for (float timer = 0; timer < 0.5f; timer += Time.deltaTime)
         {
-            float progress = timer / 0.5f;
-            oldPoints = (int) Mathf.Lerp(oldPoints, Game.Points, progress);
+            var progress = timer / 0.5f;
+            oldPoints = (int) Mathf.Lerp(oldPoints, GameManager.PlayerData.Points, progress);
             pointsText.SetText(oldPoints.ToString());
             yield return null;
         }
 
-        pointsText.SetText(Game.Points.ToString());
+        pointsText.SetText(GameManager.PlayerData.Points.ToString());
     }
 }

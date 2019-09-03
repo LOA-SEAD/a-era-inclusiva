@@ -6,26 +6,28 @@ using UnityEngine.UI;
 
 public class DemandController : MonoBehaviour
 {
-    public float delayBetweenEachDemand;
-
-    public DemandToggle prefabBotaoDemanda;
-    public ControladorSalaDeAula controller;
-    public SimpleScroll simpleScroll;
-    public GameObject actionListWrapper ;
-    public AudioSource demandSound;
-    public List<AudioClip> AudioClips;
+    public GameObject actionListWrapper;
 
     public AlunosSalaDeAula alunosSalaDeAula;
+    public List<AudioClip> AudioClips;
+    public ControladorSalaDeAula controller;
+    public float delayBetweenEachDemand;
+    public AudioSource demandSound;
+
+    public DemandToggle prefabBotaoDemanda;
+
+    public SimpleScroll simpleScroll;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         StartCoroutine(SpawnDemands());
     }
 
-    IEnumerator SpawnDemands()
+    private IEnumerator SpawnDemands()
     {
-        var studentList = Game.DemandingStudents;
-        var demandList = Game.Demands.demandas
+        var studentList = GameManager.GameData.Alunos.Where(x => x.importante);
+        var demandList = GameManager.GameData.Demandas
             .Where(x => studentList.Select(y => y.id).Contains(x.idAluno) && !x.resolvida).OrderBy(x => x.ordem)
             .ToList();
         while (demandList.Any())

@@ -1,131 +1,131 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Lean.Touch
 {
-	/// <summary>This class stores a snapshot of where a finger was at a previous point in time.</summary>
-	public class LeanSnapshot
-	{
-		/// <summary>The age of the finger when this snapshot was created.</summary>
-		public float Age;
-		
-		/// <summary>The screen position of the finger when this snapshot was created.</summary>
-		public Vector2 ScreenPosition;
-		
-		/// <summary>This will return the world position of this snapshot based on the distance from the camera.</summary>
-		public Vector3 GetWorldPosition(float distance, Camera camera = null)
-		{
-			// Make sure the camera exists
-			camera = LeanTouch.GetCamera(camera);
+    /// <summary>This class stores a snapshot of where a finger was at a previous point in time.</summary>
+    public class LeanSnapshot
+    {
+        public static List<LeanSnapshot> InactiveSnapshots = new List<LeanSnapshot>(1000);
 
-			if (camera != null)
-			{
-				var point = new Vector3(ScreenPosition.x, ScreenPosition.y, distance);
-				
-				return camera.ScreenToWorldPoint(point);
-			}
-			else
-			{
-				Debug.LogError("Failed to find camera. Either tag your cameras MainCamera, or set one in this component.");
-			}
-			
-			return default(Vector3);
-		}
+        /// <summary>The age of the finger when this snapshot was created.</summary>
+        public float Age;
 
-		public static List<LeanSnapshot> InactiveSnapshots = new List<LeanSnapshot>(1000);
+        /// <summary>The screen position of the finger when this snapshot was created.</summary>
+        public Vector2 ScreenPosition;
 
-		/// <summary>Return the last inactive snapshot, or allocate a new one.</summary>
-		public static LeanSnapshot Pop()
-		{
-			if (InactiveSnapshots.Count > 0)
-			{
-				var index    = InactiveSnapshots.Count - 1;
-				var snapshot = InactiveSnapshots[index];
+        /// <summary>This will return the world position of this snapshot based on the distance from the camera.</summary>
+        public Vector3 GetWorldPosition(float distance, Camera camera = null)
+        {
+            // Make sure the camera exists
+            camera = LeanTouch.GetCamera(camera);
 
-				InactiveSnapshots.RemoveAt(index);
+            if (camera != null)
+            {
+                var point = new Vector3(ScreenPosition.x, ScreenPosition.y, distance);
 
-				return snapshot;
-			}
+                return camera.ScreenToWorldPoint(point);
+            }
 
-			return new LeanSnapshot();
-		}
+            Debug.LogError("Failed to find camera. Either tag your cameras MainCamera, or set one in this component.");
 
-		/// <summary>This will return the recorded position of the current finger when it was at 'targetAge'.</summary>
-		public static bool TryGetScreenPosition(List<LeanSnapshot> snapshots, float targetAge, ref Vector2 screenPosition)
-		{
-			if (snapshots != null && snapshots.Count > 0)
-			{
-				// Below start?
-				var snapshotF = snapshots[0];
+            return default;
+        }
 
-				if (targetAge <= snapshotF.Age)
-				{
-					screenPosition = snapshotF.ScreenPosition; return true;
-				}
+        /// <summary>Return the last inactive snapshot, or allocate a new one.</summary>
+        public static LeanSnapshot Pop()
+        {
+            if (InactiveSnapshots.Count > 0)
+            {
+                var index = InactiveSnapshots.Count - 1;
+                var snapshot = InactiveSnapshots[index];
 
-				// After end?
-				var snapshotL = snapshots[snapshots.Count - 1];
+                InactiveSnapshots.RemoveAt(index);
 
-				if (targetAge >= snapshotL.Age)
-				{
-					screenPosition = snapshotL.ScreenPosition; return true;
-				}
+                return snapshot;
+            }
 
-				// Interpolate to find screenPosition at targetAge
-				var lowerIndex = GetLowerIndex(snapshots, targetAge);
-				var upperIndex = lowerIndex + 1;
-				var lower      = snapshots[lowerIndex];
-				var upper      = upperIndex < snapshots.Count ? snapshots[upperIndex] : lower;
-				var across     = Mathf.InverseLerp(lower.Age, upper.Age, targetAge);
+            return new LeanSnapshot();
+        }
 
-				screenPosition = Vector2.Lerp(lower.ScreenPosition, upper.ScreenPosition, across);
+        /// <summary>This will return the recorded position of the current finger when it was at 'targetAge'.</summary>
+        public static bool TryGetScreenPosition(List<LeanSnapshot> snapshots, float targetAge,
+            ref Vector2 screenPosition)
+        {
+            if (snapshots != null && snapshots.Count > 0)
+            {
+                // Below start?
+                var snapshotF = snapshots[0];
 
-				return true;
-			}
+                if (targetAge <= snapshotF.Age)
+                {
+                    screenPosition = snapshotF.ScreenPosition;
+                    return true;
+                }
 
-			return false;
-		}
+                // After end?
+                var snapshotL = snapshots[snapshots.Count - 1];
 
-		/// <summary>This will return snapshot information at the specified index, if it exists.
-		/// NOTE: This assumes snapshots does not contain any null elements.</summary>
-		public static bool TryGetSnapshot(List<LeanSnapshot> snapshots, int index, ref float age, ref Vector2 screenPosition)
-		{
-			if (index >= 0 && index < snapshots.Count)
-			{
-				var snapshot = snapshots[index];
-				
-				age            = snapshot.Age;
-				screenPosition = snapshot.ScreenPosition;
+                if (targetAge >= snapshotL.Age)
+                {
+                    screenPosition = snapshotL.ScreenPosition;
+                    return true;
+                }
 
-				return true;
-			}
-			
-			return true;
-		}
+                // Interpolate to find screenPosition at targetAge
+                var lowerIndex = GetLowerIndex(snapshots, targetAge);
+                var upperIndex = lowerIndex + 1;
+                var lower = snapshots[lowerIndex];
+                var upper = upperIndex < snapshots.Count ? snapshots[upperIndex] : lower;
+                var across = Mathf.InverseLerp(lower.Age, upper.Age, targetAge);
 
-		/// <summary>This will get the index of the closest snapshot whose age is under targetAge
-		/// NOTE: This assumes snapshots does not contain any null elements.</summary>
-		public static int GetLowerIndex(List<LeanSnapshot> snapshots, float targetAge)
-		{
-			if (snapshots != null)
-			{
-				var count = snapshots.Count;
+                screenPosition = Vector2.Lerp(lower.ScreenPosition, upper.ScreenPosition, across);
 
-				if (count > 0)
-				{
-					for (var i = count - 1; i >= 0; i--)
-					{
-						if (snapshots[i].Age <= targetAge)
-						{
-							return i;
-						}
-					}
-				}
+                return true;
+            }
 
-				return 0;
-			}
+            return false;
+        }
 
-			return -1;
-		}
-	}
+        /// <summary>
+        ///     This will return snapshot information at the specified index, if it exists.
+        ///     NOTE: This assumes snapshots does not contain any null elements.
+        /// </summary>
+        public static bool TryGetSnapshot(List<LeanSnapshot> snapshots, int index, ref float age,
+            ref Vector2 screenPosition)
+        {
+            if (index >= 0 && index < snapshots.Count)
+            {
+                var snapshot = snapshots[index];
+
+                age = snapshot.Age;
+                screenPosition = snapshot.ScreenPosition;
+
+                return true;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        ///     This will get the index of the closest snapshot whose age is under targetAge
+        ///     NOTE: This assumes snapshots does not contain any null elements.
+        /// </summary>
+        public static int GetLowerIndex(List<LeanSnapshot> snapshots, float targetAge)
+        {
+            if (snapshots != null)
+            {
+                var count = snapshots.Count;
+
+                if (count > 0)
+                    for (var i = count - 1; i >= 0; i--)
+                        if (snapshots[i].Age <= targetAge)
+                            return i;
+
+                return 0;
+            }
+
+            return -1;
+        }
+    }
 }
