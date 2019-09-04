@@ -77,4 +77,16 @@ public class Menu : MonoBehaviour
     {
         configPanel.Hide();
     }
+
+    public void ClickOutside()
+    {
+        if (configPanel.Shown)
+        {
+            if(configPanel.sliderShown)
+                configPanel.HideSlider();
+            else
+                configPanel.Hide();
+        }
+        else if(_shown)
+            Hide(); }
 }
