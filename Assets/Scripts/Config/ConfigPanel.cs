@@ -12,6 +12,7 @@ public class ConfigPanel : MonoBehaviour
     public Animator animator;
     public AudioSource sliderAudioSource;
     public bool Shown;
+    public bool sliderShown;
     private void Start()
     {
      #if !UNITY_STANDALONE
@@ -30,8 +31,7 @@ public class ConfigPanel : MonoBehaviour
         slider.onValueChanged.AddListener(OnBackgroundChanged);
 
         animator.SetTrigger("SlideIn");
-
-        slider.Select();
+        sliderShown = true;
     }
     
     public void ShowEffectSlider()
@@ -41,8 +41,7 @@ public class ConfigPanel : MonoBehaviour
         slider.onValueChanged.AddListener(OnEffectChanged);
 
         animator.SetTrigger("SlideIn");
-
-        slider.Select();
+        sliderShown = true;
     }
 
     
@@ -92,5 +91,21 @@ public class ConfigPanel : MonoBehaviour
         animator.SetTrigger("Hide");
         Shown = false;
 
+    }
+
+    public void HideSlider()
+    {
+        animator.SetTrigger("SlideOut");
+        sliderShown = false;
+    }
+
+    public void IncSlider()
+    {
+        slider.value += 0.1f;
+    }
+
+    public void DecSlider()
+    {
+        slider.value -= 0.1f;
     }
 }
