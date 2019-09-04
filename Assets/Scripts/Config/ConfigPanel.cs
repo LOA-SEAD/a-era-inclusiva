@@ -14,14 +14,14 @@ public class ConfigPanel : MonoBehaviour
     public bool Shown;
     private void Start()
     {
-#if !UNITY_STANDALONE
-        fullscreenToggle.gameObject.SetActive(false);
-#else
-        fullscreenToggle.text = Screen.fullScreen ? "Trocar para modo janela" : "Trocar para tela cheia";
-        accessibilityMode.text = GameManager.AccessibilityMode ? "Desativar acessibilidade" : "Ativar acessibilidade";
-
-#endif
-    }
+     #if !UNITY_STANDALONE
+             fullscreenToggle.gameObject.SetActive(false);
+     #else
+             fullscreenToggle.text = Screen.fullScreen ? "Trocar para modo janela" : "Trocar para tela cheia";
+             accessibilityMode.text = GameManager.AccessibilityMode ? "Desativar acessibilidade" : "Ativar acessibilidade";
+     
+     #endif
+         }
 
     public void ShowBackgroundSlider()
     {

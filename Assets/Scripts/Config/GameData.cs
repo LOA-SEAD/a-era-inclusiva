@@ -42,15 +42,16 @@ public class GameData
 
 #if UNITY_ANDROID || UNITY_WEBGL
                 UnityWebRequest www = UnityWebRequest.Get(filePath);
-                yield return www.Send();
+                yield return www.SendWebRequest();
                 json = www.downloadHandler.text;
+            
 #else
             json = File.ReadAllText(jsonFile);
 
 #endif
             JsonUtility.FromJsonOverwrite(json, this);
         }
-        return null;
 
+        yield return null;
     }
 }
