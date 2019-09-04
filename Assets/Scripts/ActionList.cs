@@ -32,7 +32,7 @@ public class ActionList : SimpleScroll
 
     public void UpdateList()
     {
-        if (GameManager.GameData.Acoes == null) return;
+        if (GameManager.GameData.Acoes == null ) return;
         Clear();
         BackToTop();
         foreach (var action in GameManager.GameData.Acoes.Where(WhichActions))

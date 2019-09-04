@@ -20,10 +20,10 @@ public class GameData
 
     public int UrgenciaMinima;
 
-    public GameData()
+    public GameData(GameManager gameManager)
     {
         LevelDemandingStudents = new[] {4, 12, 17};
-        LoadJson();
+        gameManager.StartCoroutine(LoadJson());
     }
 
 
@@ -39,16 +39,9 @@ public class GameData
         List<string> jsonToLoad = Directory.GetFiles(filePath).Where(x => Path.GetExtension(x) == ".json").ToList();
         foreach (string jsonFile in jsonToLoad)
         {
-
-#if UNITY_ANDROID || UNITY_WEBGL
-                UnityWebRequest www = UnityWebRequest.Get(filePath);
-                yield return www.SendWebRequest();
-                json = www.downloadHandler.text;
-            
-#else
-            json = File.ReadAllText(jsonFile);
-
-#endif
+            UnityWebRequest www = UnityWebRequest.Get(jsonFile);
+            yield return www.SendWebRequest();
+            json = www.downloadHandler.text;
             JsonUtility.FromJsonOverwrite(json, this);
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static SoundData soundData;
-
+    
     public static bool IsLoaded;
     public static bool AccessibilityMode;
     public static SoundManager SoundManager { get; private set; }
@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     public void Awake()
     {
         if (IsLoaded) return;
-
-        GameData = new GameData();
+        
+        GameData = new GameData(this);
         SaveManager = new SaveManager();
         SoundManager = new SoundManager();
         IsLoaded = true;

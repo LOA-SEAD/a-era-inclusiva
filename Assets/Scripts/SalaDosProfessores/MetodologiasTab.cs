@@ -14,7 +14,7 @@ public class MetodologiasTab : MonoBehaviour
     public TextMeshProUGUI Texto;
     public TextMeshProUGUI Titulo;
 
-    public string MetodologiaSelecionada => Metodologias[idMetodologia];
+    public string MetodologiaSelecionada => Metodologias.ElementAtOrDefault(idMetodologia);
 
     public int IdMetodologia
     {
