@@ -16,7 +16,7 @@ public class ConfigPanel : MonoBehaviour
     private void Start()
     {
      #if !UNITY_STANDALONE
-             fullscreenToggle.gameObject.SetActive(false);
+             fullscreenToggle.transform.parent.gameObject.SetActive(false);
      #else
              fullscreenToggle.text = Screen.fullScreen ? "Trocar para modo janela" : "Trocar para tela cheia";
              accessibilityMode.text = GameManager.AccessibilityMode ? "Desativar acessibilidade" : "Ativar acessibilidade";
