@@ -1,14 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class Dialog : MonoBehaviour
 {
     public UnityEvent AtEndOfDialog;
     public AudioSource audioSource;
-    public List<string> Dialogs;
+    [FormerlySerializedAs("Dialogs")] public List<string> Phrases;
     public List<AudioClip> DialogsAudio;
     public GameManager gameManager;
     private int id;
@@ -19,25 +21,26 @@ public class Dialog : MonoBehaviour
     private bool revealing;
     public float speed = 0.2f;
     public TextMeshProUGUI textMesh;
+    private bool loaded;
 
 
-
-    private void Awake()
+    public void LoadDialog()
     {
-        if (LoadFromJson && GameManager.GameData.Personagens != null)
-            Dialogs = GameManager.GameData.Personagens.Find(x => x.nome == Name).dialogos
-                .Find(x => x.local == Local).frases;
-    }
-
-    private void OnEnable()
-    {
+        if (!LoadFromJson || GameManager.GameData.Personagens == null) return;
+        var npc = GameManager.GameData.Personagens.Find(x => x.nome == Name);
+        if (npc == null)
+            return;
+        Phrases = npc.dialogos.Find(x => x.local == Local).frases;
+        if(Phrases == null)
+            return;
         id = 0;
-
         ShowNextDialog();
+        loaded = true;
     }
-
     private void Update()
     {
+        if(!loaded)
+            LoadDialog();
         // Press ENTER or SPACE to show next sentence
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             ShowNextDialog();
@@ -58,13 +61,13 @@ public class Dialog : MonoBehaviour
 
         if (revealing)
         {
-            textMesh.maxVisibleCharacters = Dialogs[id].Length;
+            textMesh.maxVisibleCharacters = Phrases[id].Length;
             id++;
             revealing = false;
             return;
         }
 
-        if (Dialogs.Count > id)
+        if (Phrases.Count > id)
         {
             audioSource.Stop();
             reveal = StartCoroutine(revealPhrase());
@@ -84,7 +87,7 @@ public class Dialog : MonoBehaviour
             audioSource.Play();
         }
 
-        var phrase = Dialogs[id];
+        var phrase = Phrases[id];
         textMesh.maxVisibleCharacters = 0;
         textMesh.SetText(phrase);
         var size = phrase.Length;
