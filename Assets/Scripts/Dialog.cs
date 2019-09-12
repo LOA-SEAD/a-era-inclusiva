@@ -33,8 +33,6 @@ public class Dialog : MonoBehaviour
         Phrases = npc.dialogos.Find(x => x.local == Local).frases;
         if(Phrases == null)
             return;
-        id = 0;
-        ShowNextDialog();
         loaded = true;
     }
 
@@ -47,13 +45,14 @@ public class Dialog : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        id = 0;
+        ShowNextDialog();
+    }
+
     private void Update()
     {
-        if (!loaded)
-        {
-            LoadDialog();
-            return;
-        }
 
         // Press ENTER or SPACE to show next sentence
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
