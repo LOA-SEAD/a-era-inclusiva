@@ -26,7 +26,7 @@ public class Dialog : MonoBehaviour
 
     public void LoadDialog()
     {
-        if (!LoadFromJson || GameManager.GameData.Personagens == null) return;
+        if (!LoadFromJson || GameManager.GameData == null || GameManager.GameData.Personagens == null) return;
         var npc = GameManager.GameData.Personagens.Find(x => x.nome == Name);
         if (npc == null)
             return;
@@ -37,10 +37,24 @@ public class Dialog : MonoBehaviour
         ShowNextDialog();
         loaded = true;
     }
+
+    private void OnEnable()
+    {
+        if (!loaded)
+        {
+            LoadDialog();
+            
+        }
+    }
+
     private void Update()
     {
-        if(!loaded)
+        if (!loaded)
+        {
             LoadDialog();
+            return;
+        }
+
         // Press ENTER or SPACE to show next sentence
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             ShowNextDialog();
