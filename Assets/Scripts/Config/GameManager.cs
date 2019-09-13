@@ -24,15 +24,11 @@ public class GameManager : MonoBehaviour
         GameData = new GameData(this);
         SaveManager = new SaveManager();
         SoundManager = new SoundManager();
+        if (SaveManager.SaveExists("save")) 
+            PlayerData = new PlayerData(SaveManager.Load("save"));
         IsLoaded = true;
     }
 
-
-    public static void Load(string name)
-    {
-        var saveData = SaveManager.Load(name);
-        if (PlayerData == null) PlayerData = new PlayerData(saveData);
-    }
 
     public static void New(string name)
     {

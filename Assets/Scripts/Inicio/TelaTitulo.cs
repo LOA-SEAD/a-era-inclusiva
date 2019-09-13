@@ -25,9 +25,8 @@ public class TelaTitulo : MonoBehaviour
 
     public void StartGame()
     {
-        if (GameManager.SaveManager.SaveExists("save"))
+        if (GameManager.PlayerData!=null)
         {
-            GameManager.Load("save");
             sceneController.ChangeTo("Scenes/Corredor");
 
         }
