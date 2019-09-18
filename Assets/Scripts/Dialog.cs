@@ -12,7 +12,6 @@ public class Dialog : MonoBehaviour
     public AudioSource audioSource;
     [FormerlySerializedAs("Dialogs")] public List<string> Phrases;
     public List<AudioClip> DialogsAudio;
-    public GameManager gameManager;
     private int id;
     public bool LoadFromJson;
     public string Local;
@@ -34,25 +33,21 @@ public class Dialog : MonoBehaviour
         if(Phrases == null)
             return;
         loaded = true;
+        GetComponent<Animator>().SetTrigger("Show");
+        id = 0;
+        ShowNextDialog();
     }
 
-    private void OnEnable()
+
+
+
+    private void Update()
     {
         if (!loaded)
         {
             LoadDialog();
             
         }
-    }
-
-    void Start()
-    {
-        id = 0;
-        ShowNextDialog();
-    }
-
-    private void Update()
-    {
 
         // Press ENTER or SPACE to show next sentence
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
