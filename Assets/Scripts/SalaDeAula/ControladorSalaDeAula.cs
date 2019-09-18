@@ -24,13 +24,14 @@ public class ControladorSalaDeAula : MonoBehaviour
     private void Start()
     {
         actionListWrapper.actionList.SetWhenSelected(UseAction);
+        InvokeRepeating("CheckIfEnd", 1, 2);
     }
 
     private void Update()
     {
         //timer da fase
         levelTimeInSeconds -= Time.deltaTime;
-        CheckIfEnd();
+        
     }
 
 

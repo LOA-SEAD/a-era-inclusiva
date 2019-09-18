@@ -20,20 +20,23 @@ public class BarraInferior : MonoBehaviour
         }
     }
 
-    private void Awake()
+    void Awake()
     {
         happinessIcons = new List<string>
         {
             "\uf556", "\uf57a", "\uf11a", "\uf118", "\uf59a"
         };
-        Happiness = GameManager.PlayerData.Happiness;
-        UpdateHappinessIcon();
     }
-
     private void Start()
     {
+
+        Happiness = GameManager.PlayerData.Happiness;
+        UpdateHappinessIcon();
         pointsText.SetText(GameManager.PlayerData.Points.ToString());
+
     }
+
+
 
     public void IncrementScore(int quantity)
     {
@@ -61,7 +64,7 @@ public class BarraInferior : MonoBehaviour
         for (float timer = 0; timer < 0.5f; timer += Time.deltaTime)
         {
             var progress = timer / 0.5f;
-            oldPoints = (int) Mathf.Lerp(oldPoints, GameManager.PlayerData.Points, progress);
+            oldPoints = (int)Mathf.Lerp(oldPoints, GameManager.PlayerData.Points, progress);
             pointsText.SetText(oldPoints.ToString());
             yield return null;
         }
