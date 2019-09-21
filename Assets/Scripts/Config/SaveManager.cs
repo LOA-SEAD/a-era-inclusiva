@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -5,8 +6,8 @@ using UnityEngine;
 public class SaveManager
 {
     private readonly string _savePath = Path.Combine(Application.persistentDataPath, "saves");
-
-    public SaveData Load(string name)
+    public static event EventHandler DataLoaded;
+    public void Load(string name)
     {
         Debug.Log($"Loading from  {Path.Combine(_savePath, name + ".save")}");
 
@@ -14,8 +15,10 @@ public class SaveManager
         {
             var jsonString = streamReader.ReadToEnd();
             Debug.Log("Load complete!");
-
-            return JsonUtility.FromJson<SaveData>(jsonString);
+            var save = JsonUtility.FromJson<SaveData>(jsonString);
+            GameManager.PlayerData = new PlayerData(save);
+            DataLoaded?.Invoke(this, EventArgs.Empty);
+            
         }
 
     }
@@ -30,9 +33,11 @@ public class SaveManager
         {
             streamWriter.Write(jsonString);
         }
+
         Debug.Log("Save complete!");
 
     }
+
 
     public bool SaveExists(string name)
     {

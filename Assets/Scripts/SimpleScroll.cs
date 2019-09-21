@@ -8,7 +8,7 @@ public class SimpleScroll : MonoBehaviour
     protected int childrenCount;
     public Button DownButton;
     private Vector3 localPosition;
-    private int _maxShown;
+    private int _maxShown = 3;
     private Vector3 newPosition;
     public GameObject parent;
     private float spacing = 10;
@@ -19,20 +19,16 @@ public class SimpleScroll : MonoBehaviour
 
     protected void Awake()
     {
-#if UNITY_STANDALONE
-        _maxShown =3;
-#else
-        _maxShown = 3;
-#endif
+
         spacing = GetComponentInChildren<VerticalLayoutGroup>().spacing;
         UpdateChildrenCount();
         localPosition = parent.transform.localPosition;
         newPosition = localPosition;
         step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
         if (UpButton != null)
-            UpButton.onClick.AddListener(delegate { GoUp(); });
+            UpButton.onClick.AddListener(GoUp);
         if (DownButton != null)
-            DownButton.onClick.AddListener(delegate { GoDown(); });
+            DownButton.onClick.AddListener(GoDown);
     }
 
     public void BackToTop()
@@ -119,7 +115,6 @@ public class SimpleScroll : MonoBehaviour
     public void AddList(List<GameObject> _gameObjects)
     {
         step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
-
         foreach (var obj in _gameObjects)
         {
             obj.transform.SetParent(parent.transform);

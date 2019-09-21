@@ -9,6 +9,8 @@ using UnityEngine.Serialization;
 public class Dialog : MonoBehaviour
 {
     public UnityEvent AtEndOfDialog;
+        public UnityEvent AtEndOfClosingAnimation;
+
     public AudioSource audioSource;
     [FormerlySerializedAs("Dialogs")] public List<string> Phrases;
     public List<AudioClip> DialogsAudio;
@@ -22,7 +24,9 @@ public class Dialog : MonoBehaviour
     public TextMeshProUGUI textMesh;
     private bool loaded;
 
-
+    public void EndOfClosingAnimation() {
+        AtEndOfClosingAnimation.Invoke();
+    }
     public void LoadDialog()
     {
         if (!LoadFromJson || GameManager.GameData == null || GameManager.GameData.Personagens == null) return;
@@ -38,16 +42,25 @@ public class Dialog : MonoBehaviour
         ShowNextDialog();
     }
 
+    public void OnDataLoaded(object sender, EventArgs e)
+    {
+        LoadDialog();
+    }
+
+    public void Awake()
+    {
+        if (GameManager.GameData == null || !GameManager.GameData.Loaded) 
+            GameData.GameDataLoaded += OnDataLoaded;
+        else {
+            LoadDialog();
+        }
+    }
 
 
 
     private void Update()
     {
-        if (!loaded)
-        {
-            LoadDialog();
-            
-        }
+    
 
         // Press ENTER or SPACE to show next sentence
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
@@ -107,5 +120,10 @@ public class Dialog : MonoBehaviour
 
         id++;
         revealing = false;
+    }
+
+    void OnDestroy()
+    {
+        GameData.GameDataLoaded -= OnDataLoaded;
     }
 }

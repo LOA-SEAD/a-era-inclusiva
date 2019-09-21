@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     public static GameData GameData { get; private set; }
 
-    public static PlayerData PlayerData { get; private set; }
+    public static PlayerData PlayerData { get; set; }
 
 
     public void Awake()
@@ -25,11 +26,12 @@ public class GameManager : MonoBehaviour
         SaveManager = new SaveManager();
         SoundManager = new SoundManager();
         if (SaveManager.SaveExists("save")) 
-            PlayerData = new PlayerData(SaveManager.Load("save"));
+            SaveManager.Load("save");
         else New("save");
-        IsLoaded = true;
+        
     }
 
+   
 
     public static void New(string name)
     {

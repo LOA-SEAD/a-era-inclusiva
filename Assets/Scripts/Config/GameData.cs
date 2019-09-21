@@ -18,8 +18,10 @@ public class GameData
     public List<ClassAluno> Alunos;
     public List<ClassResourceRM> RecursosRM;
     public bool Loaded = false;
+    public static event EventHandler GameDataLoaded;
 
     public int UrgenciaMinima;
+
 
     public GameData(GameManager gameManager)
     {
@@ -59,8 +61,9 @@ public class GameData
        
         yield return new WaitUntil(() => jsonToLoad.Count == 0);
 
-
         Loaded = true;
+        GameDataLoaded?.Invoke(this, EventArgs.Empty);
+
 
     }
 }

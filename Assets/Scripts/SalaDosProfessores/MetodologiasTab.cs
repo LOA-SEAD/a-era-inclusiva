@@ -22,6 +22,7 @@ public class MetodologiasTab : MonoBehaviour
         _typeSelectedId = -1;
         _types = new List<string>();
     }
+    
 
     public void SetTypes()
     {
