@@ -64,7 +64,7 @@ public class ActionList : SimpleScroll
     {
         if (actionFilter != null) return actionFilter(x);
 
-        if (selectedOnly && !x.selected) return false;
+        if (selectedOnly && !GameManager.PlayerData.SelectedActions.Contains(x)) return false;
         if (!string.IsNullOrEmpty(Type))
             return x.tipo == Type;
         return true;

@@ -16,7 +16,8 @@ public class GameData
     public List<ClassDemanda> Demandas;
     public List<ClassResource> Recursos;
     public List<ClassAluno> Alunos;
-
+    public List<ClassResourceRM> RecursosRM;
+    public bool Loaded = false;
 
     public int UrgenciaMinima;
 
@@ -37,14 +38,29 @@ public class GameData
     {
         string json;
         List<string> jsonToLoad = Directory.GetFiles(filePath).Where(x => Path.GetExtension(x) == ".json").ToList();
-        foreach (string jsonFile in jsonToLoad)
+        while (jsonToLoad.Count != 0)
         {
+            var jsonFile = jsonToLoad[0];
+            jsonToLoad.RemoveAt(0);
             UnityWebRequest www = UnityWebRequest.Get(jsonFile);
             yield return www.SendWebRequest();
             json = www.downloadHandler.text;
-            JsonUtility.FromJsonOverwrite(json, this);
-        }
+            try
+            {
+                JsonUtility.FromJsonOverwrite(json, this);
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Falha ao carreggar {jsonFile}, erro: {e.Message}");
+            }
 
-        yield return null;
+            yield return 0;
+        }
+       
+        yield return new WaitUntil(() => jsonToLoad.Count == 0);
+
+
+        Loaded = true;
+
     }
 }

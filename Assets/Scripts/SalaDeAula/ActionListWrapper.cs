@@ -1,15 +1,21 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class ActionListWrapper : MonoBehaviour
 {
     private Animator _animator;
-    public ActionList actionList;
+    public SimpleScroll actionList;
+    public ControladorSalaDeAula controladorSalaDeAula;
+    private List<String> _types;
+    public Button typeButtonPrefab;
+    private bool _loaded;
+    public GameObject Categories;
 
-    public void Start()
-    {
-        _animator = GetComponent<Animator>();
-    }
-
+    public Button acaoIconPrefab;
     // Start is called before the first frame update
     public void Show()
     {
@@ -21,13 +27,67 @@ public class ActionListWrapper : MonoBehaviour
         _animator.SetTrigger("Hide");
     }
 
-    public void ShowActions()
+    public void ShowActions(string tipo)
     {
+        foreach (Transform child in actionList.parent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        actionList.UpdateChildrenCount();
+        var buttonList = new List<GameObject>();
+        foreach (var acao in GameManager.PlayerData.SelectedActions.Where(x=>x.tipo == tipo))
+        {
+            var button = Instantiate(acaoIconPrefab);
+            button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.icone + " " + acao.nome);
+            button.onClick.AddListener((() => controladorSalaDeAula.UseAction(acao)));
+            buttonList.Add(button.gameObject);
+        }
+        actionList.AddList(buttonList);
         _animator.SetTrigger("Actions");
     }
 
     public void Return()
     {
         _animator.SetTrigger("Return");
+    }
+
+    public void Start()
+    {
+        _types = new List<string>();
+        _animator = GetComponent<Animator>();
+
+        
+    }
+
+    private void setCategories()
+    {
+        foreach (var acao in GameManager.GameData.Acoes)
+        {
+            if (!_types.Contains(acao.tipo))
+            {
+                _types.Add(acao.tipo);
+                var button = Instantiate(typeButtonPrefab, Categories.transform);
+                button.onClick.AddListener(() => ShowActions(acao.tipo));
+                button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.tipo);
+            }
+        }
+
+        _loaded = true;
+    }
+
+    public void Update()
+    {
+#if DEBUG
+        if (GameManager.PlayerData.SelectedActions.Count == 0)
+        {
+
+            (GameManager.GameData.Acoes).ForEach(x => GameManager.PlayerData.SelectedActions.Add(x));
+            
+        }
+#endif
+        if (!_loaded && GameManager.GameData.Loaded)
+        {
+            setCategories();
+        }
     }
 }

@@ -33,6 +33,6 @@ public class AcaoIcon : MonoBehaviour
 
     public void Toggle()
     {
-        _acao.ToggleSelection();
+        //_acao.ToggleSelection();
     }
 }

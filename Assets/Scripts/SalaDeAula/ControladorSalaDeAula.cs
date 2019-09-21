@@ -23,7 +23,8 @@ public class ControladorSalaDeAula : MonoBehaviour
 
     private void Start()
     {
-        actionListWrapper.actionList.SetWhenSelected(UseAction);
+        
+
         InvokeRepeating("CheckIfEnd", 1, 2);
     }
 

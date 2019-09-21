@@ -8,15 +8,21 @@ public class SaveManager
 
     public SaveData Load(string name)
     {
+        Debug.Log($"Loading from  {Path.Combine(_savePath, name + ".save")}");
+
         using (var streamReader = File.OpenText(Path.Combine(_savePath, name + ".save")))
         {
             var jsonString = streamReader.ReadToEnd();
+            Debug.Log("Load complete!");
+
             return JsonUtility.FromJson<SaveData>(jsonString);
         }
+
     }
 
     public void Save(SaveData save)
     {
+        Debug.Log($"Saving at {Path.Combine(_savePath, save.Name + ".save")}");
         if (!Directory.Exists(_savePath)) Directory.CreateDirectory(_savePath);
         var jsonString = JsonUtility.ToJson(save);
 
@@ -24,6 +30,8 @@ public class SaveManager
         {
             streamWriter.Write(jsonString);
         }
+        Debug.Log("Save complete!");
+
     }
 
     public bool SaveExists(string name)

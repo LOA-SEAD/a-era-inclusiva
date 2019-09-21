@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
         SoundManager = new SoundManager();
         if (SaveManager.SaveExists("save")) 
             PlayerData = new PlayerData(SaveManager.Load("save"));
+        else New("save");
         IsLoaded = true;
     }
 

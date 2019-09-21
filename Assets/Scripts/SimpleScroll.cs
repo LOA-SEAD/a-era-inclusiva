@@ -8,24 +8,31 @@ public class SimpleScroll : MonoBehaviour
     protected int childrenCount;
     public Button DownButton;
     private Vector3 localPosition;
-    public int maxShown = 3;
+    private int _maxShown;
     private Vector3 newPosition;
     public GameObject parent;
-    public float spacing = 10;
+    private float spacing = 10;
     private float step;
     public Button UpButton;
+    public bool showScroll;
 
 
     protected void Awake()
     {
+#if UNITY_STANDALONE
+        _maxShown =3;
+#else
+        _maxShown = 3;
+#endif
+        spacing = GetComponentInChildren<VerticalLayoutGroup>().spacing;
         UpdateChildrenCount();
         localPosition = parent.transform.localPosition;
         newPosition = localPosition;
+        step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
         if (UpButton != null)
             UpButton.onClick.AddListener(delegate { GoUp(); });
         if (DownButton != null)
             DownButton.onClick.AddListener(delegate { GoDown(); });
-        step = (parent.GetComponent<RectTransform>().rect.height + spacing) / maxShown;
     }
 
     public void BackToTop()
@@ -37,23 +44,25 @@ public class SimpleScroll : MonoBehaviour
 
     public void Clear()
     {
-        foreach (Transform child in parent.transform) Destroy(child.gameObject);
-
+        foreach (Transform child in parent.transform)
+        {
+            DestroyImmediate(child.gameObject);
+        };
         BackToTop();
+        UpdateChildrenCount();
     }
 
     private void GoDown()
     {
-        if (newPosition.y + step >= (childrenCount - 1) * step) return;
+        if (newPosition.y + step >= (childrenCount - 3) * step) return;
         newPosition.y += step;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
-        Debug.Log(childrenCount);
     }
 
     private void GoUp()
     {
-        if (newPosition.y - step <= -2 * step) return;
+        if (newPosition.y - step <= -1 * step) return;
         newPosition.y -= step;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
@@ -75,26 +84,30 @@ public class SimpleScroll : MonoBehaviour
 
     public virtual void UpdateChildrenCount()
     {
-        childrenCount = parent.transform.childCount;
-        if (childrenCount > maxShown)
+        childrenCount = parent.transform.GetComponentsInChildren<Button>().Length;
+        if (!showScroll)
+            return;
+        if (childrenCount > _maxShown)
         {
             if (UpButton != null)
-                UpButton.enabled = true;
+                UpButton.gameObject.SetActive(true);
             if (DownButton != null)
-                DownButton.enabled = true;
+                DownButton.gameObject.SetActive(true);
         }
         else
         {
             if (UpButton != null)
-                UpButton.enabled = false;
+                UpButton.gameObject.SetActive(false);
             if (DownButton != null)
-                DownButton.enabled = false;
+                DownButton.gameObject.SetActive(false);
         }
     }
 
 
     public void Add(GameObject _gameObject)
     {
+        step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
+
         _gameObject.transform.SetParent(parent.transform);
         _gameObject.transform.SetAsLastSibling();
         _gameObject.GetComponent<RectTransform>()
@@ -105,6 +118,8 @@ public class SimpleScroll : MonoBehaviour
 
     public void AddList(List<GameObject> _gameObjects)
     {
+        step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
+
         foreach (var obj in _gameObjects)
         {
             obj.transform.SetParent(parent.transform);

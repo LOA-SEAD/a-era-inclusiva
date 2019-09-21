@@ -1,124 +1,154 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class MetodologiasTab : MonoBehaviour
 {
-    public ActionList actionListSalaProfessores;
-    public ActionConfirmation confirmation;
-    public GridMetodologias gridMetodologias;
-    private int idMetodologia;
-
-    private List<string> Metodologias;
-    public TextMeshProUGUI Texto;
-    public TextMeshProUGUI Titulo;
-
-    public string MetodologiaSelecionada => Metodologias.ElementAtOrDefault(idMetodologia);
-
-    public int IdMetodologia
-    {
-        get => idMetodologia;
-        set
-        {
-            idMetodologia = value;
-            actionListSalaProfessores.UpdateList();
-            Titulo.SetText(MetodologiaSelecionada);
-            Texto.SetText(string.Format(
-                "Escolha 3 ações da categoria {0} que você considera mais eficazes para esta aula, levando em consideração os perfis dos estudantes",
-                MetodologiaSelecionada));
-            SelectionHasChanged(value > idMetodologia);
-        }
-    }
-
-    public bool HasNextMethodology()
-    {
-        return idMetodologia + 1 < Metodologias.Count;
-    }
-
+    private List<string> _types;
+    private int _typeSelectedId;
+    private bool _loaded;
+    public Button actionButtonPrefab;
+    public AcaoIcon acaoIconPrefab;
+    public SimpleScroll actionList;
+    public GameObject gridMetodologias;
+    public ActionConfirmation Confirmation;
+    public Confirmation EndConfirmation;
     private void Awake()
     {
-        if (GameManager.GameData.Acoes != null)
-            Metodologias = GameManager.GameData.Acoes.Select(x => x.tipo).Distinct().ToList();
-        else
-            Metodologias = new List<string>();
-        IdMetodologia = 0;
-        SelectionHasChanged(false);
-        actionListSalaProfessores.SetWhenSelected(OnSelect);
+        _typeSelectedId = -1;
+        _types = new List<string>();
     }
 
+    public void SetTypes()
+    {
+        foreach (var acao in GameManager.GameData.Acoes)
+        {
+            if (!_types.Contains(acao.tipo))
+                _types.Add(acao.tipo);
+        }
+        _loaded = true;
+
+        GoToNextMethodology();
+    }
+
+
+    private void Update()
+    {
+        if (!_loaded && GameManager.GameData.Loaded)
+            SetTypes();
+    }
 
     public void GoToNextMethodology()
     {
-        IdMetodologia++;
-        actionListSalaProfessores.Type = MetodologiaSelecionada;
+
+        Confirmation.gameObject.SetActive(false);
+        _typeSelectedId++;
+        Debug.Log($"{_types[_typeSelectedId]}");
+        if (_typeSelectedId > _types.Count)
+        {
+            ShowConfirmation();
+            return;
+        }
+
+        foreach (Transform children in actionList.parent.transform)
+        {
+            Destroy(children.gameObject);
+        }
+        actionList.UpdateChildrenCount();
+        var actions = GameManager.GameData.Acoes.Where(x => x.tipo == _types[_typeSelectedId]).ToList();
+        foreach (var action in actions)
+        {
+            Debug.Log($"{_types[_typeSelectedId]}, {action.tipo} {action.nome}");
+
+            var button = Instantiate(actionButtonPrefab);
+            button.GetComponentInChildren<TextMeshProUGUI>().SetText(action.icone + " " + action.nome);
+            button.GetComponentInChildren<TextMeshProUGUI>().fontSize = 19;
+            button.onClick.AddListener(() => Select(action));
+            actionList.Add(button.gameObject);
+        }
+
+        UpdateGrid();
     }
 
-    public void Reset()
+    private void UpdateGrid()
     {
-        IdMetodologia = 0;
-        GameManager.GameData.Acoes.ForEach(x => x.selected = false);
+        foreach (Transform child in gridMetodologias.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        var actions = GameManager.PlayerData.SelectedActions.Where(x => x.tipo == _types[_typeSelectedId]);
+        foreach (var action in actions)
+        {
+            var button = Instantiate(acaoIconPrefab, gridMetodologias.transform);
+            button.Acao = action;
+        }
+    }
+
+    private void Select(ClassAcao action)
+    {
+        if(!GameManager.PlayerData.SelectedActions.Contains(action))
+            GameManager.PlayerData.SelectedActions.Add(action);
+        else
+        {
+            GameManager.PlayerData.SelectedActions.Remove(action);
+        }
+
+
+        UpdateGrid();
+        if (GameManager.PlayerData.SelectedActions.Count(x => x.tipo == _types[_typeSelectedId]) == 3)
+        {
+            if (_typeSelectedId < _types.Count-1)
+                ShowConfirmation();
+            else
+                ShowEndingConfirmation();
+        }
+
+
+
+    }
+
+
+    private void ShowConfirmation()
+    {
+        if (_types.Count == _typeSelectedId)
+        {
+        }
+        else
+        {
+            Confirmation.gameObject.SetActive(true);
+            Confirmation.ActionsToShow = GameManager.PlayerData.SelectedActions
+                .Where(x => x.tipo == _types[_typeSelectedId]).ToList();
+            Confirmation.OnAccept(GoToNextMethodology);
+            Confirmation.OnDeny(() => Confirmation.gameObject.SetActive(false));
+        }
+    }
+
+    private void ShowEndingConfirmation()
+    {
+      EndConfirmation.gameObject.SetActive(true);  
     }
 
     public void Undo()
     {
-        var actions = GameManager.GameData.Acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
-        if (actions.Count == 0)
+        if (GameManager.PlayerData.SelectedActions.Count(x => x.tipo == _types[_typeSelectedId]) != 0)
         {
-            IdMetodologia = idMetodologia > 0 ? idMetodologia - 1 : 0;
+            GameManager.PlayerData.SelectedActions.RemoveWhere(x => x.tipo == _types[_typeSelectedId]);
+            UpdateGrid();
         }
-        else
+        else if (_typeSelectedId >= 1)
         {
-            actions.ForEach(x => x.selected = false);
-            gridMetodologias.ActionsToShow = null;
+            _typeSelectedId -= 2;
+            GoToNextMethodology();
         }
+          
+        
     }
-
-
-    public void SelectionHasChanged(bool notificate)
+    private void Start()
     {
-        var selected = GameManager.GameData.Acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
-        gridMetodologias.ActionsToShow = selected;
-        if (notificate && selected.Count >= 3) Confirmation(selected);
-    }
-
-    private void Confirmation(List<ClassAcao> selected)
-    {
-        confirmation.gameObject.SetActive(true);
-        confirmation.ActionsToShow = selected;
-        if (HasNextMethodology())
-        {
-            confirmation.OnAccept(delegate
-            {
-                GoToNextMethodology();
-                confirmation.Hide();
-            });
-            confirmation.SetText(string.Format(
-                "Você selecionou as seguintes ações na categoria {0}, você deseja avançar para a proxima ou alterar suas escolhas?",
-                MetodologiaSelecionada));
-        }
-        else
-        {
-            confirmation.OnAccept(delegate { Initiate.Fade("Scenes/SalaDeAula", Color.black, 3); });
-            confirmation.SetText("Você terminou a seleção, deseja ir para a aula?");
-        }
-
-        confirmation.OnDeny(confirmation.Hide);
-    }
-
-    public bool TrySelect(ClassAcao acao)
-    {
-        var actions = GameManager.GameData.Acoes.FindAll(x => x.tipo == MetodologiaSelecionada && x.selected);
-        if (actions.Count >= 3 && !acao.selected) return false;
-
-        acao.selected = !acao.selected;
-        return true;
-    }
-
-
-    protected void OnSelect(ClassAcao acao)
-    {
-        if (TrySelect(acao))
-            SelectionHasChanged(true);
     }
 }

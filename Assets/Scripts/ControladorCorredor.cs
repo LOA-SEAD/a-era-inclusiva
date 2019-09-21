@@ -8,7 +8,7 @@ public class ControladorCorredor : MonoBehaviour
 
     public void TryToStartClass()
     {
-        if (GameManager.GameData.Acoes.Count(x => x.selected) == 9)
+        if (GameManager.PlayerData.SelectedActions.Count == 9)
             sceneController.ChangeTo("Scenes/SalaDeAula");
         else
             dialog.SetActive(true);

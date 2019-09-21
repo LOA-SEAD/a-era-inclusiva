@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class DemandController : MonoBehaviour
 {
-    public GameObject actionListWrapper;
+    public ActionListWrapper actionListWrapper;
 
     public AlunosSalaDeAula alunosSalaDeAula;
     public List<AudioClip> AudioClips;
@@ -26,6 +26,8 @@ public class DemandController : MonoBehaviour
 
     private IEnumerator SpawnDemands()
     {
+        yield return new WaitForSeconds(delayBetweenEachDemand);
+
         var studentList = GameManager.GameData.Alunos.Where(x => x.importante);
         var demandList = GameManager.GameData.Demandas
             .Where(x => studentList.Select(y => y.id).Contains(x.idAluno) && !x.resolvida).OrderBy(x => x.ordem)
@@ -44,7 +46,7 @@ public class DemandController : MonoBehaviour
         var button = Instantiate(prefabBotaoDemanda);
         button.GetComponent<Button>().onClick.AddListener(delegate
         {
-            actionListWrapper.GetComponent<Animator>().SetTrigger("Show");
+            actionListWrapper.Show();
         });
         button.Demand = demanda;
         alunosSalaDeAula.MostrarBalao(demanda);
