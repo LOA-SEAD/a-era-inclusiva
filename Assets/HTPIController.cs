@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +12,12 @@ public class HTPIController : MonoBehaviour
     public BotaoDemandaHTPI buttonPrefab;
     public SimpleScroll demandList;
     private ClassDemanda _demanda;
-    private Dictionary<ClassDemanda, ClassAcao> _resolucoes;
-    private Dictionary<ClassDemanda, BotaoDemandaHTPI> _botaoPorDemanda;        
-
+    public Dictionary<ClassDemanda, ClassAcao> _resolucoes;
+    private Dictionary<ClassDemanda, BotaoDemandaHTPI> _botaoPorDemanda;
+    public Confirmation confirmation;
     public ActionListWrapperHTPI actionList;
 
+    public GameObject content;
     // Start is called before the first frame update
     void Awake()
     {
@@ -32,6 +34,7 @@ public class HTPIController : MonoBehaviour
     private void Start()
     {
         _botaoPorDemanda = new Dictionary<ClassDemanda, BotaoDemandaHTPI>();
+        content.SetActive(false);
         actionList.gameObject.SetActive(false);
         demandList.gameObject.SetActive(false);
     }
@@ -53,7 +56,6 @@ public class HTPIController : MonoBehaviour
 
     void SelectDemand(ClassDemanda demanda)
     {
-        Debug.Log("1");
         actionList.GetComponent<Animator>().SetTrigger("Show");
         _demanda = demanda;
     }
@@ -62,7 +64,15 @@ public class HTPIController : MonoBehaviour
     {
         _resolucoes[_demanda] = acao;
         _botaoPorDemanda[_demanda].Select();
+        if (_resolucoes.Count == GameManager.GameData.Demandas.Count)
+        {
+            Confirmation();
+        }
     }
 
+    public void Confirmation()
+    {
+        confirmation.gameObject.SetActive(true);
+    }
     // Update is called once per frame
 }
