@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,11 +25,16 @@ public class SimpleScroll : MonoBehaviour
         UpdateChildrenCount();
         localPosition = parent.transform.localPosition;
         newPosition = localPosition;
-        step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
         if (UpButton != null)
             UpButton.onClick.AddListener(GoUp);
         if (DownButton != null)
             DownButton.onClick.AddListener(GoDown);
+    }
+
+    private void Start()
+    {
+        step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
+
     }
 
     public void BackToTop()
@@ -42,7 +48,9 @@ public class SimpleScroll : MonoBehaviour
     {
         foreach (Transform child in parent.transform)
         {
-            DestroyImmediate(child.gameObject);
+            child.SetParent(null);
+            child.gameObject.SetActive(false);
+            Destroy(child.gameObject);
         };
         BackToTop();
         UpdateChildrenCount();
@@ -50,7 +58,7 @@ public class SimpleScroll : MonoBehaviour
 
     private void GoDown()
     {
-        if (newPosition.y + step >= (childrenCount - 3) * step) return;
+        if (newPosition.y + step >= (childrenCount - 2) * step) return;
         newPosition.y += step;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
