@@ -46,12 +46,15 @@ public class SimpleScroll : MonoBehaviour
 
     public void Clear()
     {
-        foreach (Transform child in parent.transform)
+        for (var i = parent.transform.childCount; i-- > 0;)
         {
+            var child = parent.transform.GetChild(0);
             child.SetParent(null);
             child.gameObject.SetActive(false);
             Destroy(child.gameObject);
-        };
+            Debug.Log(i);
+        }
+  
         BackToTop();
         UpdateChildrenCount();
     }
@@ -88,7 +91,7 @@ public class SimpleScroll : MonoBehaviour
 
     public virtual void UpdateChildrenCount()
     {
-        childrenCount = parent.transform.GetComponentsInChildren<Button>().Length;
+        childrenCount = parent.transform.childCount;
         if (!showScroll)
             return;
         if (childrenCount > _maxShown)

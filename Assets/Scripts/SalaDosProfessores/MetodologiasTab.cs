@@ -17,12 +17,13 @@ public class MetodologiasTab : MonoBehaviour
     public GameObject gridMetodologias;
     public ActionConfirmation Confirmation;
     public Confirmation EndConfirmation;
+
     private void Awake()
     {
         _typeSelectedId = -1;
         _types = new List<string>();
     }
-    
+
 
     public void SetTypes()
     {
@@ -31,6 +32,7 @@ public class MetodologiasTab : MonoBehaviour
             if (!_types.Contains(acao.tipo))
                 _types.Add(acao.tipo);
         }
+
         _loaded = true;
 
         GoToNextMethodology();
@@ -45,7 +47,6 @@ public class MetodologiasTab : MonoBehaviour
 
     public void GoToNextMethodology()
     {
-
         Confirmation.gameObject.SetActive(false);
         _typeSelectedId++;
         if (_typeSelectedId > _types.Count)
@@ -54,15 +55,10 @@ public class MetodologiasTab : MonoBehaviour
             return;
         }
 
-        foreach (Transform children in actionList.parent.transform)
-        {
-            Destroy(children.gameObject);
-        }
-        actionList.UpdateChildrenCount();
+        actionList.Clear();
         var actions = GameManager.GameData.Acoes.Where(x => x.tipo == _types[_typeSelectedId]).ToList();
         foreach (var action in actions)
         {
-
             var button = Instantiate(actionButtonPrefab);
             button.GetComponentInChildren<TextMeshProUGUI>().SetText(action.icone + " " + action.nome);
             button.GetComponentInChildren<TextMeshProUGUI>().fontSize = 19;
@@ -90,27 +86,30 @@ public class MetodologiasTab : MonoBehaviour
 
     private void Select(ClassAcao action)
     {
-        if (!GameManager.PlayerData.SelectedActions.Contains(action))
-            GameManager.PlayerData.SelectedActions.Add(action);
+        if (GameManager.PlayerData.SelectedActions.Count(x => x.tipo == _types[_typeSelectedId]) < 3)
+        {
+            if (!GameManager.PlayerData.SelectedActions.Contains(action))
+                GameManager.PlayerData.SelectedActions.Add(action);
+            else
+            {
+                GameManager.PlayerData.SelectedActions.Remove(action);
+            }
+            UpdateGrid();
+        }
+
+        if (GameManager.PlayerData.SelectedActions.Count(x => x.tipo == _types[_typeSelectedId]) != 3) return;
+        if (GameManager.PlayerData.SelectedActions.Count != 9)
+        {
+            ShowConfirmation();
+        }
         else
         {
-            GameManager.PlayerData.SelectedActions.Remove(action);
+            ShowEndingConfirmation();
         }
 
+        return;
 
-        UpdateGrid();
-        if (GameManager.PlayerData.SelectedActions.Count(x => x.tipo == _types[_typeSelectedId]) == 3)
-        {
-            if (_typeSelectedId < _types.Count - 1)
-                ShowConfirmation();
-            else
-                ShowEndingConfirmation();
-        }
-
-
-
-
-}
+    }
 
 
     private void ShowConfirmation()
@@ -130,7 +129,7 @@ public class MetodologiasTab : MonoBehaviour
 
     private void ShowEndingConfirmation()
     {
-      EndConfirmation.gameObject.SetActive(true);  
+        EndConfirmation.gameObject.SetActive(true);
     }
 
     public void Undo()
@@ -145,9 +144,8 @@ public class MetodologiasTab : MonoBehaviour
             _typeSelectedId -= 2;
             GoToNextMethodology();
         }
-          
-        
     }
+
     private void Start()
     {
     }
