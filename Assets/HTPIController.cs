@@ -26,18 +26,11 @@ public class HTPIController : MonoBehaviour
         actionList.gameObject.SetActive(false);
         demandList.gameObject.SetActive(false);
         _resolucoes = new Dictionary<ClassDemanda, ClassAcao>();
-        if (GameManager.GameData != null && GameManager.GameData.Demandas != null &&
-            GameManager.GameData.Demandas.Count > 0)
-            Setup(this, EventArgs.Empty);
-        else
-        {
-            GameData.GameDataLoaded += Setup;
-        }
+  
     }
 
     private void Start()
     {
-        _resolucoes = new Dictionary<ClassDemanda, ClassAcao>();
         if (GameManager.GameData != null && GameManager.GameData.Demandas != null &&
             GameManager.GameData.Demandas.Count > 0)
             Setup(this, EventArgs.Empty);
@@ -55,8 +48,8 @@ public class HTPIController : MonoBehaviour
             var button = Instantiate(buttonPrefab);
             button.SetDemand(demanda);
             button.GetComponent<Button>().onClick.AddListener(() => SelectDemand(demanda));
-            _botaoPorDemanda[demanda] = button;
             buttonList.Add(button.gameObject);
+            _botaoPorDemanda[demanda] = button;
         }
 
         demandList.AddList(buttonList);
@@ -66,14 +59,21 @@ public class HTPIController : MonoBehaviour
     {
         actionList.GetComponent<Animator>().SetTrigger("Show");
         _demanda = demanda;
+        actionList.actionList.BackToTop();
     }
 
     public void SelectAction(ClassAcao acao)
     {
         _resolucoes[_demanda] = acao;
         _botaoPorDemanda[_demanda].Select();
+        Debug.Log(_resolucoes.Count);
+
+        Debug.Log(GameManager.GameData.Demandas.Count);
         if (_resolucoes.Count == GameManager.GameData.Demandas.Count)
         {
+            Debug.Log(_resolucoes.Count);
+
+            Debug.Log(GameManager.GameData.Demandas.Count);
             Confirmation();
         }
     }
@@ -82,5 +82,7 @@ public class HTPIController : MonoBehaviour
     {
         confirmation.gameObject.SetActive(true);
     }
+
+    
     // Update is called once per frame
 }
