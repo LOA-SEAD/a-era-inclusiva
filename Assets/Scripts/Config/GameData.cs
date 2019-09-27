@@ -44,7 +44,7 @@ public class GameData
         {
             var jsonFile = jsonToLoad[0];
             jsonToLoad.RemoveAt(0);
-            UnityWebRequest www = UnityWebRequest.Get(jsonFile);
+            UnityWebRequest www = UnityWebRequest.Get("file://"+jsonFile);
             yield return www.SendWebRequest();
             json = www.downloadHandler.text;
             try
