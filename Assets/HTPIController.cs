@@ -21,10 +21,14 @@ public class HTPIController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        _botaoPorDemanda = new Dictionary<ClassDemanda, BotaoDemandaHTPI>();
+        content.SetActive(false);
+        actionList.gameObject.SetActive(false);
+        demandList.gameObject.SetActive(false);
         _resolucoes = new Dictionary<ClassDemanda, ClassAcao>();
         if (GameManager.GameData != null && GameManager.GameData.Demandas != null &&
             GameManager.GameData.Demandas.Count > 0)
-            Setup(null, EventArgs.Empty);
+            Setup(this, EventArgs.Empty);
         else
         {
             GameData.GameDataLoaded += Setup;
@@ -33,10 +37,14 @@ public class HTPIController : MonoBehaviour
 
     private void Start()
     {
-        _botaoPorDemanda = new Dictionary<ClassDemanda, BotaoDemandaHTPI>();
-        content.SetActive(false);
-        actionList.gameObject.SetActive(false);
-        demandList.gameObject.SetActive(false);
+        _resolucoes = new Dictionary<ClassDemanda, ClassAcao>();
+        if (GameManager.GameData != null && GameManager.GameData.Demandas != null &&
+            GameManager.GameData.Demandas.Count > 0)
+            Setup(this, EventArgs.Empty);
+        else
+        {
+            GameData.GameDataLoaded += Setup;
+        }
     }
 
     void Setup(object sender, EventArgs e)
@@ -47,8 +55,8 @@ public class HTPIController : MonoBehaviour
             var button = Instantiate(buttonPrefab);
             button.SetDemand(demanda);
             button.GetComponent<Button>().onClick.AddListener(() => SelectDemand(demanda));
-            buttonList.Add(button.gameObject);
             _botaoPorDemanda[demanda] = button;
+            buttonList.Add(button.gameObject);
         }
 
         demandList.AddList(buttonList);
