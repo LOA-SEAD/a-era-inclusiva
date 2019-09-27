@@ -29,13 +29,9 @@ public class ActionListWrapperHTPI : MonoBehaviour
 
     public void ShowActions(string tipo)
     {
-        foreach (Transform child in actionList.parent.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        actionList.UpdateChildrenCount();
+       actionList.Clear();
         var buttonList = new List<GameObject>();
-        foreach (var acao in GameManager.PlayerData.SelectedActions.Where(x=>x.tipo == tipo))
+        foreach (var acao in GameManager.GameData.Acoes.Where(x=>x.tipo == tipo))
         {
             var button = Instantiate(acaoIconPrefab);
             button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.icone + " " + acao.nome);
@@ -77,14 +73,7 @@ public class ActionListWrapperHTPI : MonoBehaviour
 
     public void Update()
     {
-#if DEBUG
-        if (GameManager.PlayerData.SelectedActions.Count == 0)
-        {
 
-            (GameManager.GameData.Acoes).ForEach(x => GameManager.PlayerData.SelectedActions.Add(x));
-            
-        }
-#endif
         if (!_loaded && GameManager.GameData.Loaded)
         {
             setCategories();
