@@ -48,7 +48,6 @@ public class MetodologiasTab : MonoBehaviour
 
         Confirmation.gameObject.SetActive(false);
         _typeSelectedId++;
-        Debug.Log($"{_types[_typeSelectedId]}");
         if (_typeSelectedId > _types.Count)
         {
             ShowConfirmation();
@@ -63,7 +62,6 @@ public class MetodologiasTab : MonoBehaviour
         var actions = GameManager.GameData.Acoes.Where(x => x.tipo == _types[_typeSelectedId]).ToList();
         foreach (var action in actions)
         {
-            Debug.Log($"{_types[_typeSelectedId]}, {action.tipo} {action.nome}");
 
             var button = Instantiate(actionButtonPrefab);
             button.GetComponentInChildren<TextMeshProUGUI>().SetText(action.icone + " " + action.nome);
@@ -92,7 +90,7 @@ public class MetodologiasTab : MonoBehaviour
 
     private void Select(ClassAcao action)
     {
-        if(!GameManager.PlayerData.SelectedActions.Contains(action))
+        if (!GameManager.PlayerData.SelectedActions.Contains(action))
             GameManager.PlayerData.SelectedActions.Add(action);
         else
         {
@@ -103,7 +101,7 @@ public class MetodologiasTab : MonoBehaviour
         UpdateGrid();
         if (GameManager.PlayerData.SelectedActions.Count(x => x.tipo == _types[_typeSelectedId]) == 3)
         {
-            if (_typeSelectedId < _types.Count-1)
+            if (_typeSelectedId < _types.Count - 1)
                 ShowConfirmation();
             else
                 ShowEndingConfirmation();
@@ -111,7 +109,8 @@ public class MetodologiasTab : MonoBehaviour
 
 
 
-    }
+
+}
 
 
     private void ShowConfirmation()

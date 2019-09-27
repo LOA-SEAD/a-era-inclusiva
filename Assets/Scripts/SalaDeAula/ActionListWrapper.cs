@@ -77,6 +77,7 @@ public class ActionListWrapper : MonoBehaviour
 
     public void Update()
     {
+    /*
 #if DEBUG
         if (GameManager.PlayerData.SelectedActions.Count == 0)
         {
@@ -84,7 +85,7 @@ public class ActionListWrapper : MonoBehaviour
             (GameManager.GameData.Acoes).ForEach(x => GameManager.PlayerData.SelectedActions.Add(x));
             
         }
-#endif
+#endif*/
         if (!_loaded && GameManager.GameData.Loaded)
         {
             setCategories();

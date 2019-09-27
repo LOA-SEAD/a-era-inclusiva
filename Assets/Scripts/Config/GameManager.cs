@@ -28,7 +28,9 @@ public class GameManager : MonoBehaviour
         if (SaveManager.SaveExists("save")) 
             SaveManager.Load("save");
         else New("save");
-        
+        IsLoaded = true;
+
+
     }
 
    
