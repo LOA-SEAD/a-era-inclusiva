@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ControladorSalaDeAula : MonoBehaviour
@@ -70,7 +71,10 @@ public class ControladorSalaDeAula : MonoBehaviour
     private void CheckIfEnd()
     {
         if (GameManager.GameData.Demandas.FindAll(x => !x.resolvida).Count == 0 || levelTimeInSeconds <= 0f)
+        {
             sceneController.ChangeTo("Scenes/HTPI");
+            GameManager.PlayerData.SelectedActions = new HashSet<ClassAcao>();
+        }
     }
 
     public void Speak(string demandaDescricao)
