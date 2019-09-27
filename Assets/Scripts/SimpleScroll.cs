@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class SimpleScroll : MonoBehaviour
 {
-    protected int childrenCount;
+    public int childrenCount = 0;
+    public int _at = 0;
     public Button DownButton;
     private Vector3 localPosition;
     private int _maxShown = 3;
@@ -39,6 +40,8 @@ public class SimpleScroll : MonoBehaviour
 
     public void BackToTop()
     {
+        _at = 0;
+
         localPosition = Vector3.zero;
         newPosition = Vector3.zero;
         parent.transform.localPosition = localPosition;
@@ -46,12 +49,14 @@ public class SimpleScroll : MonoBehaviour
 
     public void Clear()
     {
-        for (var i = parent.transform.childCount; i-- > 0;)
+        _at = 0;
+        for (var i = parent.transform.childCount- 1; i >= 0; i--)
         {
-            var child = parent.transform.GetChild(0);
+            childrenCount--;
+            var child = parent.transform.GetChild(i);
             child.SetParent(null);
             child.gameObject.SetActive(false);
-            Destroy(child.gameObject);
+            DestroyImmediate(child.gameObject);
             Debug.Log(i);
         }
   
@@ -61,18 +66,21 @@ public class SimpleScroll : MonoBehaviour
 
     private void GoDown()
     {
-        if (newPosition.y + step >= (childrenCount - 2) * step) return;
+        if (_at >= childrenCount-3) return;
         newPosition.y += step;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
+        _at++;
     }
 
     private void GoUp()
     {
-        if (newPosition.y - step <= -1 * step) return;
+
+        if (_at<=0) return;
         newPosition.y -= step;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
+        _at--;
     }
 
 
@@ -91,7 +99,6 @@ public class SimpleScroll : MonoBehaviour
 
     public virtual void UpdateChildrenCount()
     {
-        childrenCount = parent.transform.childCount;
         if (!showScroll)
             return;
         if (childrenCount > _maxShown)
@@ -113,6 +120,7 @@ public class SimpleScroll : MonoBehaviour
 
     public void Add(GameObject _gameObject)
     {
+        childrenCount++;
         step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
 
         _gameObject.transform.SetParent(parent.transform);
@@ -125,6 +133,7 @@ public class SimpleScroll : MonoBehaviour
 
     public void AddList(List<GameObject> _gameObjects)
     {
+        childrenCount += _gameObjects.Count;
         step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
         foreach (var obj in _gameObjects)
         {

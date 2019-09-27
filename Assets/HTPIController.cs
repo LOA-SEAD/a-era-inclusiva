@@ -66,12 +66,9 @@ public class HTPIController : MonoBehaviour
     {
         _resolucoes[_demanda] = acao;
         _botaoPorDemanda[_demanda].Select();
-        Debug.Log(_resolucoes.Count);
 
-        Debug.Log(GameManager.GameData.Demandas.Count);
         if (_resolucoes.Count == GameManager.GameData.Demandas.Count)
         {
-            Debug.Log(_resolucoes.Count);
 
             Debug.Log(GameManager.GameData.Demandas.Count);
             Confirmation();
