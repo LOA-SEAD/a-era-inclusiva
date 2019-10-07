@@ -26,38 +26,14 @@ public class HTPIController : MonoBehaviour
         actionList.gameObject.SetActive(false);
         demandList.gameObject.SetActive(false);
         _resolucoes = new Dictionary<ClassDemanda, ClassAcao>();
-  
+    
     }
 
-    private void Start()
-    {
-        if (GameManager.GameData != null && GameManager.GameData.Demandas != null &&
-            GameManager.GameData.Demandas.Count > 0)
-            Setup(this, EventArgs.Empty);
-        else
-        {
-            GameData.GameDataLoaded += Setup;
-        }
-    }
 
-    void Setup(object sender, EventArgs e)
-    {
-        var buttonList = new List<GameObject>();
-        foreach (ClassDemanda demanda in GameManager.GameData.Demandas)
-        {
-            var button = Instantiate(buttonPrefab);
-            button.SetDemand(demanda);
-            button.GetComponent<Button>().onClick.AddListener(() => SelectDemand(demanda));
-            buttonList.Add(button.gameObject);
-            _botaoPorDemanda[demanda] = button;
-        }
 
-        demandList.AddList(buttonList);
-    }
-
-    void SelectDemand(ClassDemanda demanda)
+    public void SelectDemand(ClassDemanda demanda)
     {
-        actionList.GetComponent<Animator>().SetTrigger("Show");
+        actionList.GetComponent<Animator>().SetTrigger("Actions");
         _demanda = demanda;
         actionList.actionList.BackToTop();
     }

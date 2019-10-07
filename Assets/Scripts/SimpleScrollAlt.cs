@@ -4,29 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SimpleScroll : MonoBehaviour
+public class SimpleScrollAlt : MonoBehaviour
 {
-    public int childrenCount = 0;
-    public int _at = 0;
+    private readonly int _maxShown = 3;
+    public int _at;
+    public int childrenCount;
     public Button DownButton;
-    private Vector3 localPosition;
-    private int _maxShown = 3;
-    private Vector3 newPosition;
     public GameObject parent;
     private float spacing = 10;
     private float step;
     public Button UpButton;
-    public bool showScroll;
     public event EventHandler TopReached;
     public event EventHandler BottomReached;
 
     protected void Awake()
     {
-
         spacing = GetComponentInChildren<VerticalLayoutGroup>().spacing;
         UpdateChildrenCount();
-        localPosition = parent.transform.localPosition;
-        newPosition = localPosition;
         if (UpButton != null)
             UpButton.onClick.AddListener(GoUp);
         if (DownButton != null)
@@ -36,22 +30,20 @@ public class SimpleScroll : MonoBehaviour
     private void Start()
     {
         step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
-
     }
 
     public void BackToTop()
     {
         _at = 0;
 
-        localPosition = Vector3.zero;
-        newPosition = Vector3.zero;
-        parent.transform.localPosition = localPosition;
+        parent.transform.localPosition = Vector3.zero;
+
     }
 
     public void Clear()
     {
         _at = 0;
-        for (var i = parent.transform.childCount- 1; i >= 0; i--)
+        for (var i = parent.transform.childCount - 1; i >= 0; i--)
         {
             childrenCount--;
             var child = parent.transform.GetChild(i);
@@ -60,46 +52,57 @@ public class SimpleScroll : MonoBehaviour
             DestroyImmediate(child.gameObject);
             Debug.Log(i);
         }
-  
+
         BackToTop();
         UpdateChildrenCount();
     }
 
     public void GoDown()
     {
-        if (_at >= childrenCount - 3)
+        if (_at + 1 >= childrenCount)
         {
             BottomReached?.Invoke(this, EventArgs.Empty);
 
             return;
         }
-        newPosition.y += step;
+
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
         _at++;
+        Debug.Log($"at{_at}, childcount{childrenCount}");
+        var button = parent.transform.GetChild(_at).GetComponent<Button>();
+        button.Select();
+        button.onClick?.Invoke();
     }
 
     public void GoUp()
     {
-
-        if (_at <= 0)
+        if (_at - 1 < 0)
         {
             TopReached?.Invoke(this, EventArgs.Empty);
             return;
         }
-        newPosition.y -= step;
+
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
         _at--;
+        Debug.Log($"at{_at}, childcount{childrenCount}");
+
+        var button = parent.transform.GetChild(_at).GetComponent<Button>();
+        button.Select();
+        button.onClick?.Invoke();
     }
 
 
     private IEnumerator AnimateMove()
     {
-        while (Mathf.Abs(localPosition.y - newPosition.y) > 1.0f)
+        var newPosition = Vector3.zero;
+
+        newPosition.y = Mathf.Min(Mathf.Max(_at * step, 0), (childrenCount - 3) * step);
+        while (Mathf.Abs(parent.transform.localPosition.y - newPosition.y) > 1.0f)
         {
-            localPosition = Vector3.Lerp(localPosition, newPosition, Time.deltaTime * 10);
-            parent.transform.localPosition = localPosition;
+            parent.transform.localPosition =
+                Vector3.Lerp(parent.transform.localPosition, newPosition, Time.deltaTime * 10);
 
             yield return null;
         }
@@ -109,7 +112,6 @@ public class SimpleScroll : MonoBehaviour
 
     public virtual void UpdateChildrenCount()
     {
-
         if (childrenCount > 0)
         {
             if (UpButton != null)
@@ -151,7 +153,10 @@ public class SimpleScroll : MonoBehaviour
             obj.transform.localScale = Vector3.one;
             obj.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, step - spacing);
         }
-
+        
         UpdateChildrenCount();
+        var firstButton =parent.transform.GetChild(0).GetComponent<Button>();
+        firstButton.Select();
+        firstButton.onClick?.Invoke();
     }
 }

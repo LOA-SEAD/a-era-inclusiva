@@ -10,10 +10,8 @@ public class ActionListWrapperHTPI : MonoBehaviour
     private Animator _animator;
     public SimpleScroll actionList;
     public HTPIController controladorHTPI;
-    private List<String> _types;
     public Button typeButtonPrefab;
     private bool _loaded;
-    public GameObject Categories;
 
     public Button acaoIconPrefab;
     // Start is called before the first frame update
@@ -27,11 +25,11 @@ public class ActionListWrapperHTPI : MonoBehaviour
         _animator.SetTrigger("Hide");
     }
 
-    public void ShowActions(string tipo)
+    public void LoadActions()
     {
        actionList.Clear();
         var buttonList = new List<GameObject>();
-        foreach (var acao in GameManager.GameData.Acoes.Where(x=>x.tipo == tipo))
+        foreach (var acao in GameManager.GameData.Acoes)
         {
             var button = Instantiate(acaoIconPrefab);
             button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.icone + " " + acao.nome);
@@ -39,44 +37,30 @@ public class ActionListWrapperHTPI : MonoBehaviour
             buttonList.Add(button.gameObject);
         }
         actionList.AddList(buttonList);
-        _animator.SetTrigger("Actions");
     }
-
-    public void Return()
-    {
-        _animator.SetTrigger("Return");
-    }
+    
 
     public void Start()
     {
-        _types = new List<string>();
         _animator = GetComponent<Animator>();
-
+        if (GameManager.GameData != null && GameManager.GameData.Demandas != null &&
+            GameManager.GameData.Demandas.Count > 0)
+            Setup(this, EventArgs.Empty);
+        else
+        {
+            GameData.GameDataLoaded += Setup;
+        }
         
     }
 
-    private void setCategories()
+    private void Setup(object obj, EventArgs empty)
     {
-        foreach (var acao in GameManager.GameData.Acoes)
-        {
-            if (!_types.Contains(acao.tipo))
-            {
-                _types.Add(acao.tipo);
-                var button = Instantiate(typeButtonPrefab, Categories.transform);
-                button.onClick.AddListener(() => ShowActions(acao.tipo));
-                button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.tipo);
-            }
-        }
-
-        _loaded = true;
+        LoadActions();
     }
+
 
     public void Update()
     {
-
-        if (!_loaded && GameManager.GameData.Loaded)
-        {
-            setCategories();
-        }
+        
     }
 }
