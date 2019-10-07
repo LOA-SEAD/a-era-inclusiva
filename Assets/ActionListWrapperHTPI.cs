@@ -25,20 +25,6 @@ public class ActionListWrapperHTPI : MonoBehaviour
         _animator.SetTrigger("Hide");
     }
 
-    public void LoadActions()
-    {
-       actionList.Clear();
-        var buttonList = new List<GameObject>();
-        foreach (var acao in GameManager.GameData.Acoes)
-        {
-            var button = Instantiate(acaoIconPrefab);
-            button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.icone + " " + acao.nome);
-            button.onClick.AddListener((() => controladorHTPI.SelectAction(acao)));
-            buttonList.Add(button.gameObject);
-        }
-        actionList.AddList(buttonList);
-    }
-    
 
     public void Start()
     {
@@ -55,7 +41,16 @@ public class ActionListWrapperHTPI : MonoBehaviour
 
     private void Setup(object obj, EventArgs empty)
     {
-        LoadActions();
+        actionList.Clear();
+        var buttonList = new List<GameObject>();
+        foreach (var acao in GameManager.GameData.Acoes)
+        {
+            var button = Instantiate(acaoIconPrefab);
+            button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.icone + " " + acao.nome);
+            button.onClick.AddListener((() => controladorHTPI.SelectAction(acao)));
+            buttonList.Add(button.gameObject);
+        }
+        actionList.AddList(buttonList);
     }
 
 

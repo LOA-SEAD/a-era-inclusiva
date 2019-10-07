@@ -66,12 +66,14 @@ public class SimpleScrollAlt : MonoBehaviour
             return;
         }
 
+        parent.transform.GetChild(_at).GetComponent<Button>().interactable = true;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
+        
         _at++;
         Debug.Log($"at{_at}, childcount{childrenCount}");
         var button = parent.transform.GetChild(_at).GetComponent<Button>();
-        button.Select();
+        button.interactable = false;
         button.onClick?.Invoke();
     }
 
@@ -82,6 +84,7 @@ public class SimpleScrollAlt : MonoBehaviour
             TopReached?.Invoke(this, EventArgs.Empty);
             return;
         }
+        parent.transform.GetChild(_at).GetComponent<Button>().interactable = true;
 
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
@@ -89,7 +92,8 @@ public class SimpleScrollAlt : MonoBehaviour
         Debug.Log($"at{_at}, childcount{childrenCount}");
 
         var button = parent.transform.GetChild(_at).GetComponent<Button>();
-        button.Select();
+        button.interactable = false;
+
         button.onClick?.Invoke();
     }
 
@@ -156,7 +160,7 @@ public class SimpleScrollAlt : MonoBehaviour
         
         UpdateChildrenCount();
         var firstButton =parent.transform.GetChild(0).GetComponent<Button>();
-        firstButton.Select();
+        firstButton.interactable=false;
         firstButton.onClick?.Invoke();
     }
 }
