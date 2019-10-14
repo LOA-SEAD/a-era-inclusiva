@@ -12,7 +12,10 @@ public class ScrollHTPI : MonoBehaviour
     private Dictionary<ClassAluno, List<ClassDemanda>> DemandByStudentList;
     public SimpleScrollAlt DemandList;
     public SimpleScrollAlt StudentList;
-    public Button DemandPrefab;
+    public BotaoDemandaHTPI DemandPrefab;
+    public StudentIcon StudentPrefab;
+
+    private ClassAluno _studentSelected;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -35,13 +38,15 @@ public class ScrollHTPI : MonoBehaviour
 
     public void GoDownStudent(object sender, EventArgs eventArgs)
     {
-        StudentList.GoDown();   
+        if(StudentList.GoDown())   
+            DemandList.SelectFirst();
     }
 
     public void GoUpStudent(object sender, EventArgs eventArgs)
     {
         
-        StudentList.GoUp();
+        if(StudentList.GoUp())
+            DemandList.SelectLast();
     }
     
 
@@ -58,37 +63,42 @@ public class ScrollHTPI : MonoBehaviour
             DemandByStudentList[student] = demandList;
         }
         PopulateStudentList();
+        StudentList.SelectFirst();
         PopulateDemandList(DemandByStudentList.First().Key);
+        DemandList.SelectFirst();
     }
 
     public void PopulateStudentList()
     {       
-        var list = new List<GameObject>();
+        var list = new List<Selectable>();
 
         foreach (var student in DemandByStudentList.Keys)
         {
-            var button = Instantiate(DemandPrefab);
-            button.GetComponentInChildren<TextMeshProUGUI>().SetText(student.nome);
-            list.Add(button.gameObject);
-            button.onClick.AddListener(()=>PopulateDemandList(student));
+            var studentIcon = Instantiate(StudentPrefab);
+            studentIcon.Student = student;
+            list.Add(studentIcon.GetComponent<Button>());
+            studentIcon.GetComponent<Button>().onClick.AddListener(()=>PopulateDemandList(student));
         }
         StudentList.AddList(list);
     }
 
     public void PopulateDemandList(ClassAluno student)
     {
+        
         DemandList.Clear();
-        var list = new List<GameObject>();
+        var list = new List<Selectable>();
 
         foreach (var demand in DemandByStudentList[student])
         {
             var button = Instantiate(DemandPrefab);
-            button.GetComponentInChildren<TextMeshProUGUI>().SetText(demand.descricao);
-
-            list.Add(button.gameObject);
-            button.onClick.AddListener(()=>HtpiController.SelectDemand(demand));
+            button.Demanda = demand;
+            if (HtpiController._resolucoes[demand] != null)
+            {
+                button.Select();
+            }
+            list.Add(button.GetComponent<Button>());
+            button.GetComponent<Button>().onClick.AddListener(()=>HtpiController.SelectDemand(button));
         }
-
         DemandList.AddList(list);
 
     }

@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class Dialog : MonoBehaviour
 {
     public UnityEvent AtEndOfDialog;
-        public UnityEvent AtEndOfClosingAnimation;
+    public UnityEvent AtEndOfClosingAnimation;
 
     public AudioSource audioSource;
     [FormerlySerializedAs("Dialogs")] public List<string> Phrases;
@@ -23,6 +25,7 @@ public class Dialog : MonoBehaviour
     public float speed = 0.2f;
     public TextMeshProUGUI textMesh;
     private bool loaded;
+    public Image CharacterImage;
 
     public void EndOfClosingAnimation() {
         AtEndOfClosingAnimation.Invoke();
@@ -33,9 +36,10 @@ public class Dialog : MonoBehaviour
         var npc = GameManager.GameData.Personagens.Find(x => x.nome == Name);
         if (npc == null)
             return;
-        Phrases = npc.dialogos.Find(x => x.local == Local).frases;
+        Phrases = npc.dialogos.First(x => x.local == Local).frases;
         if(Phrases == null)
             return;
+        LoadImage();
         loaded = true;
         GetComponent<Animator>().SetTrigger("Show");
         id = 0;
@@ -54,6 +58,24 @@ public class Dialog : MonoBehaviour
         else {
             LoadDialog();
         }
+    }
+
+    public void LoadImage()
+    {
+        var filePath = Application.streamingAssetsPath + "/Illustrations/CharacterPortraits/SchoolStaff/"+Name+".png";  //Get path of folder
+ 
+        //Converts desired path into byte array
+        byte[] pngBytes = System.IO.File.ReadAllBytes(filePath);
+ 
+        //Creates texture and loads byte array data to create image
+        Texture2D tex = new Texture2D(2, 2);
+        tex.LoadImage(pngBytes);
+ 
+        //Creates a new Sprite based on the Texture2D
+        Sprite fromTex = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
+ 
+        //Assigns the UI sprite
+        CharacterImage.sprite = fromTex;
     }
 
 

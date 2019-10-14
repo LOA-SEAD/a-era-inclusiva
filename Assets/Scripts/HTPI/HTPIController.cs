@@ -1,51 +1,71 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = System.Object;
 
 public class HTPIController : MonoBehaviour
 {
     private bool _loaded;
-    public BotaoDemandaHTPI buttonPrefab;
-    public SimpleScroll demandList;
-    private ClassDemanda _demanda;
+    public BotaoDemandaHTPI _botaoDemanda;
     public Dictionary<ClassDemanda, ClassAcao> _resolucoes;
     private Dictionary<ClassDemanda, BotaoDemandaHTPI> _botaoPorDemanda;
     public Confirmation confirmation;
     public ActionListWrapperHTPI actionList;
-
+    public ScrollHTPI ScrollHtpi;
     public GameObject content;
+
     // Start is called before the first frame update
     void Awake()
     {
         _botaoPorDemanda = new Dictionary<ClassDemanda, BotaoDemandaHTPI>();
         content.SetActive(false);
         actionList.gameObject.SetActive(false);
-        demandList.gameObject.SetActive(false);
         _resolucoes = new Dictionary<ClassDemanda, ClassAcao>();
-    
     }
 
+    void Start()
+    {
+        if (GameManager.GameData != null && GameManager.GameData.Demandas != null &&
+            GameManager.GameData.Demandas.Count > 0)
+            Setup(this, EventArgs.Empty);
+        else
+        {
+            GameData.GameDataLoaded += Setup;
+        }
+    }
 
+    private void Setup(Object obj, EventArgs empty)
+    {
+        foreach (var student in GameManager.GameData.Alunos.Where(x => x.importante))
+        {
+            List<ClassDemanda> demandList = new List<ClassDemanda>();
+            foreach (var demand in GameManager.GameData.Demandas.Where(x => x.idAluno == student.id))
+            {
+                _resolucoes[demand] = null;
+            }
+        }
+    }
 
-    public void SelectDemand(ClassDemanda demanda)
+    public void SelectDemand(BotaoDemandaHTPI BotaoDemanda)
     {
         actionList.GetComponent<Animator>().SetTrigger("Actions");
-        _demanda = demanda;
+        _botaoDemanda = BotaoDemanda;
         actionList.actionList.BackToTop();
     }
 
     public void SelectAction(ClassAcao acao)
     {
-        _resolucoes[_demanda] = acao;
-        _botaoPorDemanda[_demanda].Select();
+        _resolucoes[_botaoDemanda.Demanda] = acao;
+        _botaoDemanda.Select();
+        ScrollHtpi.DemandList.GoDown();
 
-        if (_resolucoes.Count == GameManager.GameData.Demandas.Count)
+        if (_resolucoes.Count(x => x.Value!=null) == GameManager.GameData.Demandas.Count)
         {
-
             Debug.Log(GameManager.GameData.Demandas.Count);
             Confirmation();
         }
@@ -56,6 +76,6 @@ public class HTPIController : MonoBehaviour
         confirmation.gameObject.SetActive(true);
     }
 
-    
+
     // Update is called once per frame
 }

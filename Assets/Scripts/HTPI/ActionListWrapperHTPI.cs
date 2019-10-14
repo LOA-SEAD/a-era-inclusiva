@@ -10,7 +10,6 @@ public class ActionListWrapperHTPI : MonoBehaviour
     private Animator _animator;
     public SimpleScroll actionList;
     public HTPIController controladorHTPI;
-    public Button typeButtonPrefab;
     private bool _loaded;
 
     public Button acaoIconPrefab;
@@ -25,7 +24,7 @@ public class ActionListWrapperHTPI : MonoBehaviour
         _animator.SetTrigger("Hide");
     }
 
-    public void LoadActions()
+    private void Setup(object obj, EventArgs empty)
     {
        actionList.Clear();
         var buttonList = new List<GameObject>();
@@ -52,12 +51,7 @@ public class ActionListWrapperHTPI : MonoBehaviour
         }
         
     }
-
-    private void Setup(object obj, EventArgs empty)
-    {
-        LoadActions();
-    }
-
+    
 
     public void Update()
     {

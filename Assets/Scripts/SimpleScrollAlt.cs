@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,23 +9,24 @@ public class SimpleScrollAlt : MonoBehaviour
 {
     private readonly int _maxShown = 3;
     public int _at;
-    public int childrenCount;
+    public List<Selectable> children;
     public Button DownButton;
     public GameObject parent;
     private float spacing = 10;
     private float step;
+    private Selectable selected;
     public Button UpButton;
     public event EventHandler TopReached;
     public event EventHandler BottomReached;
 
     protected void Awake()
     {
+        children = new List<Selectable>();
         spacing = GetComponentInChildren<VerticalLayoutGroup>().spacing;
-        UpdateChildrenCount();
         if (UpButton != null)
-            UpButton.onClick.AddListener(GoUp);
+            UpButton.onClick.AddListener(delegate { GoUp(); });
         if (DownButton != null)
-            DownButton.onClick.AddListener(GoDown);
+            DownButton.onClick.AddListener(delegate { GoDown(); });
     }
 
     private void Start()
@@ -43,54 +45,55 @@ public class SimpleScrollAlt : MonoBehaviour
     public void Clear()
     {
         _at = 0;
-        for (var i = parent.transform.childCount - 1; i >= 0; i--)
+        foreach (var child in children)
         {
-            childrenCount--;
-            var child = parent.transform.GetChild(i);
-            child.SetParent(null);
+      
+            child.transform.SetParent(null);
             child.gameObject.SetActive(false);
-            DestroyImmediate(child.gameObject);
-            Debug.Log(i);
+            Destroy(child.gameObject);
         }
-
+        children.Clear();
         BackToTop();
-        UpdateChildrenCount();
     }
 
-    public void GoDown()
+    public bool GoDown()
     {
-        if (_at + 1 >= childrenCount)
+        if (_at + 1 >= children.Count)
         {
             BottomReached?.Invoke(this, EventArgs.Empty);
 
-            return;
+            return false;
         }
 
+        selected.interactable = true;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
         _at++;
-        Debug.Log($"at{_at}, childcount{childrenCount}");
-        var button = parent.transform.GetChild(_at).GetComponent<Button>();
-        button.Select();
-        button.onClick?.Invoke();
+        selected = children[_at];
+        selected.interactable = false;
+        selected.GetComponent<Button>().onClick?.Invoke();
+        return true;
     }
+    
 
-    public void GoUp()
+    public bool GoUp()
     {
         if (_at - 1 < 0)
         {
             TopReached?.Invoke(this, EventArgs.Empty);
-            return;
+            return false;
         }
+
+        selected.interactable = true;
 
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
         _at--;
-        Debug.Log($"at{_at}, childcount{childrenCount}");
 
-        var button = parent.transform.GetChild(_at).GetComponent<Button>();
-        button.Select();
-        button.onClick?.Invoke();
+        selected = children[_at];
+        selected.interactable = false;
+        selected.GetComponent<Button>().onClick?.Invoke();
+        return true;
     }
 
 
@@ -98,11 +101,11 @@ public class SimpleScrollAlt : MonoBehaviour
     {
         var newPosition = Vector3.zero;
 
-        newPosition.y = Mathf.Min(Mathf.Max(_at * step, 0), (childrenCount - 3) * step);
+        newPosition.y = Mathf.Min(Mathf.Max(_at * step, 0), (children.Count - 3) * step);
         while (Mathf.Abs(parent.transform.localPosition.y - newPosition.y) > 1.0f)
         {
             parent.transform.localPosition =
-                Vector3.Lerp(parent.transform.localPosition, newPosition, Time.deltaTime * 10);
+                Vector3.Slerp(parent.transform.localPosition, newPosition, Time.deltaTime * 10);
 
             yield return null;
         }
@@ -110,28 +113,13 @@ public class SimpleScrollAlt : MonoBehaviour
         parent.transform.localPosition = newPosition;
     }
 
-    public virtual void UpdateChildrenCount()
-    {
-        if (childrenCount > 0)
-        {
-            if (UpButton != null)
-                UpButton.gameObject.SetActive(true);
-            if (DownButton != null)
-                DownButton.gameObject.SetActive(true);
-        }
-        else
-        {
-            if (UpButton != null)
-                UpButton.gameObject.SetActive(false);
-            if (DownButton != null)
-                DownButton.gameObject.SetActive(false);
-        }
-    }
+    
 
 
-    public void Add(GameObject _gameObject)
+    public void Add(Selectable _gameObject)
     {
-        childrenCount++;
+        children.Add(_gameObject);
+        if (!selected) selected = _gameObject;
         step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
 
         _gameObject.transform.SetParent(parent.transform);
@@ -139,12 +127,11 @@ public class SimpleScrollAlt : MonoBehaviour
         _gameObject.GetComponent<RectTransform>()
             .SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, step - spacing);
         _gameObject.transform.localScale = Vector3.one;
-        UpdateChildrenCount();
     }
 
-    public void AddList(List<GameObject> _gameObjects)
+    public void AddList(List<Selectable> _gameObjects)
     {
-        childrenCount += _gameObjects.Count;
+        children.AddRange(_gameObjects);
         step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
         foreach (var obj in _gameObjects)
         {
@@ -153,10 +140,22 @@ public class SimpleScrollAlt : MonoBehaviour
             obj.transform.localScale = Vector3.one;
             obj.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, step - spacing);
         }
+
         
-        UpdateChildrenCount();
-        var firstButton =parent.transform.GetChild(0).GetComponent<Button>();
-        firstButton.Select();
-        firstButton.onClick?.Invoke();
+    }
+
+    public void SelectLast()
+    {
+        _at = children.Count - 1;
+        selected = children[_at];
+        selected.interactable = false;
+        selected.GetComponent<Button>().onClick?.Invoke();
+    }
+    public void SelectFirst()
+    {
+        _at = 0;
+        selected = children[_at];
+        selected.interactable = false;
+        selected.GetComponent<Button>().onClick?.Invoke();
     }
 }
