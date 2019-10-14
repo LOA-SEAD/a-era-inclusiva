@@ -68,6 +68,7 @@ public class SimpleScrollAlt : MonoBehaviour
         selected.interactable = true;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
+        
         _at++;
         selected = children[_at];
         selected.interactable = false;
@@ -83,6 +84,7 @@ public class SimpleScrollAlt : MonoBehaviour
             TopReached?.Invoke(this, EventArgs.Empty);
             return false;
         }
+        parent.transform.GetChild(_at).GetComponent<Button>().interactable = true;
 
         selected.interactable = true;
 
