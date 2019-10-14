@@ -84,7 +84,6 @@ public class SimpleScrollAlt : MonoBehaviour
             TopReached?.Invoke(this, EventArgs.Empty);
             return false;
         }
-        parent.transform.GetChild(_at).GetComponent<Button>().interactable = true;
 
         selected.interactable = true;
 
