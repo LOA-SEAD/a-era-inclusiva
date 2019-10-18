@@ -10,7 +10,6 @@ public class ConfigPanel : MonoBehaviour
     public TextMeshProUGUI fullscreenToggle;
     public TextMeshProUGUI accessibilityMode;
     public Animator animator;
-    public AudioSource sliderAudioSource;
     public bool Shown;
     public bool sliderShown;
     private void Start()
@@ -22,7 +21,7 @@ public class ConfigPanel : MonoBehaviour
              accessibilityMode.text = GameManager.AccessibilityMode ? "Desativar acessibilidade" : "Ativar acessibilidade";
      
      #endif
-         }
+    }
 
     public void ShowBackgroundSlider()
     {
@@ -47,13 +46,14 @@ public class ConfigPanel : MonoBehaviour
     
     public void OnBackgroundChanged(float value)
     {
-        sliderAudioSource.volume = value;
+        AudioManager.instance.ChangeAmbVolume(value);
+        AudioManager.instance.PlaySfx((int) SoundType.Beep);
         GameManager.SoundManager.Background = value;
     }
 
     public void OnEffectChanged(float value)
     {
-        sliderAudioSource.volume = value;
+        AudioManager.instance.ChangeSfxVolume(value);
         GameManager.SoundManager.Effects = value;
     }
 
@@ -80,14 +80,14 @@ public class ConfigPanel : MonoBehaviour
 
     public void Show()
     {
-
+        AudioManager.instance.PlayAmbience((int) SoundType.AmbienceHallway);
         animator.SetTrigger("Show");
         Shown = true;
     }
 
     public void Hide()
     {
-     
+        AudioManager.FadeInAmbience((int) SoundType.AmbienceHallway, 0.01f);
         animator.SetTrigger("Hide");
         Shown = false;
 
