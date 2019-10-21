@@ -80,14 +80,12 @@ public class ConfigPanel : MonoBehaviour
 
     public void Show()
     {
-        AudioManager.FadeInAmbience((int)SoundType.AmbienceHallway, 0.05f);
         animator.SetTrigger("Show");
         Shown = true;
     }
 
     public void Hide()
     {
-        AudioManager.FadeOutAmbience(0.01f);
         animator.SetTrigger("Hide");
         Shown = false;
 

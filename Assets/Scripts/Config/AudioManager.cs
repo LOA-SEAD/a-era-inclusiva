@@ -24,6 +24,7 @@ public class AudioManager : MonoBehaviour
     private static string _savePath;
 
     // TODO: POSSIVELMENTE FAZER UM AUDIO SOURCE POR CLIP, PRA EVITAR QUE O SOM SEJA CORTADO
+    // TODO: Modificar o script do prefab Dialog para utilizar o AudioManager
     // TODO: Não esquecer de mudar as configurações de compressão pra cada clipe
     // TODO: Setar um script nos prefabs em que existe AudioSource para que chamem o AudioManager quando forem tocar algo
     // TODO: AudioSources privados e manter uma propriedade pra acessá-los. Não inicializar pelo inspetor, mas sim por esse script
@@ -48,8 +49,8 @@ public class AudioManager : MonoBehaviour
             }
             else
             {
-                effects.volume = 1f;
-                ambience.volume = 0.7f;
+                effects.volume = 0.9f;
+                ambience.volume = 0.5f;
                 Save();
             }
         }
@@ -108,7 +109,17 @@ public class AudioManager : MonoBehaviour
         Sound sound = GetSound((SoundType) soundType);
 
         if (sound != null)
-            effects.PlayOneShot(sound.clip);
+        {
+            if (sound.clip == effects.clip)
+            {
+                effects.Stop();
+                effects.Play();
+            } else
+            {
+                effects.clip = sound.clip;
+                effects.PlayOneShot(sound.clip);
+            }
+        }
     }
 
     public void PlayAmbience(int soundType)

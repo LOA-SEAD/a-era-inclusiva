@@ -5,9 +5,7 @@ using UnityEngine;
 public class ControladorSalaDeAula : MonoBehaviour
 {
     private DemandToggle _selectedDemand;
-    public AudioClip acertoClip;
     public ActionListWrapper actionListWrapper;
-    public AudioSource audioSource;
     public BarraInferior barraInferior;
     public float levelTimeInSeconds;
     public SceneController sceneController;
@@ -24,16 +22,14 @@ public class ControladorSalaDeAula : MonoBehaviour
 
     private void Start()
     {
-        
-
         InvokeRepeating("CheckIfEnd", 1, 2);
+        AudioManager.instance.PlayAmbience((int) SoundType.AmbienceClass);
     }
 
     private void Update()
     {
         //timer da fase
         levelTimeInSeconds -= Time.deltaTime;
-        
     }
 
 
@@ -59,9 +55,7 @@ public class ControladorSalaDeAula : MonoBehaviour
             return;
         }
 
-
-        audioSource.clip = acertoClip;
-        audioSource.Play();
+        AudioManager.instance.PlaySfx((int)SoundType.AnswerRight);
         Speak(e.efetividade);
         barraInferior.IncrementScore(e.efetividade);
         _selectedDemand = null;
