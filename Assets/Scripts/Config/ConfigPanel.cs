@@ -26,7 +26,7 @@ public class ConfigPanel : MonoBehaviour
     public void ShowBackgroundSlider()
     {
         slider.onValueChanged.RemoveAllListeners();
-        slider.value = GameManager.SoundManager.Background;
+        slider.value = AudioManager.instance.ambience.volume;
         slider.onValueChanged.AddListener(OnBackgroundChanged);
 
         animator.SetTrigger("SlideIn");
@@ -36,7 +36,7 @@ public class ConfigPanel : MonoBehaviour
     public void ShowEffectSlider()
     {
         slider.onValueChanged.RemoveAllListeners();
-        slider.value = GameManager.SoundManager.Effects;
+        slider.value = AudioManager.instance.effects.volume;
         slider.onValueChanged.AddListener(OnEffectChanged);
 
         animator.SetTrigger("SlideIn");
@@ -46,15 +46,15 @@ public class ConfigPanel : MonoBehaviour
     
     public void OnBackgroundChanged(float value)
     {
-        AudioManager.instance.ChangeAmbVolume(value);
-        AudioManager.instance.PlaySfx((int) SoundType.Beep);
-        GameManager.SoundManager.Background = value;
+        AudioManager.instance.ambience.volume = value;
+        AudioManager.instance.Save();
     }
 
     public void OnEffectChanged(float value)
     {
-        AudioManager.instance.ChangeSfxVolume(value);
-        GameManager.SoundManager.Effects = value;
+        AudioManager.instance.effects.volume = value;
+        AudioManager.instance.PlaySfx((int) SoundType.Beep);
+        AudioManager.instance.Save();
     }
 
     public void OnFullscreenChanged()
@@ -80,14 +80,14 @@ public class ConfigPanel : MonoBehaviour
 
     public void Show()
     {
-        AudioManager.instance.PlayAmbience((int) SoundType.AmbienceHallway);
+        AudioManager.FadeInAmbience((int)SoundType.AmbienceHallway, 0.05f);
         animator.SetTrigger("Show");
         Shown = true;
     }
 
     public void Hide()
     {
-        AudioManager.FadeInAmbience((int) SoundType.AmbienceHallway, 0.01f);
+        AudioManager.FadeOutAmbience(0.01f);
         animator.SetTrigger("Hide");
         Shown = false;
 

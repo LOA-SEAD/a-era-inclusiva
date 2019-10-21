@@ -7,7 +7,6 @@ public class SoundManager
     private readonly string _savePath = Path.Combine(Application.persistentDataPath, "saves");
     private SoundData _soundData;
 
-
     public SoundManager()
     {
         if (ConfigExists())
@@ -25,24 +24,24 @@ public class SoundManager
 
     public float Background
     {
-        get => _soundData.BackgroundVol;
+        get => _soundData.ambienceVol;
         set
         {
-            _soundData.BackgroundVol = value;
+            _soundData.ambienceVol = value;
             var audioSources = GameObject.FindGameObjectsWithTag("BackgroundAudioSource");
-            foreach (var audioSource in audioSources) audioSource.GetComponent<AudioSource>().volume = _soundData.BackgroundVol;
+            foreach (var audioSource in audioSources) audioSource.GetComponent<AudioSource>().volume = _soundData.ambienceVol;
             Save();
         }
     }
 
     public float Effects
     {
-        get => _soundData.EffectsVol;
+        get => _soundData.effectsVol;
         set
         {
-            _soundData.EffectsVol = value;
+            _soundData.effectsVol = value;
             var audioSources = GameObject.FindGameObjectsWithTag("EffectAudioSource");
-            foreach (var audioSource in audioSources) audioSource.GetComponent<AudioSource>().volume = _soundData.EffectsVol;
+            foreach (var audioSource in audioSources) audioSource.GetComponent<AudioSource>().volume = _soundData.effectsVol;
             Save();
         }
     }

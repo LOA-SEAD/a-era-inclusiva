@@ -12,6 +12,11 @@ public class BibliotecaController : MonoBehaviour
     public StreamVideo player;
     public GameObject textoPages;
 
+    public void Start()
+    {
+        AudioManager.instance.PlayAmbience((int)SoundType.AmbienceHallway);
+    }
+
     public void Display(ClassResource resource)
     {
         Media.SetActive(true);
