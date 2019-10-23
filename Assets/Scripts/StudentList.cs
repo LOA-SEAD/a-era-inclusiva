@@ -1,9 +1,14 @@
-﻿public class StudentList : SimpleScroll
+﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class StudentList:MonoBehaviour
 {
+    public SimpleScrollAlt ScrollAlt;
     public delegate void StudentAction(ClassAluno aluno);
 
     public bool importantOnly;
-    public StudentIcon prefabButton;
+    public Selectable prefabButton;
 
     private StudentAction whenSelected;
 
@@ -14,24 +19,31 @@
 
 
     public void Start()
-    {
-        UpdateList();
+    { 
+        if (GameManager.GameData == null || !GameManager.GameData.Loaded) 
+            GameData.GameDataLoaded += UpdateList;
+        else {
+            UpdateList(this, EventArgs.Empty);
+        }
     }
 
-    private void UpdateList()
+
+
+    private void UpdateList(object sender, EventArgs e)
     {
         if (GameManager.GameData.Alunos == null ) return;
-        Clear();
-        BackToTop();
+        ScrollAlt.Clear();
+        ScrollAlt.BackToTop();
         foreach (var student in GameManager.GameData.Alunos)
         {
             if (importantOnly && !student.importante) continue;
 
-            var button = Instantiate(prefabButton);
-            button.Student = student;
+            var studentIcon = Instantiate(prefabButton);
+            studentIcon.GetComponent<StudentIcon>().Student = student;
             if (whenSelected != null)
-                button.AddListener(delegate { whenSelected(student); });
-            Add(button.gameObject);
+                studentIcon.GetComponent<Button>().onClick.AddListener(delegate { whenSelected(student); });
+            ScrollAlt.Add(studentIcon);
         }
+        ScrollAlt.SelectFirst();
     }
 }

@@ -17,7 +17,8 @@ public class SimpleScroll : MonoBehaviour
     private float step;
     public Button UpButton;
     public bool showScroll;
-
+    public event EventHandler TopReached;
+    public event EventHandler BottomReached;
 
     protected void Awake()
     {
@@ -64,19 +65,28 @@ public class SimpleScroll : MonoBehaviour
         UpdateChildrenCount();
     }
 
-    private void GoDown()
+    public void GoDown()
     {
-        if (_at >= childrenCount-3) return;
+        if (_at >= childrenCount - 3)
+        {
+            BottomReached?.Invoke(this, EventArgs.Empty);
+
+            return;
+        }
         newPosition.y += step;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
         _at++;
     }
 
-    private void GoUp()
+    public void GoUp()
     {
 
-        if (_at<=0) return;
+        if (_at <= 0)
+        {
+            TopReached?.Invoke(this, EventArgs.Empty);
+            return;
+        }
         newPosition.y -= step;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
@@ -99,9 +109,8 @@ public class SimpleScroll : MonoBehaviour
 
     public virtual void UpdateChildrenCount()
     {
-        if (!showScroll)
-            return;
-        if (childrenCount > _maxShown)
+
+        if (childrenCount > 0)
         {
             if (UpButton != null)
                 UpButton.gameObject.SetActive(true);
