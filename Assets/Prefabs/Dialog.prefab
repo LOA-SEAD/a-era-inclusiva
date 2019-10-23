@@ -913,6 +913,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3168841423110026519}
     m_Modifications:
+    - target: {fileID: 4456972496384677554, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_Name
+      value: RoundButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677554, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4456972496384677555, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1028,16 +1038,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4456972496384677554, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
-        type: 3}
-      propertyPath: m_Name
-      value: RoundButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 4456972496384677554, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1981975736637784801, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
       propertyPath: Pan2D
@@ -1081,31 +1081,6 @@ PrefabInstance:
     - target: {fileID: 4456972496384677553, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
         type: 3}
       propertyPath: m_Interactable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4456972496384677552, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
-        type: 3}
-      propertyPath: m_EffectColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4456972496384677552, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
-        type: 3}
-      propertyPath: m_EffectColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4456972496384677552, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
-        type: 3}
-      propertyPath: m_EffectColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4456972496384677552, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
-        type: 3}
-      propertyPath: m_UseGraphicAlpha
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4456972496384677552, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
-        type: 3}
-      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4456972496384677550, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
@@ -1199,8 +1174,34 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677552, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_EffectColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677552, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_EffectColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677552, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_EffectColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677552, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_UseGraphicAlpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456972496384677552, guid: 64f6f3719a3a18a49bc6e1f05ca528de,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4456972496384677552, guid: 64f6f3719a3a18a49bc6e1f05ca528de, type: 3}
+    - {fileID: 1981975736637784801, guid: 64f6f3719a3a18a49bc6e1f05ca528de, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 64f6f3719a3a18a49bc6e1f05ca528de, type: 3}
 --- !u!1 &7414982535614206571 stripped
 GameObject:

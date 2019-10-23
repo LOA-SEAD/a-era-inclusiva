@@ -47,9 +47,7 @@ public class DemandController : MonoBehaviour
         });
         button.Demand = demanda;
         alunosSalaDeAula.MostrarBalao(demanda);
-        Debug.Log(demanda.nivelUrgencia);
         PlayDemandSound(demanda.nivelUrgencia);
-        //controller.Speak(demanda.descricao);
         simpleScroll.Add(button.gameObject);
     }
 
