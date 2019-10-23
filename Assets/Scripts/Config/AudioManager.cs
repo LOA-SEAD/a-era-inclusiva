@@ -30,7 +30,7 @@ public class AudioManager : MonoBehaviour
     // TODO: AudioSources privados e manter uma propriedade pra acessá-los. Não inicializar pelo inspetor, mas sim por esse script
     // TODO: Mover as coisas de Save pro SaveManager  
     // TODO: mandar save() da configuração ao clicar em Voltar (ConfigPanel)
-    // TODO: Suportar som stereo? 
+    // TODO: Suportar som stereo?
     // TODO: Para sons muito repetitivos (como clique e hover de botão) modificar o pitch levemente para não ficar cansativo
 
     void Awake()

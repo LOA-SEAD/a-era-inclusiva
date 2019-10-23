@@ -52,6 +52,7 @@ public class ControladorSalaDeAula : MonoBehaviour
         if (e == null)
         {
             Speak("Acho que isso não funcionou muito bem");
+            AudioManager.instance.PlaySfx((int)SoundType.AnswerWrong);
             return;
         }
 
