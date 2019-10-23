@@ -8,15 +8,12 @@ public class GameManager : MonoBehaviour
     
     public static bool IsLoaded;
     public static bool AccessibilityMode;
-    public static SoundManager SoundManager { get; private set; }
 
     public static SaveManager SaveManager { get; private set; }
-
 
     public static GameData GameData { get; private set; }
 
     public static PlayerData PlayerData { get; set; }
-
 
     public void Awake()
     {
@@ -24,7 +21,6 @@ public class GameManager : MonoBehaviour
         
         GameData = new GameData(this);
         SaveManager = new SaveManager();
-        SoundManager = new SoundManager();
         if (SaveManager.SaveExists("save")) 
             SaveManager.Load("save");
         else New("save");
@@ -33,12 +29,10 @@ public class GameManager : MonoBehaviour
 
     }
 
-   
-
     public static void New(string name)
     {
         if (PlayerData == null) PlayerData = new PlayerData();
-        var saveData = new SaveData(name, SoundManager, PlayerData);
+        var saveData = new SaveData(name, PlayerData);
         SaveManager.Save(saveData);
     }
 }

@@ -22,7 +22,6 @@ public class Dialog : MonoBehaviour
     private bool revealing;
     public float speed = 0.2f;
     public TextMeshProUGUI textMesh;
-    private bool loaded;
 
     public void EndOfClosingAnimation() {
         AtEndOfClosingAnimation.Invoke();
@@ -36,7 +35,6 @@ public class Dialog : MonoBehaviour
         Phrases = npc.dialogos.Find(x => x.local == Local).frases;
         if(Phrases == null)
             return;
-        loaded = true;
         GetComponent<Animator>().SetTrigger("Show");
         id = 0;
         ShowNextDialog();

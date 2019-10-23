@@ -8,7 +8,7 @@ public class SaveData
     public int Points;
     public HashSet<ClassAcao> SelectedActions;
 
-    public SaveData(string name, SoundManager soundManager, PlayerData data)
+    public SaveData(string name, PlayerData data)
     {
         Name = name;
         Day = 1;

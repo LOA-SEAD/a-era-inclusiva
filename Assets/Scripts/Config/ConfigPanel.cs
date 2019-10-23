@@ -10,7 +10,6 @@ public class ConfigPanel : MonoBehaviour
     public TextMeshProUGUI fullscreenToggle;
     public TextMeshProUGUI accessibilityMode;
     public Animator animator;
-    public AudioSource sliderAudioSource;
     public bool Shown;
     public bool sliderShown;
     private void Start()
@@ -22,12 +21,12 @@ public class ConfigPanel : MonoBehaviour
              accessibilityMode.text = GameManager.AccessibilityMode ? "Desativar acessibilidade" : "Ativar acessibilidade";
      
      #endif
-         }
+    }
 
     public void ShowBackgroundSlider()
     {
         slider.onValueChanged.RemoveAllListeners();
-        slider.value = GameManager.SoundManager.Background;
+        slider.value = AudioManager.instance.ambience.volume;
         slider.onValueChanged.AddListener(OnBackgroundChanged);
 
         animator.SetTrigger("SlideIn");
@@ -37,7 +36,7 @@ public class ConfigPanel : MonoBehaviour
     public void ShowEffectSlider()
     {
         slider.onValueChanged.RemoveAllListeners();
-        slider.value = GameManager.SoundManager.Effects;
+        slider.value = AudioManager.instance.effects.volume;
         slider.onValueChanged.AddListener(OnEffectChanged);
 
         animator.SetTrigger("SlideIn");
@@ -47,14 +46,15 @@ public class ConfigPanel : MonoBehaviour
     
     public void OnBackgroundChanged(float value)
     {
-        sliderAudioSource.volume = value;
-        GameManager.SoundManager.Background = value;
+        AudioManager.instance.ambience.volume = value;
+        AudioManager.instance.Save();
     }
 
     public void OnEffectChanged(float value)
     {
-        sliderAudioSource.volume = value;
-        GameManager.SoundManager.Effects = value;
+        AudioManager.instance.effects.volume = value;
+        AudioManager.instance.PlaySfx((int) SoundType.Beep);
+        AudioManager.instance.Save();
     }
 
     public void OnFullscreenChanged()
@@ -80,14 +80,12 @@ public class ConfigPanel : MonoBehaviour
 
     public void Show()
     {
-
         animator.SetTrigger("Show");
         Shown = true;
     }
 
     public void Hide()
     {
-     
         animator.SetTrigger("Hide");
         Shown = false;
 

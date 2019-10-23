@@ -27,8 +27,4 @@ public class SpeechBubble : MonoBehaviour
             GetComponent<Animator>().SetTrigger(ShowHash);
         textMesh.SetText(text);
     }
-    // Start is called before the first frame update
-
-
-    // Update is called once per frame
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,10 +8,8 @@ public class DemandController : MonoBehaviour
     public ActionListWrapper actionListWrapper;
 
     public AlunosSalaDeAula alunosSalaDeAula;
-    public List<AudioClip> AudioClips;
     public ControladorSalaDeAula controller;
     public float delayBetweenEachDemand;
-    public AudioSource demandSound;
 
     public DemandToggle prefabBotaoDemanda;
 
@@ -50,9 +47,32 @@ public class DemandController : MonoBehaviour
         });
         button.Demand = demanda;
         alunosSalaDeAula.MostrarBalao(demanda);
-        demandSound.clip = AudioClips[demanda.nivelUrgencia - 1];
-        demandSound.Play();
+        Debug.Log(demanda.nivelUrgencia);
+        PlayDemandSound(demanda.nivelUrgencia);
         //controller.Speak(demanda.descricao);
         simpleScroll.Add(button.gameObject);
+    }
+
+    private void PlayDemandSound(int urgencia)
+    {
+        SoundType demandSound;
+
+        switch(urgencia)
+        {
+            case 1:
+                demandSound = SoundType.DemandGreen;
+                break;
+            case 2:
+                demandSound = SoundType.DemandYellow;
+                break;
+            case 3:
+                demandSound = SoundType.DemandRed;
+                break;
+            default:
+                Debug.Log("Non-existent demand sound!");
+                return;
+        }
+
+        AudioManager.instance.PlaySfx((int)demandSound);
     }
 }

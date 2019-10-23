@@ -18,7 +18,7 @@ public class HTPIController : MonoBehaviour
     public ActionListWrapperHTPI actionList;
 
     public GameObject content;
-    // Start is called before the first frame update
+
     void Awake()
     {
         _botaoPorDemanda = new Dictionary<ClassDemanda, BotaoDemandaHTPI>();
@@ -26,7 +26,8 @@ public class HTPIController : MonoBehaviour
         actionList.gameObject.SetActive(false);
         demandList.gameObject.SetActive(false);
         _resolucoes = new Dictionary<ClassDemanda, ClassAcao>();
-  
+
+        AudioManager.instance.PlayAmbience((int) SoundType.AmbienceClass);
     }
 
     private void Start()
@@ -79,7 +80,4 @@ public class HTPIController : MonoBehaviour
     {
         confirmation.gameObject.SetActive(true);
     }
-
-    
-    // Update is called once per frame
 }
