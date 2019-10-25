@@ -15,6 +15,7 @@ public class Tablet : MonoBehaviour
 
     void AfterFade()
     {
+        AudioManager.instance.MuteAmbience();
         afterFade.Invoke();
     }
 }

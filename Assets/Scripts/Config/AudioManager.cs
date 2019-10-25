@@ -1,28 +1,10 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
+using System.Collections;
 using System.IO;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    // Singleton
-    public static AudioManager instance;
-
-    // 3 audio sources for each type of sound in the game
-    public AudioSource effects, ambience, music;
-
-    // For volume configuration
-    private SoundData _soundData;
-
-    // Array of audio clips
-    public Sound[] sounds;
-
-    // Control of FadeIn(), FadeOut() functions
-    private static bool keepFadingIn, keepFadingOut;
-
-    // For saving configuration
-    private static string _configFile;
-    private static string _savePath;
-
     // TODO: POSSIVELMENTE FAZER UM AUDIO SOURCE POR CLIP, PRA EVITAR QUE O SOM SEJA CORTADO
     // TODO: Modificar o script do prefab Dialog para utilizar o AudioManager
     // TODO: Não esquecer de mudar as configurações de compressão pra cada clipe
@@ -32,6 +14,88 @@ public class AudioManager : MonoBehaviour
     // TODO: mandar save() da configuração ao clicar em Voltar (ConfigPanel)
     // TODO: Suportar som stereo?
     // TODO: Para sons muito repetitivos (como clique e hover de botão) modificar o pitch levemente para não ficar cansativo
+    // TODO: Talvez ficar acessando Screen.width e Screen.height toda vez que for tocar um som seja custoso?
+    // TODO: Fazer uma nova cena para testar se as fórmulas de pitch e stereo ao tocar um sfx estão certas
+
+    // Singleton
+    public static AudioManager instance;
+    const float pitchMax = 1.1f;
+    const float pitchMin = 0.90f;
+
+    private AudioSource ambience;
+    public float AmbienceVolume {
+        get
+        {
+            return ambience.volume;
+        }
+        set
+        {
+            ambience.volume = value;
+        }
+    }
+
+    private AudioSource music;
+    public float MusicVolume
+    {
+        get
+        {
+            return music.volume;
+        }
+        set
+        {
+            music.volume = value;
+        }
+    }
+
+    private SoundData _soundData;
+
+    public SFX[] fxSounds;
+    public float SFXVolume
+    {
+        get
+        {
+            return fxSounds[0].source.volume;
+        }
+        set
+        {
+            foreach (SFX sfx in fxSounds)
+                sfx.source.volume = value;
+        }
+    }
+
+    public Sound[] ambientSounds;
+    public Sound[] musicSounds;
+
+    private static bool keepFadingIn, keepFadingOut;
+
+    private static string _configFile;
+    private static string _savePath;
+
+    public void Initialize()
+    {
+        ambience = gameObject.AddComponent<AudioSource>();
+        ambience.loop = true;
+        music = gameObject.AddComponent<AudioSource>();
+        music.loop = true;
+        foreach (SFX effect in fxSounds)
+        {
+            effect.source = gameObject.AddComponent<AudioSource>();
+            effect.source.clip = effect.clip;
+        }
+
+        _savePath = Path.Combine(Application.persistentDataPath, "saves");
+        _configFile = Path.Combine(Application.persistentDataPath, "saves", "audio_settings.json");
+        if (ConfigExists())
+        {
+            Load();
+        }
+        else
+        {
+            SFXVolume = 0.9f;
+            ambience.volume = 0.5f;
+            Save();
+        }
+    }
 
     void Awake()
     {
@@ -40,19 +104,7 @@ public class AudioManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
 
-            _savePath = Path.Combine(Application.persistentDataPath, "saves");
-            _configFile = Path.Combine(Application.persistentDataPath, "saves", "audio_settings.json");
-
-            if (ConfigExists())
-            {
-                Load();
-            }
-            else
-            {
-                effects.volume = 0.9f;
-                ambience.volume = 0.5f;
-                Save();
-            }
+            Initialize();
         }
         else
         {
@@ -76,14 +128,14 @@ public class AudioManager : MonoBehaviour
             _soundData = JsonUtility.FromJson<SoundData>(jsonString);
         }
 
-        effects.volume =_soundData.effectsVol;
-        ambience.volume = _soundData.ambienceVol;
+        SFXVolume =_soundData.effectsVol;
+        AmbienceVolume = _soundData.ambienceVol;
     }
 
     public void Save()
     {
-        _soundData.effectsVol = effects.volume;
-        _soundData.ambienceVol = ambience.volume;
+        _soundData.effectsVol = SFXVolume;
+        _soundData.ambienceVol = AmbienceVolume;
 
         var jsonString = JsonUtility.ToJson(_soundData);
 
@@ -95,36 +147,67 @@ public class AudioManager : MonoBehaviour
 
     //------------------------------------------------------------------
 
-    public Sound GetSound(SoundType soundType)
+    public SFX GetSFX(SoundType soundType)
     {
-        foreach(Sound sound in sounds)
-            if (sound.soundType == soundType) return sound;
+        foreach(SFX sfx in fxSounds)
+            if (sfx.soundType == soundType) return sfx;
 
-        Debug.Log("Sound '" + name + "' not found.");
+        Debug.Log("SFX '" + soundType + "' not found.");
         return null;
     }
 
-    public void PlaySfx(int soundType)
+    public Sound GetAmbience(SoundType soundType)
     {
-        Sound sound = GetSound((SoundType) soundType);
+        foreach (Sound sound in ambientSounds)
+            if (sound.soundType == soundType) return sound;
 
-        if (sound != null)
+        Debug.Log("Ambience '" + soundType + "' not found.");
+        return null;
+    }
+
+    public Sound GetMusic(SoundType soundType)
+    {
+        foreach (Sound sound in musicSounds)
+            if (sound.soundType == soundType) return sound;
+
+        Debug.Log("Music '" + soundType + "' not found.");
+        return null;
+    }
+
+    // Função altera stereo com posx e pitch de acordo com posy
+    public void PlaySfx(int soundType, float posx, float posy)
+    {
+        SFX sfx = GetSFX((SoundType) soundType);
+
+        if (sfx != null)
         {
-            if (sound.clip == effects.clip)
-            {
-                effects.Stop();
-                effects.Play();
-            } else
-            {
-                effects.clip = sound.clip;
-                effects.PlayOneShot(sound.clip);
-            }
+            sfx.source.Stop();
+
+            float halfw = Screen.width / 2f;
+            float height = Screen.height;
+            
+            sfx.source.panStereo = (posx - halfw)/ halfw;
+            sfx.source.pitch = ((posy * (pitchMax - pitchMin)) / height) + pitchMin;
+            sfx.source.Play();
         }
     }
 
+    // Caso chame a função só passando posx, só muda stereo, com pitch normal
+    public void PlaySfx(int soundType, float posx)
+    {
+        PlaySfx(soundType, posx, Screen.height / 2);
+    }
+
+    // Caso chame a função sem passar pos, stereo e pitch normais
+    public void PlaySfx(int soundType)
+    {
+        PlaySfx(soundType, Screen.width / 2, Screen.height / 2);
+    }
+
+
     public void PlayAmbience(int soundType)
     {
-        Sound sound = GetSound((SoundType)soundType);
+        Sound sound = GetAmbience((SoundType)soundType);
 
         if (sound != null)
         {
@@ -135,13 +218,23 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(int soundType)
     {
-        Sound sound = GetSound((SoundType)soundType);
+        Sound sound = GetMusic((SoundType)soundType);
 
         if (sound != null)
         {
             music.clip = sound.clip;
             music.Play();
         }
+    }
+
+    public void MuteAmbience()
+    {
+        ambience.mute = true;
+    }
+
+    public void UnMuteAmbience()
+    {
+        ambience.mute = false;
     }
 
     public static void FadeInAmbience(int soundType, float speed)

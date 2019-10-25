@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Random;
 
 public class DemandController : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class DemandController : MonoBehaviour
 
     public AlunosSalaDeAula alunosSalaDeAula;
     public ControladorSalaDeAula controller;
-    public float delayBetweenEachDemand;
+    public float minDelay;
+    public float maxDelay;
 
     public DemandToggle prefabBotaoDemanda;
 
@@ -23,7 +25,8 @@ public class DemandController : MonoBehaviour
 
     private IEnumerator SpawnDemands()
     {
-        yield return new WaitForSeconds(delayBetweenEachDemand);
+        // Precisa dessa linha de baixo? Perguntar ao João
+        yield return new WaitForSeconds(5);
 
         var studentList = GameManager.GameData.Alunos.Where(x => x.importante);
         var demandList = GameManager.GameData.Demandas
@@ -31,7 +34,7 @@ public class DemandController : MonoBehaviour
             .ToList();
         while (demandList.Any())
         {
-            yield return new WaitForSeconds(delayBetweenEachDemand);
+            yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
 
             SpawnDemand(demandList.First());
             demandList.RemoveAt(0);
@@ -47,6 +50,7 @@ public class DemandController : MonoBehaviour
         });
         button.Demand = demanda;
         alunosSalaDeAula.MostrarBalao(demanda);
+        //PlayDemandSound(demanda.nivelUrgencia, button.transform.position.x, button.transform.position.y);
         PlayDemandSound(demanda.nivelUrgencia);
         simpleScroll.Add(button.gameObject);
     }

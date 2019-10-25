@@ -34,6 +34,7 @@ public class ActionConfirmation : Confirmation
         foreach (var action in actionsToShow)
         {
             var actionButton = Instantiate(actionPrefab, actionsPanel.transform);
+            //actionButton.GetComponent<ButtonSound>().disable = true;
             // TODO: Botões dessa confirmação não deveriam ter som, mas não podem aparecer desbotados
             //actionButton.GetComponent<Button>().interactable = false;
             actionButton.Acao = action;

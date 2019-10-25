@@ -4,8 +4,10 @@ using UnityEngine.EventSystems;
 
 public class ButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
-    public bool disable;
+    // TODO: ao invés de ficar checando se disable = true, talvez remover o evento
+
     private Button button;
+    public bool disable;
 
     private void Start()
     {
@@ -16,13 +18,13 @@ public class ButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(button.interactable && !disable)
-            AudioManager.instance.PlaySfx((int)SoundType.ButtonHover);
+            AudioManager.instance.PlaySfx((int)SoundType.ButtonHover, gameObject.transform.position.x, gameObject.transform.position.y);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (button.interactable && !disable)
-            AudioManager.instance.PlaySfx((int)SoundType.ButtonClick);
+            AudioManager.instance.PlaySfx((int)SoundType.ButtonClick, gameObject.transform.position.x);
     }
 
 }

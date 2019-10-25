@@ -23,6 +23,8 @@ public class ControladorSalaDeAula : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("CheckIfEnd", 1, 2);
+        AudioManager.instance.PlaySfx((int)SoundType.BellRing);
+        AudioManager.instance.UnMuteAmbience();
         AudioManager.instance.PlayAmbience((int) SoundType.AmbienceClass);
     }
 
@@ -67,6 +69,7 @@ public class ControladorSalaDeAula : MonoBehaviour
     {
         if (GameManager.GameData.Demandas.FindAll(x => !x.resolvida).Count == 0 || levelTimeInSeconds <= 0f)
         {
+            AudioManager.instance.PlaySfx((int)SoundType.BellRing);
             sceneController.ChangeTo("Scenes/HTPI");
             GameManager.PlayerData.SelectedActions = new HashSet<ClassAcao>();
         }
