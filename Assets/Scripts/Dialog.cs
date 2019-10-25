@@ -78,12 +78,8 @@ public class Dialog : MonoBehaviour
         CharacterImage.sprite = fromTex;
     }
 
-
-
     private void Update()
     {
-    
-
         // Press ENTER or SPACE to show next sentence
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             ShowNextDialog();
