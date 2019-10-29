@@ -2,13 +2,15 @@
   "Personagens": [
     {
       "nome": "André",
+      "expressoes": ["feliz","sereno", "serio"],
       "dialogos": [
         {
           "local": "ConversaComAndre",
           "frases": [
             "Mas veja quem está aqui! Que bom que aceitou o convite em dar aulas em nossa escola! Meu nome é André e sou o diretor.",
             "Sempre que precisar que a mensagem seja repetida aperte Q. Pressione Enter ou Barra de Espaço para nossa conversa continuar."
-          ]
+          ],
+          "expressoes": ["feliz", "sereno"]
         },{
           "local": "Corredor",
           "frases": [
@@ -26,6 +28,7 @@
     },
     {
       "nome": "Valéria",
+      "expressoes": ["feliz","sereno", "bravo"],
       "dialogos": [
         {
           "local": "Sala dos professores",
@@ -34,7 +37,8 @@
             "Hm? Ah, olá! Desculpe por termos começado a reunião, mas é que tínhamos que adiantar alguns assuntos.",
             "Meu nome é Valéria e estarei aqui para te ajudar no planejamento de suas aulas e nos demais recursos que precisar em nossa escola.",
             "Escolha a opção “Plano de Aula” para que eu te ajude a se preparar para a aula desta semana."
-          ]
+          ],
+          "expressoes": ["feliz", "sereno", "feliz", "sereno"]
         },
         {
           "local": "Biblioteca",
@@ -47,12 +51,15 @@
           "frases": [
             "Agora vamos ver quais das ações pedagógicas foram mais eficazes na sua aula ou que poderiam ter funcionado melhor.",
             "Analise as demandas e resolva utilizando as ações disponiveis"
-          ]
+          ],
+          "expressoes": ["feliz", "sereno"]
+
         }
       ]
     },
     {
       "nome": "Marilde",
+      "expressoes": ["feliz","sereno", "serio"],
       "dialogos": [
         {
           "oneshot" : false,
@@ -64,6 +71,7 @@
       ]
     },{
       "nome": "Ane",
+      "expressoes": ["feliz","sereno", "serio"],
       "dialogos": [
         {
           "oneshot" : true,

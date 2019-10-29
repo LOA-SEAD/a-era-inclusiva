@@ -26,6 +26,7 @@ public class Dialog : MonoBehaviour
     public TextMeshProUGUI textMesh;
     private bool loaded;
     public Image CharacterImage;
+    public ClassPersonagem npc;
 
     public void EndOfClosingAnimation() {
         AtEndOfClosingAnimation.Invoke();
@@ -33,18 +34,19 @@ public class Dialog : MonoBehaviour
     public void LoadDialog()
     {
         if (!LoadFromJson || GameManager.GameData == null || GameManager.GameData.Personagens == null) return;
-        var npc = GameManager.GameData.Personagens.Find(x => x.nome == Name);
+        npc = GameManager.GameData.Personagens.Find(x => x.nome == Name);
         if (npc == null)
             return;
         Phrases = npc.dialogos.First(x => x.local == Local).frases;
         if(Phrases == null)
             return;
-        LoadImage();
+        npc.LoadExpressions();
         loaded = true;
         GetComponent<Animator>().SetTrigger("Show");
         id = 0;
         ShowNextDialog();
     }
+
 
     public void OnDataLoaded(object sender, EventArgs e)
     {
@@ -59,27 +61,13 @@ public class Dialog : MonoBehaviour
             LoadDialog();
         }
     }
+    
 
-    public void LoadImage()
-    {
-        var filePath = Application.streamingAssetsPath + "/Illustrations/CharacterPortraits/SchoolStaff/"+Name+".png";  //Get path of folder
- 
-        //Converts desired path into byte array
-        byte[] pngBytes = System.IO.File.ReadAllBytes(filePath);
- 
-        //Creates texture and loads byte array data to create image
-        Texture2D tex = new Texture2D(2, 2);
-        tex.LoadImage(pngBytes);
- 
-        //Creates a new Sprite based on the Texture2D
-        Sprite fromTex = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
- 
-        //Assigns the UI sprite
-        CharacterImage.sprite = fromTex;
-    }
 
     private void Update()
     {
+    
+
         // Press ENTER or SPACE to show next sentence
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             ShowNextDialog();
@@ -95,6 +83,12 @@ public class Dialog : MonoBehaviour
 
     public void ShowNextDialog()
     {
+        if (id + 1 < npc.expressoes.Count)
+        {
+            CharacterImage.sprite = npc.images[npc.expressoes[id]];
+        } else 
+            CharacterImage.sprite = npc.images[ClassFala.padrao];
+
         if (reveal != null)
             StopCoroutine(reveal);
 
