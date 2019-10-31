@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class FeedbackController : MonoBehaviour
 {
     public HTPIController htpiController;
-
+    public SceneController sceneController;
     public Dictionary<ClassDemanda, int> results;
 
     public Confirmation confirmation;
@@ -22,6 +23,15 @@ public class FeedbackController : MonoBehaviour
         {
             results[resolucao.Key] = resolucao.Key.EfficiencyOf(resolucao.Value);
         }
+
+    }
+
+    public void ShowConfirmation(object sender, EventArgs eventArgs)
+    {
+        confirmation.Message.SetText("Deseja voltar ao corredor?");
+        confirmation.AcceptButton.onClick.AddListener(()=>sceneController.ChangeTo("Scenes/Corredor"));
+        confirmation.DenyButton.onClick.AddListener(()=>confirmation.gameObject.SetActive(false));
+        confirmation.gameObject.SetActive(true);
 
     }
 

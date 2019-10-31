@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class SimpleScrollAlt : MonoBehaviour
 {
     private readonly int _maxShown = 3;
+    public bool Horizontal;
     public int _at;
     public List<Selectable> children;
     public Button DownButton;
@@ -22,7 +23,7 @@ public class SimpleScrollAlt : MonoBehaviour
     protected void Awake()
     {
         children = new List<Selectable>();
-        spacing = GetComponentInChildren<VerticalLayoutGroup>().spacing;
+        spacing = GetComponentInChildren<HorizontalOrVerticalLayoutGroup>().spacing;
         if (UpButton != null)
             UpButton.onClick.AddListener(delegate { GoUp(); });
         if (DownButton != null)
@@ -31,7 +32,10 @@ public class SimpleScrollAlt : MonoBehaviour
 
     private void Start()
     {
-        step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
+        if (Horizontal)
+            step = (parent.GetComponent<RectTransform>().rect.width + spacing) / _maxShown;
+        else
+            step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
     }
 
     public void BackToTop()
@@ -39,7 +43,6 @@ public class SimpleScrollAlt : MonoBehaviour
         _at = 0;
 
         parent.transform.localPosition = Vector3.zero;
-
     }
 
     public void Clear()
@@ -47,11 +50,11 @@ public class SimpleScrollAlt : MonoBehaviour
         _at = 0;
         foreach (var child in children)
         {
-      
             child.transform.SetParent(null);
             child.gameObject.SetActive(false);
             Destroy(child.gameObject);
         }
+
         children.Clear();
         BackToTop();
     }
@@ -68,14 +71,14 @@ public class SimpleScrollAlt : MonoBehaviour
         selected.interactable = true;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
-        
+
         _at++;
         selected = children[_at];
         selected.interactable = false;
         selected.GetComponent<Button>().onClick?.Invoke();
         return true;
     }
-    
+
 
     public bool GoUp()
     {
@@ -101,9 +104,11 @@ public class SimpleScrollAlt : MonoBehaviour
     private IEnumerator AnimateMove()
     {
         var newPosition = Vector3.zero;
-
-        newPosition.y = Mathf.Min(Mathf.Max(_at * step, 0), (children.Count - 3) * step);
-        while (Mathf.Abs(parent.transform.localPosition.y - newPosition.y) > 1.0f)
+        if (Horizontal)
+            newPosition.x = Mathf.Min(Mathf.Max(_at * step, 0), (children.Count - 3) * step);
+        else
+            newPosition.y = Mathf.Min(Mathf.Max(_at * step, 0), (children.Count - 3) * step);
+        while (Vector3.Distance(parent.transform.localPosition, newPosition) > 1.0f)
         {
             parent.transform.localPosition =
                 Vector3.Slerp(parent.transform.localPosition, newPosition, Time.deltaTime * 10);
@@ -114,35 +119,40 @@ public class SimpleScrollAlt : MonoBehaviour
         parent.transform.localPosition = newPosition;
     }
 
-    
-
 
     public void Add(Selectable _gameObject)
     {
         children.Add(_gameObject);
         if (!selected) selected = _gameObject;
-        step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
+        if (Horizontal)
+            step = (parent.GetComponent<RectTransform>().rect.width + spacing) / _maxShown;
+        else
+            step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
 
         _gameObject.transform.SetParent(parent.transform);
         _gameObject.transform.SetAsLastSibling();
         _gameObject.GetComponent<RectTransform>()
-            .SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, step - spacing);
+            .SetSizeWithCurrentAnchors(Horizontal ? RectTransform.Axis.Horizontal : RectTransform.Axis.Vertical,
+                step - spacing);
         _gameObject.transform.localScale = Vector3.one;
     }
 
     public void AddList(List<Selectable> _gameObjects)
     {
         children.AddRange(_gameObjects);
-        step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
+        if (Horizontal)
+            step = (parent.GetComponent<RectTransform>().rect.width + spacing) / _maxShown;
+        else
+            step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
         foreach (var obj in _gameObjects)
         {
             obj.transform.SetParent(parent.transform);
             obj.transform.SetAsLastSibling();
             obj.transform.localScale = Vector3.one;
-            obj.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, step - spacing);
+            obj.GetComponent<RectTransform>()
+                .SetSizeWithCurrentAnchors(Horizontal ? RectTransform.Axis.Horizontal : RectTransform.Axis.Vertical,
+                    step - spacing);
         }
-
-        
     }
 
     public void SelectLast()
@@ -152,6 +162,7 @@ public class SimpleScrollAlt : MonoBehaviour
         selected.interactable = false;
         selected.GetComponent<Button>().onClick?.Invoke();
     }
+
     public void SelectFirst()
     {
         _at = 0;
