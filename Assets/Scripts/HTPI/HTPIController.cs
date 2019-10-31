@@ -23,7 +23,7 @@ public class HTPIController : MonoBehaviour
     {
         _botaoPorDemanda = new Dictionary<ClassDemanda, BotaoDemandaHTPI>();
         content.SetActive(false);
-        actionList.gameObject.SetActive(false);
+        
         _resolucoes = new Dictionary<ClassDemanda, ClassAcao>();
 
         AudioManager.instance.PlayAmbience((int) SoundType.AmbienceClass);
