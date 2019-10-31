@@ -96,7 +96,6 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
-    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -1488,6 +1487,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3391858700105548758, guid: 85137d651dfa2c14fa692e8203c841a6,
         type: 3}
+    - target: {fileID: 4931625710822481513, guid: 709d2acb6252aba4faaafdff14d78e00,
+        type: 3}
+      propertyPath: stereoPan
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 6388116665372586148, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
@@ -1517,11 +1521,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4931625710822481513, guid: 709d2acb6252aba4faaafdff14d78e00,
-        type: 3}
-      propertyPath: stereoPan
-      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 709d2acb6252aba4faaafdff14d78e00, type: 3}
@@ -1953,7 +1952,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06834b66378900544b3463ef7491b060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stereoPan: 0
   disable: 0
 --- !u!1 &388877211
 GameObject:
@@ -2021,7 +2019,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4283118614
+    rgba: 4283053078
   m_fontColor: {r: 0.08690815, g: 0.20461324, b: 0.2924528, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2389,7 +2387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06834b66378900544b3463ef7491b060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stereoPan: 0.7
   disable: 0
 --- !u!1 &459796176 stripped
 GameObject:
@@ -2885,7 +2882,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06834b66378900544b3463ef7491b060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stereoPan: 0.7
   disable: 0
 --- !u!1 &559200202
 GameObject:
@@ -3014,7 +3010,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06834b66378900544b3463ef7491b060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stereoPan: 0
   disable: 0
 --- !u!1001 &734297431
 PrefabInstance:
@@ -3244,6 +3239,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7161483045141872326, guid: 85137d651dfa2c14fa692e8203c841a6,
         type: 3}
+    - target: {fileID: 4931625710822481513, guid: 709d2acb6252aba4faaafdff14d78e00,
+        type: 3}
+      propertyPath: stereoPan
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 6388116665372586148, guid: 709d2acb6252aba4faaafdff14d78e00,
         type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
@@ -3283,11 +3283,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4931625710822481513, guid: 709d2acb6252aba4faaafdff14d78e00,
-        type: 3}
-      propertyPath: stereoPan
-      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 709d2acb6252aba4faaafdff14d78e00, type: 3}
@@ -3618,7 +3613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06834b66378900544b3463ef7491b060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stereoPan: 0.7
   disable: 0
 --- !u!224 &792857934 stripped
 RectTransform:
@@ -4623,7 +4617,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06834b66378900544b3463ef7491b060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stereoPan: 0.7
   disable: 0
 --- !u!1 &1436637468
 GameObject:
@@ -4768,7 +4761,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06834b66378900544b3463ef7491b060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stereoPan: 0.7
   disable: 0
 --- !u!1 &1515517477
 GameObject:
@@ -5364,7 +5356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06834b66378900544b3463ef7491b060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stereoPan: 0.7
   disable: 0
 --- !u!1 &1696745734 stripped
 GameObject:
@@ -5384,7 +5375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06834b66378900544b3463ef7491b060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stereoPan: 0
   disable: 0
 --- !u!1 &1706306006
 GameObject:
@@ -6456,7 +6446,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06834b66378900544b3463ef7491b060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stereoPan: 0.7
   disable: 0
 --- !u!1 &2080814095 stripped
 GameObject:
@@ -7984,6 +7973,11 @@ PrefabInstance:
       propertyPath: m_padding
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7961529788986181346, guid: 98566080f2dd6a54f8f7094fd193b71d,
+        type: 3}
+      propertyPath: stereoPan
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 1692385140288263654, guid: 98566080f2dd6a54f8f7094fd193b71d,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
@@ -8008,11 +8002,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 7961529788986181346, guid: 98566080f2dd6a54f8f7094fd193b71d,
-        type: 3}
-      propertyPath: stereoPan
-      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1692385140288263654, guid: 98566080f2dd6a54f8f7094fd193b71d, type: 3}

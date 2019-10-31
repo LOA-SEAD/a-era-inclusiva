@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 [Serializable]
 public class ClassDemanda
@@ -17,6 +18,12 @@ public class ClassDemanda
     public ClassAluno student
     {
         get { return GameManager.GameData.Alunos.Find(x => x.id == idAluno); }
+    }
+
+    public int EfficiencyOf(ClassAcao action)
+    {
+        var efetividade = acoesEficazes.FirstOrDefault(x => x.idAcao == action.id);
+        return efetividade?.efetividade ?? 0;
     }
 }
 
