@@ -135,6 +135,7 @@ public class SimpleScrollAlt : MonoBehaviour
             .SetSizeWithCurrentAnchors(Horizontal ? RectTransform.Axis.Horizontal : RectTransform.Axis.Vertical,
                 step - spacing);
         _gameObject.transform.localScale = Vector3.one;
+    
     }
 
     public void AddList(List<Selectable> _gameObjects)
