@@ -14,4 +14,7 @@
     DemandGreen,      // 11
     DoorOpen,         // 12
     DoorClose,        // 13
+    MusicBeginning,   // 14
+    MusicRoom,        // 15
+    MusicTablet       // 16
 }

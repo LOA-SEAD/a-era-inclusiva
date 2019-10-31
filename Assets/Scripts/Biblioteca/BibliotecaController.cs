@@ -15,6 +15,7 @@ public class BibliotecaController : MonoBehaviour
     public void Start()
     {
         AudioManager.instance.PlayAmbience((int)SoundType.AmbienceHallway);
+        AudioManager.instance.PlayMusic((int)SoundType.MusicRoom);
     }
 
     public void Display(ClassResource resource)

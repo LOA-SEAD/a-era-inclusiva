@@ -91,8 +91,9 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            SFXVolume = 0.9f;
-            ambience.volume = 0.5f;
+            SFXVolume = 0.7f;
+            ambience.volume = 0.4f;
+            music.volume = 0.3f;
             Save();
         }
     }
@@ -209,7 +210,7 @@ public class AudioManager : MonoBehaviour
     {
         Sound sound = GetAmbience((SoundType)soundType);
 
-        if (sound != null)
+        if (sound != null && (sound.clip != music.clip || !music.isPlaying))
         {
             ambience.clip = sound.clip;
             ambience.Play();
@@ -220,7 +221,7 @@ public class AudioManager : MonoBehaviour
     {
         Sound sound = GetMusic((SoundType)soundType);
 
-        if (sound != null)
+        if (sound != null && (sound.clip != music.clip || !music.isPlaying))
         {
             music.clip = sound.clip;
             music.Play();
@@ -235,6 +236,11 @@ public class AudioManager : MonoBehaviour
     public void UnMuteAmbience()
     {
         ambience.mute = false;
+    }
+
+    public void StopMusic()
+    {
+        music.Stop();
     }
 
     public static void FadeInAmbience(int soundType, float speed)

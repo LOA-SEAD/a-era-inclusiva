@@ -4459,7 +4459,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: fab7123747894628593695990d2e6054, type: 3}
   - soundType: 1
     clip: {fileID: 8300000, guid: cd5128d302d838b9e861299ce4d70fbb, type: 3}
-  musicSounds: []
+  musicSounds:
+  - soundType: 14
+    clip: {fileID: 8300000, guid: 9710f1bcd2611bb4781eae8b48df8e5c, type: 3}
+  - soundType: 15
+    clip: {fileID: 8300000, guid: 9efe98bcf9542ca409679783a0e939a3, type: 3}
+  - soundType: 16
+    clip: {fileID: 8300000, guid: a9b6d150f3faac8458b87bb00979d98e, type: 3}
 --- !u!4 &1282998467
 Transform:
   m_ObjectHideFlags: 0
@@ -6663,6 +6669,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2124483140897303490, guid: b730b6c9b3a32424695af6faf12d03c9,
+        type: 3}
+      propertyPath: m_Name
+      value: MenuCanvas
+      objectReference: {fileID: 0}
     - target: {fileID: 2124483140897303545, guid: b730b6c9b3a32424695af6faf12d03c9,
         type: 3}
       propertyPath: ConfigPanel
@@ -6777,11 +6788,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2124483140897303490, guid: b730b6c9b3a32424695af6faf12d03c9,
-        type: 3}
-      propertyPath: m_Name
-      value: MenuCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 2124483141755995220, guid: b730b6c9b3a32424695af6faf12d03c9,
         type: 3}
@@ -7272,6 +7278,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4141504544431990592}
     m_Modifications:
+    - target: {fileID: 6059747073236959275, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
+        type: 3}
+      propertyPath: m_Name
+      value: RightPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6059747073236959275, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
+        type: 3}
+      propertyPath: m_Name
+      value: RightPanel
+      objectReference: {fileID: 0}
     - target: {fileID: 6059747073236959276, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7391,16 +7407,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 272.41998
-      objectReference: {fileID: 0}
-    - target: {fileID: 6059747073236959275, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
-        type: 3}
-      propertyPath: m_Name
-      value: LeftPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 6059747073236959275, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
-        type: 3}
-      propertyPath: m_Name
-      value: LeftPanel
       objectReference: {fileID: 0}
     - target: {fileID: 6059747073236959278, guid: cc33dbab9d6e5eb4d8e79d95e992bc18,
         type: 3}
@@ -7555,6 +7561,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8373370694000190569}
     m_Modifications:
+    - target: {fileID: 4598175526831117066, guid: 98566080f2dd6a54f8f7094fd193b71d,
+        type: 3}
+      propertyPath: m_Name
+      value: Cancel
+      objectReference: {fileID: 0}
     - target: {fileID: 4598175526831117064, guid: 98566080f2dd6a54f8f7094fd193b71d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -7584,11 +7595,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4598175526831117066, guid: 98566080f2dd6a54f8f7094fd193b71d,
-        type: 3}
-      propertyPath: m_Name
-      value: Cancel
       objectReference: {fileID: 0}
     - target: {fileID: 4598175526831117067, guid: 98566080f2dd6a54f8f7094fd193b71d,
         type: 3}
@@ -7772,6 +7778,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8373370694000190569}
     m_Modifications:
+    - target: {fileID: 4598175526831117066, guid: 98566080f2dd6a54f8f7094fd193b71d,
+        type: 3}
+      propertyPath: m_Name
+      value: Accept
+      objectReference: {fileID: 0}
     - target: {fileID: 4598175526831117064, guid: 98566080f2dd6a54f8f7094fd193b71d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -7806,11 +7817,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4598175526831117066, guid: 98566080f2dd6a54f8f7094fd193b71d,
-        type: 3}
-      propertyPath: m_Name
-      value: Accept
       objectReference: {fileID: 0}
     - target: {fileID: 4598175526831117067, guid: 98566080f2dd6a54f8f7094fd193b71d,
         type: 3}

@@ -96,7 +96,6 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
-    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -576,6 +575,11 @@ PrefabInstance:
     - target: {fileID: 3168841423391593510, guid: f83690b1f23799d42aa7ec5bd85b327a,
         type: 3}
       propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3168841423391593510, guid: f83690b1f23799d42aa7ec5bd85b327a,
+        type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7414982535614206568, guid: f83690b1f23799d42aa7ec5bd85b327a,
@@ -4818,6 +4822,7 @@ GameObject:
   - component: {fileID: 1340746893}
   - component: {fileID: 1340746892}
   - component: {fileID: 1340746896}
+  - component: {fileID: 1340746897}
   m_Layer: 0
   m_Name: SalaProfessores
   m_TagString: Untagged
@@ -4932,6 +4937,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1340746897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340746891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9795382f37a4504183538560e7740ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1349233953
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10301,6 +10318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ddbde3ce54d4038b0fa15e2bdab9437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Horizontal: 0
   _at: 0
   children: []
   DownButton: {fileID: 3581612616818506131}

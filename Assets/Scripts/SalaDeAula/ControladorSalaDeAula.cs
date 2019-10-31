@@ -23,9 +23,11 @@ public class ControladorSalaDeAula : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("CheckIfEnd", 1, 2);
+
         AudioManager.instance.PlaySfx((int)SoundType.BellRing);
         AudioManager.instance.UnMuteAmbience();
         AudioManager.instance.PlayAmbience((int) SoundType.AmbienceClass);
+        AudioManager.instance.StopMusic();
     }
 
     private void Update()

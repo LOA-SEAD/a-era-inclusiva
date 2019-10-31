@@ -10,6 +10,12 @@ public class RMController : MonoBehaviour
     public SimpleScroll scroll;
     public GameObject TextCanvas;
     public TextMeshProUGUI Text;
+
+    private void Start()
+    {
+        AudioManager.instance.PlayMusic((int)SoundType.MusicRoom);
+    }
+
     public void OnSelectType(string type)
     {
         if (!scroll.gameObject.active)

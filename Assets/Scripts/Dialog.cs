@@ -24,7 +24,6 @@ public class Dialog : MonoBehaviour
     private bool revealing;
     public float speed = 0.2f;
     public TextMeshProUGUI textMesh;
-    private bool loaded;
     public Image CharacterImage;
     public ClassPersonagem npc;
 
@@ -41,7 +40,6 @@ public class Dialog : MonoBehaviour
         if(Phrases == null)
             return;
         npc.LoadExpressions();
-        loaded = true;
         GetComponent<Animator>().SetTrigger("Show");
         id = 0;
         ShowNextDialog();

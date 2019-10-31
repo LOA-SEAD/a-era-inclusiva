@@ -26,7 +26,8 @@ public class HTPIController : MonoBehaviour
         
         _resolucoes = new Dictionary<ClassDemanda, ClassAcao>();
 
-        AudioManager.instance.PlayAmbience((int) SoundType.AmbienceClass);
+        AudioManager.instance.PlayAmbience((int) SoundType.AmbienceHallway);
+        AudioManager.instance.PlayMusic((int)SoundType.MusicTablet);
     }
 
     void Start()

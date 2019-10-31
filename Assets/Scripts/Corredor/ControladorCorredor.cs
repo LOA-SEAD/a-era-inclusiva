@@ -8,6 +8,7 @@ public class ControladorCorredor : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.instance.PlayMusic((int) SoundType.MusicRoom);
         AudioManager.instance.PlayAmbience((int) SoundType.AmbienceHallway);
     }
 
