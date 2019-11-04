@@ -18,7 +18,6 @@ public class HTPIController : MonoBehaviour
     public ActionListWrapperHTPI actionList;
     public ScrollHTPI ScrollHtpi;
     public GameObject content;
-
     void Awake()
     {
         _botaoPorDemanda = new Dictionary<ClassDemanda, BotaoDemandaHTPI>();
@@ -57,7 +56,7 @@ public class HTPIController : MonoBehaviour
     {
         actionList.GetComponent<Animator>().SetTrigger("Actions");
         _botaoDemanda = BotaoDemanda;
-        actionList.actionList.BackToTop();
+        actionList.BackToTop();
     }
 
     public void SelectAction(ClassAcao acao)
@@ -68,9 +67,17 @@ public class HTPIController : MonoBehaviour
 
         if (_resolucoes.Count(x => x.Value!=null) == GameManager.GameData.Demandas.Count)
         {
-            Debug.Log(GameManager.GameData.Demandas.Count);
             Confirmation();
         }
+        else
+        {
+            actionList.BackToTop();
+        }
+    }
+
+    public ClassAcao ActionSelected()
+    {
+        return _resolucoes.ContainsKey(_botaoDemanda.Demanda) ? _resolucoes[_botaoDemanda.Demanda] : null;
     }
 
     public void Confirmation()

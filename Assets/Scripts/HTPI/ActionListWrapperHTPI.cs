@@ -11,7 +11,8 @@ public class ActionListWrapperHTPI : MonoBehaviour
     public SimpleScroll actionList;
     public HTPIController controladorHTPI;
     private bool _loaded;
-
+    private ClassAcao Selected = null;
+    private Dictionary<ClassAcao, Button> buttonByAction;
     public Button acaoIconPrefab;
     // Start is called before the first frame update
     public void Show()
@@ -24,6 +25,19 @@ public class ActionListWrapperHTPI : MonoBehaviour
         _animator.SetTrigger("Hide");
     }
 
+    public void BackToTop()
+    {
+        if(Selected!=null) 
+            buttonByAction[Selected].interactable = true;
+        if (controladorHTPI.ActionSelected() != null)
+        {
+            buttonByAction[controladorHTPI.ActionSelected()].interactable = false;
+            Selected = controladorHTPI.ActionSelected();
+        }
+
+        actionList.BackToTop();
+    }
+
     private void Setup(object obj, EventArgs empty)
     {
        actionList.Clear();
@@ -31,8 +45,14 @@ public class ActionListWrapperHTPI : MonoBehaviour
         foreach (var acao in GameManager.GameData.Acoes)
         {
             var button = Instantiate(acaoIconPrefab);
+            buttonByAction[acao] = button;
             button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.icone + " " + acao.nome);
-            button.onClick.AddListener((() => controladorHTPI.SelectAction(acao)));
+            button.onClick.AddListener((() =>
+            {
+                controladorHTPI.SelectAction(acao);
+                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject (gameObject);
+                
+            }));
             buttonList.Add(button.gameObject);
         }
         actionList.AddList(buttonList);
@@ -41,6 +61,7 @@ public class ActionListWrapperHTPI : MonoBehaviour
 
     public void Start()
     {
+        buttonByAction = new Dictionary<ClassAcao, Button>();
         _animator = GetComponent<Animator>();
         if (GameManager.GameData != null && GameManager.GameData.Demandas != null &&
             GameManager.GameData.Demandas.Count > 0)
