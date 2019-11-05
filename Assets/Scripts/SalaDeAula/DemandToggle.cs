@@ -41,13 +41,5 @@ public class DemandToggle : MonoBehaviour, ISelectHandler
         FindObjectOfType<ControladorSalaDeAula>().SelectedDemand = this;
     }
 
-    public void Start()
-    {
-        InvokeRepeating("decreaseHappiness", 2, 5);
-    }
 
-    private void decreaseHappiness()
-    {
-        GameManager.PlayerData.Happiness -= _demand.nivelUrgencia;
-    }
 }

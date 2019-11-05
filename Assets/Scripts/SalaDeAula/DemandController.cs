@@ -7,7 +7,7 @@ using static UnityEngine.Random;
 public class DemandController : MonoBehaviour
 {
     public ActionListWrapper actionListWrapper;
-
+    public ControladorSalaDeAula controladorSalaDeAula;
     public AlunosSalaDeAula alunosSalaDeAula;
     public ControladorSalaDeAula controller;
     public float minDelay;
@@ -25,8 +25,7 @@ public class DemandController : MonoBehaviour
 
     private IEnumerator SpawnDemands()
     {
-        // Precisa dessa linha de baixo? Perguntar ao João
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
 
         var studentList = GameManager.GameData.Alunos.Where(x => x.importante);
         var demandList = GameManager.GameData.Demandas
@@ -34,10 +33,10 @@ public class DemandController : MonoBehaviour
             .ToList();
         while (demandList.Any())
         {
-            yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
-
             SpawnDemand(demandList.First());
             demandList.RemoveAt(0);
+            yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
+
         }
     }
 
@@ -49,6 +48,7 @@ public class DemandController : MonoBehaviour
             actionListWrapper.Show();
         });
         button.Demand = demanda;
+        controladorSalaDeAula.HappinessFactor += demanda.nivelUrgencia;
         alunosSalaDeAula.MostrarBalao(demanda);
         //PlayDemandSound(demanda.nivelUrgencia, button.transform.position.x, button.transform.position.y);
         PlayDemandSound(demanda.nivelUrgencia);

@@ -29,11 +29,7 @@ public class ActionListWrapper : MonoBehaviour
 
     public void ShowActions(string tipo)
     {
-        foreach (Transform child in actionList.parent.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        actionList.UpdateChildrenCount();
+        actionList.Clear();
         var buttonList = new List<GameObject>();
         foreach (var acao in GameManager.PlayerData.SelectedActions.Where(x=>x.tipo == tipo))
         {
@@ -43,6 +39,11 @@ public class ActionListWrapper : MonoBehaviour
             buttonList.Add(button.gameObject);
         }
         actionList.AddList(buttonList);
+        ShowActions();
+    }
+    
+    public void ShowActions()
+    {
         _animator.SetTrigger("Actions");
     }
 
@@ -61,15 +62,12 @@ public class ActionListWrapper : MonoBehaviour
 
     private void setCategories()
     {
-        foreach (var acao in GameManager.GameData.Acoes)
+        foreach (var acao in GameManager.GameData.Acoes.Where(acao => !_types.Contains(acao.tipo)))
         {
-            if (!_types.Contains(acao.tipo))
-            {
-                _types.Add(acao.tipo);
-                var button = Instantiate(typeButtonPrefab, Categories.transform);
-                button.onClick.AddListener(() => ShowActions(acao.tipo));
-                button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.tipo);
-            }
+            _types.Add(acao.tipo);
+            var button = Instantiate(typeButtonPrefab, Categories.transform);
+            button.onClick.AddListener(() => ShowActions(acao.tipo));
+            button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.tipo);
         }
 
         _loaded = true;
@@ -77,15 +75,6 @@ public class ActionListWrapper : MonoBehaviour
 
     public void Update()
     {
-    /*
-#if DEBUG
-        if (GameManager.PlayerData.SelectedActions.Count == 0)
-        {
-
-            (GameManager.GameData.Acoes).ForEach(x => GameManager.PlayerData.SelectedActions.Add(x));
-            
-        }
-#endif*/
         if (!_loaded && GameManager.GameData.Loaded)
         {
             setCategories();
