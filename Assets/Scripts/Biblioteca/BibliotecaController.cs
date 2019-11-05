@@ -20,22 +20,27 @@ public class BibliotecaController : MonoBehaviour
 
     public void Display(ClassResource resource)
     {
-        Media.SetActive(true);
 
         switch (resource.type)
         {
             case "video":
+                Media.SetActive(true);
+
                 player.gameObject.SetActive(true);
                 Debug.Log("Carregando video de:" + Application.streamingAssetsPath + resource.src);
                 player.SetSource(Application.streamingAssetsPath + resource.src);
                 player.Play();
                 break;
             case "image":
+                Media.SetActive(true);
+
                 image.gameObject.SetActive(true);
                 Debug.Log("Carregando imagem de:" + Application.streamingAssetsPath + resource.src);
                 StartCoroutine(LoadTextureInto(Application.streamingAssetsPath + resource.src, image));
                 break;
             case "text":
+                Media.SetActive(true);
+
                 textoPages.SetActive(true);
                 Debug.Log("Carregando texto de:" + Application.streamingAssetsPath + resource.src);
                 ShowText(resource);
