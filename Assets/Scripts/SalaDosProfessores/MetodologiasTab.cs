@@ -56,7 +56,7 @@ public class MetodologiasTab : MonoBehaviour
         }
 
         actionList.Clear();
-        var actions = GameManager.GameData.Acoes.Where(x => x.tipo == _types[_typeSelectedId]).ToList();
+        var actions = GameManager.GameData.Acoes.Where(x => x.tipo == _types[_typeSelectedId] &&  x.diaMin <= GameManager.PlayerData.Day).ToList();
         foreach (var action in actions)
         {
             var button = Instantiate(actionButtonPrefab);

@@ -8,5 +8,6 @@ public class ClassAcao
     public int id;
     public string nome;
     public string tipo;
+    public int diaMin;
 
 }
