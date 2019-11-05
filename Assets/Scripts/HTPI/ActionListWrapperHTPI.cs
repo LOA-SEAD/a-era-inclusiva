@@ -42,7 +42,7 @@ public class ActionListWrapperHTPI : MonoBehaviour
     {
        actionList.Clear();
         var buttonList = new List<GameObject>();
-        foreach (var acao in GameManager.GameData.Acoes)
+        foreach (var acao in GameManager.GameData.Acoes.Where(x=>x.diaMin <= GameManager.PlayerData.Day))
         {
             var button = Instantiate(acaoIconPrefab);
             buttonByAction[acao] = button;
