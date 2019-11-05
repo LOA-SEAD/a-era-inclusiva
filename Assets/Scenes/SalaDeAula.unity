@@ -1239,7 +1239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.2006841
+  m_AspectRatio: 1.350971
 --- !u!114 &471144645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2978,6 +2978,36 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4801382777622392757, guid: aed7564e139213a47b41f28854aab54e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5761824680619285046}
+    - target: {fileID: 4801382777622392757, guid: aed7564e139213a47b41f28854aab54e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowActions
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801382777622392757, guid: aed7564e139213a47b41f28854aab54e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801382777622392757, guid: aed7564e139213a47b41f28854aab54e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5761824680619285054}
+    - target: {fileID: 4801382777622392757, guid: aed7564e139213a47b41f28854aab54e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ShowPowerUps
+      objectReference: {fileID: 0}
+    - target: {fileID: 4801382777622392757, guid: aed7564e139213a47b41f28854aab54e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aed7564e139213a47b41f28854aab54e, type: 3}
 --- !u!1 &1436441977
@@ -4048,17 +4078,17 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3581612616023226652, guid: 6cd4f5f447242154e84719b0f8a38478,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 684377760614225519, guid: 6cd4f5f447242154e84719b0f8a38478,
         type: 3}
       propertyPath: spacing
       value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 649355706701635552, guid: 6cd4f5f447242154e84719b0f8a38478,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3581612616023226652, guid: 6cd4f5f447242154e84719b0f8a38478,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -4713,8 +4743,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ce8819f51d71d4fbbb89a58536a857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controladorSalaDeAula: {fileID: 0}
-  demandController: {fileID: 0}
+  controladorSalaDeAula: {fileID: 530032265}
+  actionListWrapper: {fileID: 5761824680619285046}
+  demandController: {fileID: 2002811071}
+  PowerUpPrefab: {fileID: 4961366314547826415, guid: 709d2acb6252aba4faaafdff14d78e00,
+    type: 3}
 --- !u!1 &6508764127211447505 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1559894154989436645, guid: 64aef51f9198aef469857c6a5e7a280a,

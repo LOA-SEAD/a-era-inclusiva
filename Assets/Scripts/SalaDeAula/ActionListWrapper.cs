@@ -29,11 +29,7 @@ public class ActionListWrapper : MonoBehaviour
 
     public void ShowActions(string tipo)
     {
-        foreach (Transform child in actionList.parent.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        actionList.UpdateChildrenCount();
+        actionList.Clear();
         var buttonList = new List<GameObject>();
         foreach (var acao in GameManager.PlayerData.SelectedActions.Where(x=>x.tipo == tipo))
         {

@@ -21,6 +21,10 @@ public class ControladorSalaDeAula : MonoBehaviour
             _selectedDemand = value;
             Speak(_selectedDemand.Demand.descricao);
         }
+        get
+        {
+           return  _selectedDemand;
+        }
     }
 
     private void Start()
@@ -93,13 +97,15 @@ public class ControladorSalaDeAula : MonoBehaviour
 
     public void Speak(string demandaDescricao)
     {
-        speechBubble.gameObject.SetActive(true);
         speechBubble.SetText(demandaDescricao);
+
+        speechBubble.gameObject.SetActive(true);
     }
 
     public void Speak(int points)
     {
-        speechBubble.gameObject.SetActive(true);
         speechBubble.ShowResult(points);
+        speechBubble.gameObject.SetActive(true);
+
     }
 }
