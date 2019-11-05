@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class ControladorSalaDeAula : MonoBehaviour
     public float levelTimeInSeconds;
     public SceneController sceneController;
     public SpeechBubble speechBubble;
+    public int HappinessFactor = 0;
+    public bool happinessDecreasePaused;
 
     public DemandToggle SelectedDemand
     {
@@ -23,6 +26,7 @@ public class ControladorSalaDeAula : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("CheckIfEnd", 1, 2);
+        StartCoroutine("DecreaseHappiness");
 
         AudioManager.instance.PlaySfx((int)SoundType.BellRing);
         AudioManager.instance.UnMuteAmbience();
@@ -30,6 +34,15 @@ public class ControladorSalaDeAula : MonoBehaviour
         AudioManager.instance.StopMusic();
     }
 
+    public IEnumerator DecreaseHappiness()
+    {
+        while (true)
+        {
+            while (!happinessDecreasePaused) yield return null;
+            GameManager.PlayerData.Happiness -= HappinessFactor;
+            yield return new WaitForSeconds(5);
+        }
+    }
     private void Update()
     {
         //timer da fase
@@ -49,6 +62,7 @@ public class ControladorSalaDeAula : MonoBehaviour
             return;
         }
 
+        HappinessFactor -= _selectedDemand.Demand.nivelUrgencia;
         Destroy(_selectedDemand.gameObject);
 
         var e = demand.acoesEficazes.FirstOrDefault(x => x.idAcao == action.id);
