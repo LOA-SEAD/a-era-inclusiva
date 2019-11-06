@@ -42,7 +42,8 @@ public class Dialog : MonoBehaviour
         npc.LoadExpressions();
         GetComponent<Animator>().SetTrigger("Show");
         id = 0;
-        CharacterName.SetText(Name);
+        if(CharacterName!=null)
+            CharacterName.SetText(Name);
         ShowNextDialog();
     }
 
