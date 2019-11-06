@@ -13,7 +13,7 @@ public class ActionListWrapperHTPI : MonoBehaviour
     private bool _loaded;
     private ClassAcao Selected = null;
     private Dictionary<ClassAcao, Button> buttonByAction;
-    public Button acaoIconPrefab;
+    public AcaoIcon acaoIconPrefab;
     // Start is called before the first frame update
     public void Show()
     {
@@ -45,9 +45,9 @@ public class ActionListWrapperHTPI : MonoBehaviour
         foreach (var acao in GameManager.GameData.Acoes.Where(x=>x.diaMin <= GameManager.PlayerData.Day))
         {
             var button = Instantiate(acaoIconPrefab);
-            buttonByAction[acao] = button;
-            button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.icone + " " + acao.nome);
-            button.onClick.AddListener((() =>
+            buttonByAction[acao] = button.GetComponent<Button>();
+            button.Acao = acao;
+            button.GetComponent<Button>().onClick.AddListener((() =>
             {
                 controladorHTPI.SelectAction(acao);
                 UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject (gameObject);
