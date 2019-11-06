@@ -26,7 +26,7 @@ public class Dialog : MonoBehaviour
     public TextMeshProUGUI textMesh;
     public Image CharacterImage;
     public ClassPersonagem npc;
-
+    public TextMeshProUGUI CharacterName;
     public void EndOfClosingAnimation() {
         AtEndOfClosingAnimation.Invoke();
     }
@@ -42,6 +42,7 @@ public class Dialog : MonoBehaviour
         npc.LoadExpressions();
         GetComponent<Animator>().SetTrigger("Show");
         id = 0;
+        CharacterName.SetText(Name);
         ShowNextDialog();
     }
 
