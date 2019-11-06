@@ -33,7 +33,6 @@ public class ControladorSalaDeAula : MonoBehaviour
         StartCoroutine("DecreaseHappiness");
 
         AudioManager.instance.PlaySfx((int)SoundType.BellRing);
-        AudioManager.instance.UnMuteAmbience();
         AudioManager.instance.PlayAmbience((int) SoundType.AmbienceClass);
         AudioManager.instance.StopMusic();
     }

@@ -23,11 +23,11 @@ public class ConfigPanel : MonoBehaviour
      #endif
     }
 
-    public void ShowBackgroundSlider()
+    public void ShowMusicSlider()
     {
         slider.onValueChanged.RemoveAllListeners();
-        slider.value = AudioManager.instance.AmbienceVolume;
-        slider.onValueChanged.AddListener(OnBackgroundChanged);
+        slider.value = AudioManager.instance.MusicVolume;
+        slider.onValueChanged.AddListener(OnMusicChanged);
 
         animator.SetTrigger("SlideIn");
         sliderShown = true;
@@ -44,15 +44,16 @@ public class ConfigPanel : MonoBehaviour
     }
 
     
-    public void OnBackgroundChanged(float value)
+    public void OnMusicChanged(float value)
     {
-        AudioManager.instance.AmbienceVolume = value;
+        AudioManager.instance.MusicVolume = value;
         AudioManager.instance.Save();
     }
 
     public void OnEffectChanged(float value)
     {
         AudioManager.instance.SFXVolume = value;
+        AudioManager.instance.AmbienceVolume = value * 0.30f;
         AudioManager.instance.PlaySfx((int) SoundType.Beep);
         AudioManager.instance.Save();
     }

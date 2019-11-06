@@ -1,6 +1,6 @@
 public struct SoundData
 {
-    public float ambienceVol;
     public float effectsVol;
-    
+    public float ambienceVol;
+    public float musicVol;   
 }

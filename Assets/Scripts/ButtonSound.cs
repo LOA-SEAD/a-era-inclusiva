@@ -17,8 +17,10 @@ public class ButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(button.interactable && !disable)
+        if (button.interactable && !disable)
+        {
             AudioManager.instance.PlaySfx((int)SoundType.ButtonHover, gameObject.transform.position.x, gameObject.transform.position.y);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

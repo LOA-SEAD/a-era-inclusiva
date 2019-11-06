@@ -92,8 +92,8 @@ public class AudioManager : MonoBehaviour
         else
         {
             SFXVolume = 0.7f;
-            ambience.volume = 0.4f;
-            music.volume = 0.3f;
+            AmbienceVolume = 0.4f;
+            MusicVolume = 0.3f;
             Save();
         }
     }
@@ -131,12 +131,14 @@ public class AudioManager : MonoBehaviour
 
         SFXVolume =_soundData.effectsVol;
         AmbienceVolume = _soundData.ambienceVol;
+        MusicVolume = _soundData.musicVol;
     }
 
     public void Save()
     {
         _soundData.effectsVol = SFXVolume;
         _soundData.ambienceVol = AmbienceVolume;
+        _soundData.musicVol = MusicVolume;
 
         var jsonString = JsonUtility.ToJson(_soundData);
 
@@ -186,7 +188,7 @@ public class AudioManager : MonoBehaviour
 
             float halfw = Screen.width / 2f;
             float height = Screen.height;
-            
+
             sfx.source.panStereo = (posx - halfw)/ halfw;
             sfx.source.pitch = ((posy * (pitchMax - pitchMin)) / height) + pitchMin;
             sfx.source.Play();
@@ -228,14 +230,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void MuteAmbience()
+    public void StopAmbience()
     {
-        ambience.mute = true;
-    }
-
-    public void UnMuteAmbience()
-    {
-        ambience.mute = false;
+        ambience.Stop();
     }
 
     public void StopMusic()

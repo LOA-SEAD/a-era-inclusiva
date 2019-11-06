@@ -1371,6 +1371,7 @@ GameObject:
   - component: {fileID: 379314140}
   - component: {fileID: 379314139}
   - component: {fileID: 379314138}
+  - component: {fileID: 379314141}
   m_Layer: 0
   m_Name: Exit
   m_TagString: Untagged
@@ -1488,6 +1489,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379314136}
   m_CullTransparentMesh: 0
+--- !u!114 &379314141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379314136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06834b66378900544b3463ef7491b060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disable: 0
 --- !u!1 &564050008
 GameObject:
   m_ObjectHideFlags: 0
@@ -3332,7 +3346,7 @@ Canvas:
   m_GameObject: {fileID: 998031655}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 706056518}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -3786,6 +3800,7 @@ GameObject:
   - component: {fileID: 1469488238}
   - component: {fileID: 1469488237}
   - component: {fileID: 1469488236}
+  - component: {fileID: 1469488239}
   m_Layer: 0
   m_Name: LeftBlueButton
   m_TagString: Untagged
@@ -3904,6 +3919,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469488234}
   m_CullTransparentMesh: 0
+--- !u!114 &1469488239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469488234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06834b66378900544b3463ef7491b060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disable: 0
 --- !u!1001 &1490134222
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4970,6 +4998,7 @@ GameObject:
   - component: {fileID: 1947351591}
   - component: {fileID: 1947351590}
   - component: {fileID: 1947351589}
+  - component: {fileID: 1947351592}
   m_Layer: 0
   m_Name: RightBlueButton
   m_TagString: Untagged
@@ -5088,6 +5117,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947351587}
   m_CullTransparentMesh: 0
+--- !u!114 &1947351592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947351587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06834b66378900544b3463ef7491b060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disable: 0
 --- !u!1 &1958620957
 GameObject:
   m_ObjectHideFlags: 0
@@ -5258,7 +5300,7 @@ Canvas:
   m_GameObject: {fileID: 2146534757}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 706056518}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
