@@ -52,33 +52,16 @@ public class ActionListWrapper : MonoBehaviour
     {
         _animator.SetTrigger("Return");
     }
-
+    
     public void Start()
     {
-        _types = new List<string>();
+
         _animator = GetComponent<Animator>();
 
         
     }
 
-    private void setCategories()
-    {
-        foreach (var acao in GameManager.GameData.Acoes.Where(acao => !_types.Contains(acao.tipo)))
-        {
-            _types.Add(acao.tipo);
-            var button = Instantiate(typeButtonPrefab, Categories.transform);
-            button.onClick.AddListener(() => ShowActions(acao.tipo));
-            button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.tipo);
-        }
+   
 
-        _loaded = true;
-    }
-
-    public void Update()
-    {
-        if (!_loaded && GameManager.GameData.Loaded)
-        {
-            setCategories();
-        }
-    }
+    
 }
