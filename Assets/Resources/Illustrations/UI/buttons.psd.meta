@@ -19,7 +19,7 @@ TextureImporter:
     second: green_button
   - first:
       213: -5303037649804275797
-    second: marine_button
+    second: orange_button
   - first:
       213: -1738913037619477399
     second: blue_button_left
@@ -58,7 +58,7 @@ TextureImporter:
     second: red_button_pressed
   - first:
       213: -2479360571993576146
-    second: marine_button_pressed
+    second: orange_button_pressed
   - first:
       213: 7161483045141872326
     second: blue_button_highlighted
@@ -83,6 +83,24 @@ TextureImporter:
   - first:
       213: -8191739510646017925
     second: blue_button_selected_left
+  - first:
+      213: -6164375452264669377
+    second: green_button_highlighted
+  - first:
+      213: 3572151910874299129
+    second: green_button_disabled
+  - first:
+      213: 438738386622518714
+    second: green_button_selected
+  - first:
+      213: -2028252670365327782
+    second: orange_button_highlighted
+  - first:
+      213: 1042576124196175435
+    second: orange_button_disabled
+  - first:
+      213: -5177915455903084793
+    second: orange_button_selected
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -275,7 +293,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: marine_button
+      name: orange_button
       rect:
         serializedVersion: 2
         x: 400
@@ -569,7 +587,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: marine_button_pressed
+      name: orange_button_pressed
       rect:
         serializedVersion: 2
         x: 400
@@ -753,6 +771,132 @@ TextureImporter:
       bones: []
       spriteID: a927e8b4c95dbf947a9636d650d57e55
       internalID: -8191739510646017925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: green_button_highlighted
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 200
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 39, y: 40, z: 39, w: 39}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ad6fe41c9227884f814e56bffcd772d
+      internalID: -6164375452264669377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: green_button_disabled
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 300
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 39, y: 39, z: 39, w: 39}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 139254b82466a1448bbe76807ce82e2b
+      internalID: 3572151910874299129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: green_button_selected
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 400
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 39, y: 40, z: 40, w: 39}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20e668ae761afc1408eb77ad5025da54
+      internalID: 438738386622518714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orange_button_highlighted
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 200
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 39, y: 39, z: 39, w: 39}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9cef8904e474234c8ed9602171aafcc
+      internalID: -2028252670365327782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orange_button_disabled
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 300
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 39, y: 40, z: 39, w: 39}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 820b7075f36234047a682a7eee335c3a
+      internalID: 1042576124196175435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orange_button_selected
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 400
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 39, y: 40, z: 39, w: 39}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a75ec262fb4778941a52578b920b6ca6
+      internalID: -5177915455903084793
       vertices: []
       indices: 
       edges: []

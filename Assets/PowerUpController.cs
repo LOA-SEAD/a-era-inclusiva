@@ -82,7 +82,7 @@ public class PowerUpController : MonoBehaviour
             controladorSalaDeAula.Speak("Preciso de pelo menos 150 pontos para utilizar esse Power-Up!");
             return;
         }
-        var action = GameManager.GameData.Acoes.First(y=>y.id == controladorSalaDeAula.SelectedDemand.Demand.acoesEficazes.OrderBy(x=>x.efetividade).First().idAcao);
+        var action = GameManager.GameData.Acoes.First(y=>y.id == controladorSalaDeAula.SelectedDemand.Demand.acoesEficazes.OrderByDescending(x=>x.efetividade).First().idAcao);
         controladorSalaDeAula.Speak("Ahhh! me lembrei, a ação correta é: " + action.nome);
 
         actionListWrapper.Hide();

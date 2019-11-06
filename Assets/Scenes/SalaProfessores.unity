@@ -1777,7 +1777,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Tempos verbais no pret\xE9rito"
+  m_text: "<b>Qu\xEDmica: </b>Modelos at\xF4micos"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2571,7 +2571,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d840afda8606e64a961d10e72a4f4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionButtonPrefab: {fileID: 6302617770429951058, guid: fc98c2c127158754eb4a9ab35e607f38,
+  acaoIconPrefabDialogo: {fileID: 5236256472680476006, guid: 0a81de996a30c4843b61ef81f9c79999,
+    type: 3}
+  acaoIconPrefabSala: {fileID: 4647091850339877195, guid: 8db4e508da8396c4fa8fd9b81cb627aa,
+    type: 3}
+  acaoIconPrefabRecursos: {fileID: 3694485221930802821, guid: 839055923f4299a47b64e3802a3edc9d,
     type: 3}
   acaoIconPrefab: {fileID: 5234202977815101274, guid: e9f52d04477fc854886f40bcd5fc5245,
     type: 3}
@@ -4279,7 +4283,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 258.5002, y: -391.6}
-  m_SizeDelta: {x: 477.00043, y: 70}
+  m_SizeDelta: {x: 477.00043, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &914844435
 MonoBehaviour:
@@ -4299,7 +4303,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\\uf51c  Aula expositiva\n\\uf02d   Exerc\xEDcios no material did\xE1tico"
+  m_text: "\\uf51c  Aula expositiva com possibilidade de uso de imagens e v\xEDdeos
+    curtos;\r\n\\uf02d  Em grupos, escolher um modelo at\xF4mico e desenhar sua estrutura
+    em uma cartolina."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 740219f41da1d51439d4d0d7fdc1b10c, type: 2}
   m_sharedMaterial: {fileID: 21514962398439986, guid: 740219f41da1d51439d4d0d7fdc1b10c,
@@ -5940,8 +5946,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\\uf19d  5\xBA Ano\n\n\\uf0c0  12 Alunos\n\n\\uf06a   3 Precisam de aten\xE7\xE3o
-    especial"
+  m_text: "\\uf19d  1\xBA ano do Ensino M\xE9dio\n\n\\uf0c0  12 Alunos\n\n\\uf06a
+    \  3 Precisam de aten\xE7\xE3o especial"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 740219f41da1d51439d4d0d7fdc1b10c, type: 2}
   m_sharedMaterial: {fileID: 21514962398439986, guid: 740219f41da1d51439d4d0d7fdc1b10c,

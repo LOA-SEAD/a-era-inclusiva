@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -9,7 +10,6 @@ public class AcaoIcon : MonoBehaviour
     private Button _button;
     public TextMeshProUGUI iconObj;
     public TextMeshProUGUI nameObj;
-
     public ClassAcao Acao
     {
         get => _acao;

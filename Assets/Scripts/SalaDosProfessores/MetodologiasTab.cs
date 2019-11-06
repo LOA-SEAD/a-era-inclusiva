@@ -13,7 +13,9 @@ public class MetodologiasTab : MonoBehaviour
     private List<string> _types;
     private int _typeSelectedId;
     private bool _loaded;
-    public AcaoIcon actionButtonPrefab;
+    public AcaoIcon acaoIconPrefabDialogo;
+    public AcaoIcon acaoIconPrefabSala;
+    public AcaoIcon acaoIconPrefabRecursos;     
     public AcaoIcon acaoIconPrefab;
     public SimpleScroll actionList;
     public GameObject gridMetodologias;
@@ -66,7 +68,7 @@ public class MetodologiasTab : MonoBehaviour
         var actions = GameManager.GameData.Acoes.Where(x => x.tipo == _types[_typeSelectedId] &&  x.diaMin <= GameManager.PlayerData.Day).ToList();
         foreach (var action in actions)
         {
-            var button = Instantiate(actionButtonPrefab);
+            var button = Instantiate(action.tipo=="Diálogos"? acaoIconPrefabDialogo : action.tipo=="Recursos"? acaoIconPrefabRecursos : acaoIconPrefabSala);
             button.Acao = action;
             button.GetComponent<Button>().onClick.AddListener(() => Select(action));
             actionList.Add(button.gameObject);

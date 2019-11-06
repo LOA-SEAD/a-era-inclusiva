@@ -13,7 +13,10 @@ public class ActionListWrapperHTPI : MonoBehaviour
     private bool _loaded;
     private ClassAcao Selected = null;
     private Dictionary<ClassAcao, Button> buttonByAction;
-    public AcaoIcon acaoIconPrefab;
+    public AcaoIcon acaoIconPrefabDialogo;
+    public AcaoIcon acaoIconPrefabSala;
+    public AcaoIcon acaoIconPrefabRecursos;
+
     // Start is called before the first frame update
     public void Show()
     {
@@ -42,9 +45,9 @@ public class ActionListWrapperHTPI : MonoBehaviour
     {
        actionList.Clear();
         var buttonList = new List<GameObject>();
-        foreach (var acao in GameManager.GameData.Acoes.Where(x=>x.diaMin <= GameManager.PlayerData.Day))
+        foreach (var acao in GameManager.GameData.Acoes.Where(x=>x.diaMin <= GameManager.PlayerData.Day).OrderBy(x=>x.tipo))
         {
-            var button = Instantiate(acaoIconPrefab);
+            var button = Instantiate(acao.tipo=="Diálogos"? acaoIconPrefabDialogo : acao.tipo=="Recursos"? acaoIconPrefabRecursos : acaoIconPrefabSala);
             buttonByAction[acao] = button.GetComponent<Button>();
             button.Acao = acao;
             button.GetComponent<Button>().onClick.AddListener((() =>
