@@ -45,6 +45,9 @@ public class BibliotecaController : MonoBehaviour
                 Debug.Log("Carregando texto de:" + Application.streamingAssetsPath + resource.src);
                 ShowText(resource);
                 break;
+             case "url":
+                Application.OpenURL(resource.src);
+                break;
             default:
                 Debug.Log("Abrindo aplicacao para o arquivo:" + resource.src);
                 Application.OpenURL(Application.streamingAssetsPath + resource.src);
