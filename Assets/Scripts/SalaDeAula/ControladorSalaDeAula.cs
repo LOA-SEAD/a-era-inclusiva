@@ -42,7 +42,7 @@ public class ControladorSalaDeAula : MonoBehaviour
     {
         while (true)
         {
-            while (!happinessDecreasePaused) yield return null;
+            while (happinessDecreasePaused) yield return null;
             GameManager.PlayerData.Happiness -= HappinessFactor;
             yield return new WaitForSeconds(5);
         }

@@ -15,7 +15,7 @@ public class ActionListWrapper : MonoBehaviour
     private bool _loaded;
     public GameObject Categories;
 
-    public Button acaoIconPrefab;
+    public AcaoIcon acaoIconPrefab;
     // Start is called before the first frame update
     public void Show()
     {
@@ -34,8 +34,8 @@ public class ActionListWrapper : MonoBehaviour
         foreach (var acao in GameManager.PlayerData.SelectedActions.Where(x=>x.tipo == tipo))
         {
             var button = Instantiate(acaoIconPrefab);
-            button.GetComponentInChildren<TextMeshProUGUI>().SetText(acao.icone + " " + acao.nome);
-            button.onClick.AddListener((() => controladorSalaDeAula.UseAction(acao)));
+            button.Acao = acao;
+            button.GetComponent<Button>().onClick.AddListener((() => controladorSalaDeAula.UseAction(acao)));
             buttonList.Add(button.gameObject);
         }
         actionList.AddList(buttonList);

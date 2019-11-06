@@ -54,8 +54,9 @@ public class PowerUpController : MonoBehaviour
             return;
         }
 
-        GameManager.PlayerData.Points -= 50;
+        controladorSalaDeAula.barraInferior.IncrementScore(-50);
         StartCoroutine("DisableHappinessDecrease");
+        
         
     }
     public void ChamarEstagiario()
@@ -66,9 +67,9 @@ public class PowerUpController : MonoBehaviour
             controladorSalaDeAula.Speak("Preciso de pelo menos 100 pontos para chamar o estagiário!");
             return;
         }
-        controladorSalaDeAula.Speak("O estagiário vai me ajudar a lidar com a turma, fazendo com que menos demandas surjam!");
+        controladorSalaDeAula.Speak("O estagiário vai me ajudar a lidar com a turma, fazendo com as demandas apareçam mais devagar!");
 
-        GameManager.PlayerData.Points -= 100;
+        controladorSalaDeAula.barraInferior.IncrementScore(-100);
         demandController.minDelay+=5;
         demandController.maxDelay+=5;
 
@@ -85,6 +86,8 @@ public class PowerUpController : MonoBehaviour
         controladorSalaDeAula.Speak("Ahhh! me lembrei, a ação correta é: " + action.nome);
 
         actionListWrapper.Hide();
+        controladorSalaDeAula.barraInferior.IncrementScore(-150);
+
 
     }
     public IEnumerator DisableHappinessDecrease()

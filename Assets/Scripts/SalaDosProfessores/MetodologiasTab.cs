@@ -8,16 +8,20 @@ using UnityEngine.UI;
 
 public class MetodologiasTab : MonoBehaviour
 {
+    private string descriptionTemplate =
+        @"Escolha 3 tipos de {0} que você considera mais eficazes para esta aula, levando em consideração os perfis dos estudantes";
     private List<string> _types;
     private int _typeSelectedId;
     private bool _loaded;
-    public Button actionButtonPrefab;
+    public AcaoIcon actionButtonPrefab;
     public AcaoIcon acaoIconPrefab;
     public SimpleScroll actionList;
     public GameObject gridMetodologias;
     public ActionConfirmation Confirmation;
     public Confirmation EndConfirmation;
+    public TextMeshProUGUI titleText;
 
+    public TextMeshProUGUI descriptionText;
     private void Awake()
     {
         _typeSelectedId = -1;
@@ -47,22 +51,24 @@ public class MetodologiasTab : MonoBehaviour
 
     public void GoToNextMethodology()
     {
+      
         Confirmation.gameObject.SetActive(false);
         _typeSelectedId++;
+        titleText.SetText(_types[_typeSelectedId]);
+        descriptionText.SetText(string.Format(descriptionTemplate,_types[_typeSelectedId] ));
         if (_typeSelectedId > _types.Count)
         {
             ShowConfirmation();
             return;
         }
-
+        
         actionList.Clear();
         var actions = GameManager.GameData.Acoes.Where(x => x.tipo == _types[_typeSelectedId] &&  x.diaMin <= GameManager.PlayerData.Day).ToList();
         foreach (var action in actions)
         {
             var button = Instantiate(actionButtonPrefab);
-            button.GetComponentInChildren<TextMeshProUGUI>().SetText(action.icone + " " + action.nome);
-            button.GetComponentInChildren<TextMeshProUGUI>().fontSize = 19;
-            button.onClick.AddListener(() => Select(action));
+            button.Acao = action;
+            button.GetComponent<Button>().onClick.AddListener(() => Select(action));
             actionList.Add(button.gameObject);
         }
 
