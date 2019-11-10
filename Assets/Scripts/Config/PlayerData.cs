@@ -6,6 +6,7 @@ public class PlayerData
     public int Happiness;
     public int Points;
     public HashSet<ClassAcao> SelectedActions;
+    public List<string> Dialogs;
 
     public PlayerData()
     {
@@ -13,6 +14,7 @@ public class PlayerData
         Happiness = 100;
         Points = 0;
         Day = 1;
+        Dialogs = new List<string>();
     }
 
     public PlayerData(SaveData saveData)
@@ -21,6 +23,7 @@ public class PlayerData
         Points = saveData.Points;
         Day = saveData.Day;
         Happiness = saveData.Happiness;
+        Dialogs = saveData.Dialogs;
 
     }
 }

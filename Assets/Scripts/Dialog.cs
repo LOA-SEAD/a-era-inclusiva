@@ -27,23 +27,36 @@ public class Dialog : MonoBehaviour
     public Image CharacterImage;
     public ClassPersonagem npc;
     public TextMeshProUGUI CharacterName;
-    public void EndOfClosingAnimation() {
+
+    public void EndOfClosingAnimation()
+    {
         AtEndOfClosingAnimation.Invoke();
     }
+
     public void LoadDialog()
     {
         if (!LoadFromJson || GameManager.GameData == null || GameManager.GameData.Personagens == null) return;
         npc = GameManager.GameData.Personagens.Find(x => x.nome == Name);
         if (npc == null)
             return;
-        Phrases = npc.dialogos.First(x => x.local == Local).frases;
-        if(Phrases == null)
-            return;
+
         npc.LoadExpressions();
         GetComponent<Animator>().SetTrigger("Show");
-        id = 0;
-        if(CharacterName!=null)
-            CharacterName.SetText(Name);
+
+        var dialogs = npc.dialogos.FindAll(x => x.local == Local);
+        Phrases = dialogs.FirstOrDefault(x => x.introducao && !GameManager.PlayerData.Dialogs.Contains(Name + Local))
+            ?.frases;
+        if (Phrases != null)
+        {
+            GameManager.PlayerData.Dialogs.Add(Name + Local);
+            GameManager.Save();
+        }
+        else
+        {
+            Phrases = dialogs.FirstOrDefault(x => !x.introducao)?.frases;
+        }
+        
+
         ShowNextDialog();
     }
 
@@ -55,19 +68,18 @@ public class Dialog : MonoBehaviour
 
     public void Awake()
     {
-        if (GameManager.GameData == null || !GameManager.GameData.Loaded) 
+        id = 0;
+        if (GameManager.GameData == null || !GameManager.GameData.Loaded)
             GameData.GameDataLoaded += OnDataLoaded;
-        else {
+        else
+        {
             LoadDialog();
         }
     }
-    
 
 
     private void Update()
     {
-    
-
         // Press ENTER or SPACE to show next sentence
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             ShowNextDialog();
@@ -86,7 +98,8 @@ public class Dialog : MonoBehaviour
         if (id + 1 < npc.expressoes.Count)
         {
             CharacterImage.sprite = npc.images[npc.expressoes[id]];
-        } else 
+        }
+        else
             CharacterImage.sprite = npc.images[ClassFala.padrao];
 
         if (reveal != null)
@@ -100,7 +113,7 @@ public class Dialog : MonoBehaviour
             return;
         }
 
-        if (Phrases.Count > id)
+        if (Phrases!=null && Phrases.Count > id)
         {
             audioSource.Stop();
             reveal = StartCoroutine(revealPhrase());
@@ -137,5 +150,11 @@ public class Dialog : MonoBehaviour
     void OnDestroy()
     {
         GameData.GameDataLoaded -= OnDataLoaded;
+    }
+
+    private void Start()
+    {
+        if (CharacterName != null)
+            CharacterName.SetText(Name);
     }
 }

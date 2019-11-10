@@ -8,4 +8,5 @@ public class ClassFala
     public List<string> frases;
     public string local;
     public List<string> expressoes;
+    public bool introducao;
 }

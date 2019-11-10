@@ -35,4 +35,9 @@ public class GameManager : MonoBehaviour
         var saveData = new SaveData(name, PlayerData);
         SaveManager.Save(saveData);
     }
+    public static void Save()
+    {
+        var saveData = new SaveData("save", PlayerData);
+        SaveManager.Save(saveData);
+    }
 }
