@@ -44,7 +44,6 @@ public class ScrollHTPI : MonoBehaviour
 
     public void GoUpStudent(object sender, EventArgs eventArgs)
     {
-        
         if(StudentList.GoUp())
             DemandList.SelectLast();
     }
@@ -69,7 +68,8 @@ public class ScrollHTPI : MonoBehaviour
     }
 
     public void PopulateStudentList()
-    {       
+    {    
+        StudentList.Clear();
         var list = new List<Selectable>();
 
         foreach (var student in DemandByStudentList.Keys)
@@ -94,17 +94,13 @@ public class ScrollHTPI : MonoBehaviour
             button.Demanda = demand;
             if (HtpiController._resolucoes[demand] != null)
             {
-                button.Select();
+                button.GetComponent<Button>().interactable = false;
             }
             list.Add(button.GetComponent<Button>());
             button.GetComponent<Button>().onClick.AddListener(()=>HtpiController.SelectDemand(button));
         }
         DemandList.AddList(list);
 
-    }
-    public void GoToStudent(ClassAluno student)
-    {
-        PopulateDemandList(student);
     }
 
 }

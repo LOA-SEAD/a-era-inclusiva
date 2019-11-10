@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.UI;
 
 public class SimpleScrollAlt : MonoBehaviour
@@ -15,7 +16,6 @@ public class SimpleScrollAlt : MonoBehaviour
     public GameObject parent;
     private float spacing = 10;
     private float step;
-    private Selectable selected;
     public Button UpButton;
     public event EventHandler TopReached;
     public event EventHandler BottomReached;
@@ -68,14 +68,12 @@ public class SimpleScrollAlt : MonoBehaviour
             return false;
         }
 
-        selected.interactable = true;
+
+        children[_at + 1].GetComponent<Button>().onClick?.Invoke();
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
 
-        _at++;
-        selected = children[_at];
-        selected.interactable = false;
-        selected.GetComponent<Button>().onClick?.Invoke();
+
         return true;
     }
 
@@ -88,16 +86,20 @@ public class SimpleScrollAlt : MonoBehaviour
             return false;
         }
 
-        selected.interactable = true;
+        children[_at - 1].GetComponent<Button>().onClick?.Invoke();
 
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
-        _at--;
 
-        selected = children[_at];
-        selected.interactable = false;
-        selected.GetComponent<Button>().onClick?.Invoke();
+
         return true;
+    }
+
+    private void UpdateIndex(int index)
+    {
+        children[_at].interactable = true;
+        _at = index;
+        children[_at].interactable = false;
     }
 
 
@@ -123,7 +125,6 @@ public class SimpleScrollAlt : MonoBehaviour
     public void Add(Selectable _gameObject)
     {
         children.Add(_gameObject);
-        if (!selected) selected = _gameObject;
         if (Horizontal)
             step = (parent.GetComponent<RectTransform>().rect.width + spacing) / _maxShown;
         else
@@ -135,40 +136,27 @@ public class SimpleScrollAlt : MonoBehaviour
             .SetSizeWithCurrentAnchors(Horizontal ? RectTransform.Axis.Horizontal : RectTransform.Axis.Vertical,
                 step - spacing);
         _gameObject.transform.localScale = Vector3.one;
-    
+        int index = children.Count - 1;
+        _gameObject.GetComponent<Button>().onClick.AddListener(() => UpdateIndex(index));
     }
 
     public void AddList(List<Selectable> _gameObjects)
     {
-        children.AddRange(_gameObjects);
-        if (Horizontal)
-            step = (parent.GetComponent<RectTransform>().rect.width + spacing) / _maxShown;
-        else
-            step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
         foreach (var obj in _gameObjects)
         {
-            obj.transform.SetParent(parent.transform);
-            obj.transform.SetAsLastSibling();
-            obj.transform.localScale = Vector3.one;
-            obj.GetComponent<RectTransform>()
-                .SetSizeWithCurrentAnchors(Horizontal ? RectTransform.Axis.Horizontal : RectTransform.Axis.Vertical,
-                    step - spacing);
+            Add(obj);
         }
+
+        UpdateIndex(0);
     }
 
     public void SelectLast()
     {
-        _at = children.Count - 1;
-        selected = children[_at];
-        selected.interactable = false;
-        selected.GetComponent<Button>().onClick?.Invoke();
+        children.Last().GetComponent<Button>().onClick?.Invoke();
     }
 
     public void SelectFirst()
     {
-        _at = 0;
-        selected = children[_at];
-        selected.interactable = false;
-        selected.GetComponent<Button>().onClick?.Invoke();
+        children.First().GetComponent<Button>().onClick?.Invoke();
     }
 }
