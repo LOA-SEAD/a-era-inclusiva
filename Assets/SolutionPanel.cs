@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SolutionPanel : MonoBehaviour
 {
-    public static string textTemplate = @"{0}<br><size=20>{1}</size>";
+    public static string textTemplate = @"{0}<br><size=20>Solução: {1}</size>";
     public List<Image> stars;
     public static Dictionary<int, int> starByPoints = new Dictionary<int, int>() {{100, 3}, {50, 2}, {25, 1}, {0, 0}};
 
