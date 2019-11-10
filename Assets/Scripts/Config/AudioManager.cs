@@ -82,9 +82,10 @@ public class AudioManager : MonoBehaviour
             effect.source = gameObject.AddComponent<AudioSource>();
             effect.source.clip = effect.clip;
         }
-
         _savePath = Path.Combine(Application.persistentDataPath, "saves");
         _configFile = Path.Combine(Application.persistentDataPath, "saves", "audio_settings.json");
+        Debug.Log(_configFile);
+
         if (ConfigExists())
         {
             Load();

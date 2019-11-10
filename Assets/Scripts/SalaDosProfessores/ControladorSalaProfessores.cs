@@ -6,6 +6,14 @@ public class ControladorSalaProfessores : MonoBehaviour
 {
     void Start()
     {
-        AudioManager.instance.PlayMusic((int)SoundType.MusicRoom);
+        PlayMusic();
     }
+
+    public void PlayMusic()
+    {
+        AudioManager.instance.PlayMusic((int)SoundType.MusicRoom);
+
+    }
+    
+    
 }
