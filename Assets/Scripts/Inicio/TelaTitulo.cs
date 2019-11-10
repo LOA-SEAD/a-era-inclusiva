@@ -29,7 +29,7 @@ public class TelaTitulo : MonoBehaviour
         }
         else
         {
-            GameManager.New("save");
+            GameManager.New();
             sceneController.ChangeTo("Scenes/ConversaAndre");
 
         }

@@ -23,16 +23,15 @@ public class GameManager : MonoBehaviour
         SaveManager = new SaveManager();
         if (SaveManager.SaveExists("save")) 
             SaveManager.Load("save");
-        else New("save");
         IsLoaded = true;
 
 
     }
 
-    public static void New(string name)
+    public static void New()
     {
         if (PlayerData == null) PlayerData = new PlayerData();
-        var saveData = new SaveData(name, PlayerData);
+        var saveData = new SaveData("save", PlayerData);
         SaveManager.Save(saveData);
     }
     public static void Save()
