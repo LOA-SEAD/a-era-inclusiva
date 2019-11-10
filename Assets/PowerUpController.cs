@@ -53,6 +53,7 @@ public class PowerUpController : MonoBehaviour
             controladorSalaDeAula.Speak("Preciso de pelo menos 50 pontos para utilizar o elogio!");
             return;
         }
+        controladorSalaDeAula.Speak("Elogiar a sala faz com que o ânimo da turma pare de diminuir por um tempo!");
 
         controladorSalaDeAula.barraInferior.IncrementScore(-50);
         StartCoroutine("DisableHappinessDecrease");
