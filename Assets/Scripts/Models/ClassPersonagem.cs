@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [Serializable]
 public class ClassPersonagem
 {
-    private static string CharacterImageLocation =
-        Application.streamingAssetsPath + "/Illustrations/CharacterPortraits/SchoolStaff/";
+    private static string CharacterImageLocation = "/Illustrations/CharacterPortraits/SchoolStaff";
 
     public List<ClassFala> dialogos;
 
@@ -21,18 +22,24 @@ public class ClassPersonagem
         {
             images = new Dictionary<string, Sprite>();
         }
+
         foreach (var expressao in expressoes)
         {
-            if(images.ContainsKey(expressao)) return;
-            var filePath = Path.Combine(CharacterImageLocation, nome, expressao+".png"); //Get path of folder
-
-            byte[] pngBytes = File.ReadAllBytes(filePath);
-
+            if (images.ContainsKey(expressao)) continue;
+            var filePath = CharacterImageLocation + "/" + nome + "/" + expressao + ".png"; //Get path of folder
+            if (!BetterStreamingAssets.FileExists(filePath)) continue;
             Texture2D tex = new Texture2D(2, 2);
-            tex.LoadImage(pngBytes);
 
-            images[expressao] = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f),
-                100.0f);
+
+            using (var stream = BetterStreamingAssets.OpenRead(filePath))
+            {
+                MemoryStream ms = new MemoryStream();
+                stream.CopyTo(ms);
+                tex.LoadImage(ms.ToArray());
+                images[expressao] = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height),
+                    new Vector2(0.5f, 0.5f),
+                    100.0f);
+            }
         }
     }
 }

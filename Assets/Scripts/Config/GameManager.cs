@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public void Awake()
     {
         if (IsLoaded) return;
-        
+        BetterStreamingAssets.Initialize();
         GameData = new GameData(this);
         SaveManager = new SaveManager();
         if (SaveManager.SaveExists("save")) 

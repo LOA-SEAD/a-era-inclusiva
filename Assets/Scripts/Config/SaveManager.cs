@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SaveManager
 {
-    private readonly string _savePath = Path.Combine(Application.persistentDataPath, "saves");
+    private readonly string _savePath = Path.Combine(Application.persistentDataPath, Application.version, "saves");
     public static event EventHandler DataLoaded;
     public void Load(string name)
     {
@@ -25,7 +25,6 @@ public class SaveManager
 
     public void Save(SaveData save)
     {
-        Debug.Log($"Saving at {Path.Combine(_savePath, save.Name + ".save")}");
         if (!Directory.Exists(_savePath)) Directory.CreateDirectory(_savePath);
         var jsonString = JsonUtility.ToJson(save);
 

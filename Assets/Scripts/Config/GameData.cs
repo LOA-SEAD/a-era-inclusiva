@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 
 public class GameData
 {
-    string filePath = Path.Combine(Application.streamingAssetsPath, "Json");
+    string filePath ="Json";
 
     public int[] LevelDemandingStudents;
     public List<ClassAcao> Acoes;
@@ -39,17 +39,15 @@ public class GameData
     IEnumerator LoadJson()
     {
         string json;
-        List<string> jsonToLoad = Directory.GetFiles(filePath).Where(x => Path.GetExtension(x) == ".json").ToList();
+        var jsonToLoad = BetterStreamingAssets.GetFiles(filePath).Where(x => Path.GetExtension(x) == ".json").ToList();
         while (jsonToLoad.Count != 0)
         {
             var jsonFile = jsonToLoad[0];
             jsonToLoad.RemoveAt(0);
-            UnityWebRequest www = UnityWebRequest.Get("file://"+jsonFile);
-            yield return www.SendWebRequest();
-            json = www.downloadHandler.text;
+            var jsonText = BetterStreamingAssets.ReadAllText(jsonFile);
             try
             {
-                JsonUtility.FromJsonOverwrite(json, this);
+                JsonUtility.FromJsonOverwrite(jsonText, this);
             }
             catch (Exception e)
             {
@@ -58,8 +56,6 @@ public class GameData
 
             yield return 0;
         }
-       
-        yield return new WaitUntil(() => jsonToLoad.Count == 0);
 
         Loaded = true;
         GameDataLoaded?.Invoke(this, EventArgs.Empty);
