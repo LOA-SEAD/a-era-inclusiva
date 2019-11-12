@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,7 +9,6 @@ public class ControladorSalaDeAula : MonoBehaviour
     private DemandToggle _selectedDemand;
     public ActionListWrapper actionListWrapper;
     public BarraInferior barraInferior;
-    public float levelTimeInSeconds;
     public SceneController sceneController;
     public SpeechBubble speechBubble;
     public int HappinessFactor = 0;
@@ -21,18 +21,25 @@ public class ControladorSalaDeAula : MonoBehaviour
             _selectedDemand = value;
             Speak(_selectedDemand.Demand.descricao);
         }
-        get
-        {
-           return  _selectedDemand;
-        }
+        get { return _selectedDemand; }
     }
 
     private void Start()
     {
+        if (GameManager.PlayerData != null)
+            Setup(this, EventArgs.Empty);
+        else
+        {
+            SaveManager.DataLoaded += Setup;
+        }
+    }
+
+    private void Setup(object sender, EventArgs eventArgs)
+    {
         InvokeRepeating("CheckIfEnd", 1, 2);
         StartCoroutine("DecreaseHappiness");
 
-        AudioManager.instance.PlaySfx((int)SoundType.BellRing);
+        AudioManager.instance.PlaySfx((int) SoundType.BellRing);
         AudioManager.instance.PlayAmbience((int) SoundType.AmbienceClass);
         AudioManager.instance.StopMusic();
     }
@@ -45,11 +52,6 @@ public class ControladorSalaDeAula : MonoBehaviour
             GameManager.PlayerData.Happiness -= HappinessFactor;
             yield return new WaitForSeconds(5);
         }
-    }
-    private void Update()
-    {
-        //timer da fase
-        levelTimeInSeconds -= Time.deltaTime;
     }
 
 
@@ -73,11 +75,11 @@ public class ControladorSalaDeAula : MonoBehaviour
         if (e == null)
         {
             Speak("Acho que isso não funcionou muito bem");
-            AudioManager.instance.PlaySfx((int)SoundType.AnswerWrong);
+            AudioManager.instance.PlaySfx((int) SoundType.AnswerWrong);
             return;
         }
 
-        AudioManager.instance.PlaySfx((int)SoundType.AnswerRight);
+        AudioManager.instance.PlaySfx((int) SoundType.AnswerRight);
         Speak(e.efetividade);
         barraInferior.IncrementScore(e.efetividade);
         _selectedDemand = null;
@@ -86,12 +88,17 @@ public class ControladorSalaDeAula : MonoBehaviour
 
     private void CheckIfEnd()
     {
-        if (GameManager.GameData.Demandas.FindAll(x => !x.resolvida).Count == 0 || levelTimeInSeconds <= 0f)
+        if (GameManager.GameData.Demandas.FindAll(x => !x.resolvida).Count == 0)
         {
-            AudioManager.instance.PlaySfx((int)SoundType.BellRing);
-            sceneController.ChangeTo("Scenes/HTPI");
-            GameManager.PlayerData.SelectedActions = new HashSet<ClassAcao>();
+            End();
         }
+    }
+
+    public void End()
+    {
+        AudioManager.instance.PlaySfx((int) SoundType.BellRing);
+        sceneController.ChangeTo("Scenes/HTPI");
+        GameManager.PlayerData.SelectedActions = new HashSet<ClassAcao>();
     }
 
     public void Speak(string demandaDescricao)
@@ -105,6 +112,5 @@ public class ControladorSalaDeAula : MonoBehaviour
     {
         speechBubble.ShowResult(points);
         speechBubble.gameObject.SetActive(true);
-
     }
 }
