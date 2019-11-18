@@ -38,7 +38,6 @@ public class GameData
 
     IEnumerator LoadJson()
     {
-        string json;
         var jsonToLoad = BetterStreamingAssets.GetFiles(filePath).Where(x => Path.GetExtension(x) == ".json").ToList();
         while (jsonToLoad.Count != 0)
         {

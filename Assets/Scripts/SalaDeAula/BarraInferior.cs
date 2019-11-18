@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BarraInferior : MonoBehaviour
 {
@@ -9,7 +11,10 @@ public class BarraInferior : MonoBehaviour
     public TextMeshProUGUI happinessIcon;
     private List<string> happinessIcons;
     public TextMeshProUGUI pointsText;
-
+    public float levelTimeInSeconds = 150f;
+    public ControladorSalaDeAula csd;
+    private float totalTime;
+    public Image timerFill;
     private int Happiness
     {
         get => _happiness;
@@ -22,6 +27,7 @@ public class BarraInferior : MonoBehaviour
 
     void Awake()
     {
+        totalTime = levelTimeInSeconds;
         happinessIcons = new List<string>
         {
             "\uf556", "\uf57a", "\uf11a", "\uf118", "\uf59a"
@@ -30,12 +36,21 @@ public class BarraInferior : MonoBehaviour
     private void Start()
     {
 
+     
+        if (GameManager.PlayerData != null)
+            Setup(this, EventArgs.Empty);
+        else
+        {
+            SaveManager.DataLoaded += Setup;
+        }
+    }
+
+    private void Setup(object sender, EventArgs eventArgs)
+    {
         Happiness = GameManager.PlayerData.Happiness;
         UpdateHappinessIcon();
         pointsText.SetText(GameManager.PlayerData.Points.ToString());
-
     }
-
 
 
     public void IncrementScore(int quantity)
@@ -45,9 +60,17 @@ public class BarraInferior : MonoBehaviour
     }
 
     private void Update()
-    {
-        if (Happiness != GameManager.PlayerData.Happiness) Happiness = GameManager.PlayerData.Happiness;
+    {  
+            //timer da fase
+            levelTimeInSeconds -= Time.deltaTime;
+            if (levelTimeInSeconds <= 0)
+            {
+                csd.End();
+            }
+
+            timerFill.fillAmount = levelTimeInSeconds/totalTime;
     }
+    
 
     public void UpdateHappinessIcon()
     {

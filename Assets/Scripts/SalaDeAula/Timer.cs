@@ -12,6 +12,5 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        tempo.SetText("Tempo: " + csd.levelTimeInSeconds.ToString("0"));
     }
 }
