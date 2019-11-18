@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class BarraInferior : MonoBehaviour
 {
-    private int _happiness;
     public TextMeshProUGUI happinessIcon;
     private List<string> happinessIcons;
     public TextMeshProUGUI pointsText;
@@ -15,15 +14,6 @@ public class BarraInferior : MonoBehaviour
     public ControladorSalaDeAula csd;
     private float totalTime;
     public Image timerFill;
-    private int Happiness
-    {
-        get => _happiness;
-        set
-        {
-            _happiness = value;
-            UpdateHappinessIcon();
-        }
-    }
 
     void Awake()
     {
@@ -47,8 +37,6 @@ public class BarraInferior : MonoBehaviour
 
     private void Setup(object sender, EventArgs eventArgs)
     {
-        Happiness = GameManager.PlayerData.Happiness;
-        UpdateHappinessIcon();
         pointsText.SetText(GameManager.PlayerData.Points.ToString());
     }
 
@@ -74,8 +62,8 @@ public class BarraInferior : MonoBehaviour
 
     public void UpdateHappinessIcon()
     {
-        var id = Happiness / 25;
-        var t = Happiness / 100.0f;
+        var id = GameManager.PlayerData.Happiness / 25;
+        var t = GameManager.PlayerData.Happiness / 100.0f;
         happinessIcon.SetText(happinessIcons[id]);
         happinessIcon.color = Color.Lerp(Color.red, Color.green, t);
     }

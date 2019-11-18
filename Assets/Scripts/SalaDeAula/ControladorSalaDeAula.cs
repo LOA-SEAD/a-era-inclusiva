@@ -49,7 +49,9 @@ public class ControladorSalaDeAula : MonoBehaviour
         while (true)
         {
             while (happinessDecreasePaused) yield return null;
-            GameManager.PlayerData.Happiness -= HappinessFactor;
+            GameManager.PlayerData.Happiness -= HappinessFactor/3;
+            barraInferior.UpdateHappinessIcon();
+
             yield return new WaitForSeconds(5);
         }
     }
@@ -74,11 +76,19 @@ public class ControladorSalaDeAula : MonoBehaviour
         demand.resolvida = true;
         if (e == null)
         {
+            GameManager.PlayerData.Happiness -= 10;
             Speak("Acho que isso não funcionou muito bem");
             AudioManager.instance.PlaySfx((int) SoundType.AnswerWrong);
+            barraInferior.UpdateHappinessIcon();
+
             return;
         }
+        Debug.Log("antes "+GameManager.PlayerData.Happiness);
 
+        GameManager.PlayerData.Happiness += e.efetividade / 10;
+        barraInferior.UpdateHappinessIcon();
+
+        Debug.Log("depois "+GameManager.PlayerData.Happiness);
         AudioManager.instance.PlaySfx((int) SoundType.AnswerRight);
         Speak(e.efetividade);
         barraInferior.IncrementScore(e.efetividade);
