@@ -5,11 +5,14 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Dialog : MonoBehaviour
 {
+    
+    private UIMaster uiMaster;
     public UnityEvent AtEndOfDialog;
     public UnityEvent AtEndOfClosingAnimation;
 
@@ -60,6 +63,16 @@ public class Dialog : MonoBehaviour
         ShowNextDialog();
     }
 
+    private void OnEnable()
+    {
+        uiMaster.Enable();
+        
+    }
+
+    private void OnDisable()
+    {
+        uiMaster.Disable();
+    }
 
     public void OnDataLoaded(object sender, EventArgs e)
     {
@@ -68,6 +81,7 @@ public class Dialog : MonoBehaviour
 
     public void Awake()
     {
+
         id = 0;
         if (GameManager.GameData == null || !GameManager.GameData.Loaded)
             GameData.GameDataLoaded += OnDataLoaded;
@@ -75,22 +89,22 @@ public class Dialog : MonoBehaviour
         {
             LoadDialog();
         }
+        uiMaster = new UIMaster();
+        uiMaster.UI.Repeat.performed += ctx => RepeatDialog();
+
     }
+    
 
 
     private void Update()
     {
-        // Press ENTER or SPACE to show next sentence
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
-            ShowNextDialog();
+        
+    }
 
-        // Press Q to repeat last sentence
-        if (Input.GetKeyDown(KeyCode.Q))
-            if (!revealing)
-            {
-                id--;
-                ShowNextDialog();
-            }
+    public void RepeatDialog()
+    {
+        id--;
+        ShowNextDialog();
     }
 
     public void ShowNextDialog()
@@ -156,5 +170,12 @@ public class Dialog : MonoBehaviour
     {
         if (CharacterName != null)
             CharacterName.SetText(Name);
+
     }
+
+
+
+ 
+
+   
 }

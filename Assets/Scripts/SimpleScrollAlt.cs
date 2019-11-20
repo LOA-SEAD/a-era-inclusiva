@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class SimpleScrollAlt : MonoBehaviour
 {
     private readonly int _maxShown = 3;
+    public bool InvokeOnClick;
     public bool Horizontal;
     public int _at;
     public List<Selectable> children;
@@ -17,6 +18,7 @@ public class SimpleScrollAlt : MonoBehaviour
     private float spacing = 10;
     private float step;
     public Button UpButton;
+    
     public event EventHandler TopReached;
     public event EventHandler BottomReached;
 

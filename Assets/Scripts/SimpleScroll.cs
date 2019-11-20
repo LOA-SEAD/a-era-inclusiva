@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.UI;
 
 public class SimpleScroll : MonoBehaviour
 {
+    public bool focused;
     public int childrenCount = 0;
     public int _at = 0;
     public Button DownButton;
@@ -20,9 +22,10 @@ public class SimpleScroll : MonoBehaviour
     public event EventHandler TopReached;
     public event EventHandler BottomReached;
 
+   
+
     protected void Awake()
     {
-
         spacing = GetComponentInChildren<VerticalLayoutGroup>().spacing;
         UpdateChildrenCount();
         localPosition = parent.transform.localPosition;
@@ -36,7 +39,6 @@ public class SimpleScroll : MonoBehaviour
     private void Start()
     {
         step = (parent.GetComponent<RectTransform>().rect.height + spacing) / _maxShown;
-
     }
 
     public void BackToTop()
@@ -48,10 +50,15 @@ public class SimpleScroll : MonoBehaviour
         parent.transform.localPosition = localPosition;
     }
 
+    public void ScrollToCorrectPosition()
+    {
+        
+    }
+
     public void Clear()
     {
         _at = 0;
-        for (var i = parent.transform.childCount- 1; i >= 0; i--)
+        for (var i = parent.transform.childCount - 1; i >= 0; i--)
         {
             childrenCount--;
             var child = parent.transform.GetChild(i);
@@ -60,7 +67,7 @@ public class SimpleScroll : MonoBehaviour
             DestroyImmediate(child.gameObject);
             Debug.Log(i);
         }
-  
+
         BackToTop();
         UpdateChildrenCount();
     }
@@ -73,6 +80,7 @@ public class SimpleScroll : MonoBehaviour
 
             return;
         }
+
         newPosition.y += step;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
@@ -81,12 +89,12 @@ public class SimpleScroll : MonoBehaviour
 
     public void GoUp()
     {
-
         if (_at <= 0)
         {
             TopReached?.Invoke(this, EventArgs.Empty);
             return;
         }
+
         newPosition.y -= step;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
@@ -109,7 +117,6 @@ public class SimpleScroll : MonoBehaviour
 
     public virtual void UpdateChildrenCount()
     {
-
         if (childrenCount > 0)
         {
             if (UpButton != null)

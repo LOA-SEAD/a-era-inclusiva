@@ -7,7 +7,7 @@ public class Menu : MonoBehaviour
     public Animator animator;
     public Image bg;
     public ConfigPanel configPanel;
-
+    public Input input;
     private void Start()
     {
         bg.raycastTarget = false;
@@ -22,13 +22,7 @@ public class Menu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (configPanel.Shown)
-                configPanel.Hide();
-            else
-                Toggle();
-        }
+       
 
     }
 
