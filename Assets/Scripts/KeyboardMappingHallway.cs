@@ -15,8 +15,7 @@ public class KeyboardMappingHallway : MonoBehaviour
     public Transform optionsParent;
 
     private int selectedOption;
-
-    // Start is called before the first frame update
+    
     private void Start()
     {
         optionList = new List<Transform>();
@@ -28,8 +27,7 @@ public class KeyboardMappingHallway : MonoBehaviour
 
         listLength = optionList.Count - 1;
     }
-
-    // Update is called once per frame    
+    
     private void Update()
     {
         if (Input.GetKeyDown("up"))

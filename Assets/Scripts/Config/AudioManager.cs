@@ -94,7 +94,7 @@ public class AudioManager : MonoBehaviour
         {
             SFXVolume = 0.7f;
             AmbienceVolume = 0.4f;
-            MusicVolume = 0.3f;
+            MusicVolume = 0.6f;
             Save();
         }
     }
