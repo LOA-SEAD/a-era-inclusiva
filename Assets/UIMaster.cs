@@ -89,6 +89,22 @@ public class @UIMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""666a60b0-c04f-488a-b1bb-fd53545a1757"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""New action1"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b0a4786-def8-48d0-8504-24be12f6f7eb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -281,6 +297,17 @@ public class @UIMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""c4213f73-be02-42cc-bda0-216867f87f08"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""38c99815-14ea-4617-8627-164d27641299"",
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
@@ -320,6 +347,28 @@ public class @UIMaster : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Repeat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""13644508-8177-4da9-ad75-d62afdda3c12"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""190308ee-9beb-4923-a4f5-08a4d06ad04c"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -400,6 +449,8 @@ public class @UIMaster : IInputActionCollection, IDisposable
         m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_Repeat = m_UI.FindAction("Repeat", throwIfNotFound: true);
+        m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
+        m_UI_Newaction1 = m_UI.FindAction("New action1", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -458,6 +509,8 @@ public class @UIMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_MiddleClick;
     private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_Repeat;
+    private readonly InputAction m_UI_Newaction;
+    private readonly InputAction m_UI_Newaction1;
     public struct UIActions
     {
         private @UIMaster m_Wrapper;
@@ -471,6 +524,8 @@ public class @UIMaster : IInputActionCollection, IDisposable
         public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
         public InputAction @Repeat => m_Wrapper.m_UI_Repeat;
+        public InputAction @Newaction => m_Wrapper.m_UI_Newaction;
+        public InputAction @Newaction1 => m_Wrapper.m_UI_Newaction1;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -507,6 +562,12 @@ public class @UIMaster : IInputActionCollection, IDisposable
                 @Repeat.started -= m_Wrapper.m_UIActionsCallbackInterface.OnRepeat;
                 @Repeat.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnRepeat;
                 @Repeat.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRepeat;
+                @Newaction.started -= m_Wrapper.m_UIActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnNewaction;
+                @Newaction1.started -= m_Wrapper.m_UIActionsCallbackInterface.OnNewaction1;
+                @Newaction1.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnNewaction1;
+                @Newaction1.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnNewaction1;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -538,6 +599,12 @@ public class @UIMaster : IInputActionCollection, IDisposable
                 @Repeat.started += instance.OnRepeat;
                 @Repeat.performed += instance.OnRepeat;
                 @Repeat.canceled += instance.OnRepeat;
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+                @Newaction1.started += instance.OnNewaction1;
+                @Newaction1.performed += instance.OnNewaction1;
+                @Newaction1.canceled += instance.OnNewaction1;
             }
         }
     }
@@ -598,5 +665,7 @@ public class @UIMaster : IInputActionCollection, IDisposable
         void OnMiddleClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
         void OnRepeat(InputAction.CallbackContext context);
+        void OnNewaction(InputAction.CallbackContext context);
+        void OnNewaction1(InputAction.CallbackContext context);
     }
 }
