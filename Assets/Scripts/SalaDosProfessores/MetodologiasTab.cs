@@ -75,6 +75,7 @@ public class MetodologiasTab : MonoBehaviour
         }
 
         UpdateGrid();
+        actionList.SelectFirst();
     }
 
     private void UpdateGrid()

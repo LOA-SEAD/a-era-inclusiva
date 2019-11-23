@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.UI;
 
 
 public class SimpleScroll : MonoBehaviour
 {
+
     public bool focused;
     public int childrenCount = 0;
     public int _at = 0;
@@ -101,6 +101,25 @@ public class SimpleScroll : MonoBehaviour
         StartCoroutine(AnimateMove());
         _at--;
     }
+    public void GoTo(int i) {
+        
+
+        if(i <= _at + 2 && i>=_at) {
+            return;
+        } 
+        if(i < _at) {
+            _at = i;
+        } else if(i > _at+2) {
+            _at = i-2;
+        }
+        
+
+
+        newPosition.y = _at*step;
+        StopAllCoroutines();
+        StartCoroutine(AnimateMove());
+
+    }
 
 
     private IEnumerator AnimateMove()
@@ -161,5 +180,10 @@ public class SimpleScroll : MonoBehaviour
         }
 
         UpdateChildrenCount();
+    }
+  
+    public void SelectFirst()
+    {
+        parent.transform.GetChild(0).GetComponent<Button>().Select();
     }
 }
