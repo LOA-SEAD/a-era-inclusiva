@@ -10,7 +10,7 @@ public class ConfigPanel : MonoBehaviour
     public TextMeshProUGUI fullscreenToggle;
     public TextMeshProUGUI accessibilityMode;
     public Animator animator;
-    public bool Shown;
+    public bool Shown = false;
     public bool sliderShown;
     private void Start()
     {
@@ -21,6 +21,7 @@ public class ConfigPanel : MonoBehaviour
              accessibilityMode.text = GameManager.AccessibilityMode ? "Desativar acessibilidade" : "Ativar acessibilidade";
      
      #endif
+        Hide();
     }
 
     public void ShowMusicSlider()
@@ -83,12 +84,17 @@ public class ConfigPanel : MonoBehaviour
     {
         animator.SetTrigger("Show");
         Shown = true;
+       // GetComponentsInChildren<Button>().First().Select();
+   
     }
 
     public void Hide()
     {
+        if (!Shown) return;
         animator.SetTrigger("Hide");
         Shown = false;
+
+      
 
     }
 

@@ -1,14 +1,22 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Confirmation : MonoBehaviour
 {
+
     public Button AcceptButton;
     public Button DenyButton;
 
     public TextMeshProUGUI Message;
+
+
+    private void Awake()
+    {
+      
+    }
 
     public void OnAccept(UnityAction x)
     {

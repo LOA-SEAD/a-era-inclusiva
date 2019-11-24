@@ -345,7 +345,7 @@ public class @UIMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""13644508-8177-4da9-ad75-d62afdda3c12"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""path"": ""<Keyboard>/m"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
