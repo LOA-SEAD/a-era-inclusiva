@@ -26,41 +26,39 @@ public class Menu : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
-    
-    
+
+
     private void Update()
     {
-       
-
     }
+
     private void OnEnable()
     {
         uiMaster.Enable();
-        
     }
 
     private void OnDisable()
     {
         uiMaster.Disable();
     }
+
     private void Awake()
     {
         uiMaster = new UIMaster();
-        uiMaster.UI.Settings.performed += ctx => Toggle() ;
-
+        uiMaster.UI.Settings.performed += ctx => Toggle();
     }
+
     public void Toggle()
     {
         if (_shown)
             Hide();
         else
             Show();
-        
     }
 
     public void Show()
     {
-        if(EventSystem.current.currentSelectedGameObject!=null)
+        if (EventSystem.current.currentSelectedGameObject != null)
             selectedBeforeMenu = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
         configPanel.gameObject.SetActive(true);
         GetComponentInChildren<Button>().Select();
@@ -69,17 +67,14 @@ public class Menu : MonoBehaviour
         bg.raycastTarget = true;
         animator.SetTrigger("Show");
         _shown = true;
-
     }
 
     public void Hide()
     {
-     
         bg.raycastTarget = false;
         animator.SetTrigger("Hide");
         _shown = false;
-                    selectedBeforeMenu?.Select();
-
+        selectedBeforeMenu?.Select();
     }
 
     public void ExitGame()
@@ -89,7 +84,6 @@ public class Menu : MonoBehaviour
 
     public void ToggleConfig()
     {
-
         if (configPanel.Shown)
         {
             configPanel.gameObject.SetActive(false);
@@ -97,12 +91,11 @@ public class Menu : MonoBehaviour
         }
         else
         {
-            if(_shown)
+            if (_shown)
                 Hide();
             configPanel.gameObject.SetActive(true);
             configPanel.Show();
             configPanel.GetComponentInChildren<Button>().Select();
-            
         }
     }
 
