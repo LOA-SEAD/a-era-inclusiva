@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.UI;
 
 
@@ -35,6 +36,7 @@ public class SimpleScroll : MonoBehaviour
             UpButton.onClick.AddListener(GoUp);
         if (DownButton != null)
             DownButton.onClick.AddListener(GoDown);
+        UpdateButtons();
     }
 
     private void Start()
@@ -51,9 +53,11 @@ public class SimpleScroll : MonoBehaviour
         parent.transform.localPosition = localPosition;
     }
 
-    public void ScrollToCorrectPosition()
+    public void UpdateButtons()
     {
-        
+        DownButton.interactable = _at != childrenCount - 3;
+
+        UpButton.interactable = _at != 0;
     }
 
     public void Clear()
@@ -86,6 +90,7 @@ public class SimpleScroll : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
         _at++;
+        UpdateButtons();
     }
 
     public void GoUp()
@@ -100,6 +105,8 @@ public class SimpleScroll : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
         _at--;
+        UpdateButtons();
+
     }
     public void GoTo(int i) {
         
@@ -118,6 +125,7 @@ public class SimpleScroll : MonoBehaviour
         newPosition.y = _at*step;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
+        UpdateButtons();
 
     }
 
