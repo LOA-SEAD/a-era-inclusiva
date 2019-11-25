@@ -22,6 +22,7 @@ public class ActionConfirmation : Confirmation
     public void OnEnable()
     {
         CleanAndPopulate();
+        AcceptButton.Select();
     }
 
     private void CleanAndPopulate()
@@ -35,7 +36,7 @@ public class ActionConfirmation : Confirmation
         {
             var actionButton = Instantiate(actionPrefab, actionsPanel.transform);
             //actionButton.GetComponent<ButtonSound>().disable = true;
-            // TODO: Botıes dessa confirmaÁ„o n„o deveriam ter som, mas n„o podem aparecer desbotados
+            // TODO: Bot√µes dessa confirma√ß√£o n√£o deveriam ter som, mas n√£o podem aparecer desbotados
             //actionButton.GetComponent<Button>().interactable = false;
             actionButton.Acao = action;
         }
