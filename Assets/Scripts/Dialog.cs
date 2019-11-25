@@ -38,6 +38,19 @@ public class Dialog : MonoBehaviour
 
     public void LoadDialog()
     {
+        Debug.Log(Name);
+
+        if (!LoadFromJson && Phrases!=null)
+        {
+            Debug.Log(Name);
+            npc = GameManager.GameData.Personagens.Find(x => x.nome == Name);
+            if (npc == null)
+                return;
+            npc.LoadExpressions();
+            GetComponent<Animator>().SetTrigger("Show");
+            ShowNextDialog();
+            return;
+        }
         if (!LoadFromJson || GameManager.GameData == null || GameManager.GameData.Personagens == null) return;
         npc = GameManager.GameData.Personagens.Find(x => x.nome == Name);
         if (npc == null)
@@ -76,11 +89,13 @@ public class Dialog : MonoBehaviour
 
     public void OnDataLoaded(object sender, EventArgs e)
     {
+
         LoadDialog();
     }
 
     public void Awake()
     {
+
 
         id = 0;
         if (GameManager.GameData == null || !GameManager.GameData.Loaded)
@@ -168,6 +183,7 @@ public class Dialog : MonoBehaviour
 
     private void Start()
     {
+        
         if (CharacterName != null)
             CharacterName.SetText(Name);
 

@@ -14,6 +14,7 @@ public class BarraInferior : MonoBehaviour
     public ControladorSalaDeAula csd;
     private float totalTime;
     public Image timerFill;
+    private bool ended;
 
     void Awake()
     {
@@ -51,8 +52,9 @@ public class BarraInferior : MonoBehaviour
     {  
             //timer da fase
             levelTimeInSeconds -= Time.deltaTime;
-            if (levelTimeInSeconds <= 0)
+            if ( !ended && levelTimeInSeconds <= 0)
             {
+                ended = true;
                 csd.End();
             }
 

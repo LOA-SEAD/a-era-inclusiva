@@ -110,7 +110,7 @@ public class ControladorSalaDeAula : MonoBehaviour
     public void End()
     {
         AudioManager.instance.PlaySfx((int) SoundType.BellRing);
-        sceneController.ChangeTo("Scenes/HTPI");
+        sceneController.ChangeTo("Scenes/FinalAula");
         GameManager.PlayerData.SelectedActions = new HashSet<ClassAcao>();
     }
 
