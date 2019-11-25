@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class AvatarHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class AvatarHover:MonoBehaviour
 {
     public GameObject personagem;
     public GameObject holofote;
@@ -22,7 +22,7 @@ public class AvatarHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         painelTexto = painel.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnSelect(PointerEventData eventData)
     {
         uiEffect.colorFactor = 0f; // Clareia personagem
         sombra.SetActive(true);
@@ -32,7 +32,7 @@ public class AvatarHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         painelTexto.fontStyle = FontStyles.Bold;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnExit(PointerEventData eventData)
     {
         uiEffect.colorFactor = 0.4f; // Escurece personagem
         sombra.SetActive(false);

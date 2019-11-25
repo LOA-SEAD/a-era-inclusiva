@@ -23,7 +23,7 @@ public class TelaTitulo : MonoBehaviour
     {
     
             GameManager.New();
-            sceneController.ChangeTo("Scenes/ConversaAndre");
+            sceneController.ChangeTo("Scenes/EscolhaAvatar");
             
 
     }
