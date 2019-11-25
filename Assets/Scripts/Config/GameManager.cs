@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     public static void New()
     {
-        if (PlayerData == null) PlayerData = new PlayerData();
+        PlayerData = new PlayerData();
         var saveData = new SaveData("save", PlayerData);
         SaveManager.Save(saveData);
     }
