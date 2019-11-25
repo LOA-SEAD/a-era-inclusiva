@@ -28,8 +28,8 @@ public class FeedbackController : MonoBehaviour
 
     public void ShowConfirmation(object sender, EventArgs eventArgs)
     {
-        confirmation.Message.SetText("Deseja voltar ao corredor?");
-        confirmation.AcceptButton.onClick.AddListener(()=>sceneController.ChangeTo("Scenes/Corredor"));
+        confirmation.Message.SetText("Deseja finalizar o dia?");
+        confirmation.AcceptButton.onClick.AddListener(()=>sceneController.ChangeTo("Scenes/FinalAula"));
         confirmation.DenyButton.onClick.AddListener(()=>confirmation.gameObject.SetActive(false));
         confirmation.gameObject.SetActive(true);
 
