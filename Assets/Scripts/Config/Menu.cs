@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
+    public GameObject menu;
     private UIMaster uiMaster;
     private Dictionary<Selectable, bool> elementsToSet;
     private bool _shown;
@@ -60,13 +61,12 @@ public class Menu : MonoBehaviour
     {
         if (EventSystem.current.currentSelectedGameObject != null)
             selectedBeforeMenu = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
-        configPanel.gameObject.SetActive(true);
-        GetComponentInChildren<Button>().Select();
         if (configPanel.Shown)
             return;
         bg.raycastTarget = true;
         animator.SetTrigger("Show");
         _shown = true;
+
     }
 
     public void Hide()
@@ -82,21 +82,15 @@ public class Menu : MonoBehaviour
         Application.Quit();
     }
 
-    public void ToggleConfig()
+    public void ShowConfig()
     {
-        if (configPanel.Shown)
-        {
-            configPanel.gameObject.SetActive(false);
-            configPanel.Hide();
-        }
-        else
-        {
+        
             if (_shown)
                 Hide();
             configPanel.gameObject.SetActive(true);
             configPanel.Show();
             configPanel.GetComponentInChildren<Button>().Select();
-        }
+        
     }
 
     public void ClickOutside()
@@ -112,8 +106,7 @@ public class Menu : MonoBehaviour
                 _shown = true;
                 configPanel.Hide();
             }
-        }
-        else if (_shown)
+        } else if (_shown)
         {
             Hide();
         }

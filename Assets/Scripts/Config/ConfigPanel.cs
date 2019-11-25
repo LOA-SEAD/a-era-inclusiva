@@ -21,7 +21,6 @@ public class ConfigPanel : MonoBehaviour
              accessibilityMode.text = GameManager.AccessibilityMode ? "Desativar acessibilidade" : "Ativar acessibilidade";
      
      #endif
-        Hide();
     }
 
     public void ShowMusicSlider()
@@ -93,7 +92,7 @@ public class ConfigPanel : MonoBehaviour
         if (!Shown) return;
         animator.SetTrigger("Hide");
         Shown = false;
-
+        gameObject.SetActive(false);
       
 
     }
