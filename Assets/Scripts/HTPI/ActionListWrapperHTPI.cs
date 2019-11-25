@@ -43,22 +43,38 @@ public class ActionListWrapperHTPI : MonoBehaviour
 
     private void Setup(object obj, EventArgs empty)
     {
+    
        actionList.Clear();
         var buttonList = new List<GameObject>();
-        foreach (var acao in GameManager.GameData.Acoes.Where(x=>x.diaMin <= GameManager.PlayerData.Day).OrderBy(x=>x.tipo))
+        var acoes = GameManager.GameData.Acoes.Where(x => x.diaMin <= GameManager.PlayerData.Day).OrderBy(x => x.tipo);
+        
+        Navigation nav = new Navigation();
+        nav.mode = Navigation.Mode.Vertical;
+        foreach (var acao in acoes)
         {
             var button = Instantiate(acao.tipo=="Diálogos"? acaoIconPrefabDialogo : acao.tipo=="Recursos"? acaoIconPrefabRecursos : acaoIconPrefabSala);
             buttonByAction[acao] = button.GetComponent<Button>();
             button.Acao = acao;
+            button.GetComponent<Button>().navigation = nav;
             button.GetComponent<Button>().onClick.AddListener((() =>
             {
                 controladorHTPI.SelectAction(acao);
-                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject (gameObject);
                 
             }));
             buttonList.Add(button.gameObject);
         }
         actionList.AddList(buttonList);
+        actionList.SelectFirst();
+        
+        Navigation navDownButton = new Navigation();
+        navDownButton.mode = Navigation.Mode.Explicit;
+        navDownButton.selectOnUp = buttonByAction[acoes.Last()].GetComponent<Button>();
+        actionList.DownButton.navigation = navDownButton;
+        
+        Navigation navUpButton = new Navigation();
+        navUpButton.mode = Navigation.Mode.Explicit;
+        navUpButton.selectOnDown = buttonByAction[acoes.First()].GetComponent<Button>();
+        actionList.UpButton.navigation = navUpButton;
     }
     
 

@@ -13,9 +13,9 @@ public class Confirmation : MonoBehaviour
     public TextMeshProUGUI Message;
 
 
-    private void Awake()
+    private void OnEnable()
     {
-      
+       AcceptButton.Select();
     }
 
     public void OnAccept(UnityAction x)

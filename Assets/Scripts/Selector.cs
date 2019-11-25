@@ -21,7 +21,7 @@ public class Selector : MonoBehaviour
         if (select != null)
             select.Select();
         else {
-             GetComponentsInChildren<Button>().Where(x=>x.interactable).First().Select();
+             GetComponentsInChildren<Button>().First(x => x.interactable).Select();
             
         }
     }

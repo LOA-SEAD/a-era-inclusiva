@@ -56,7 +56,6 @@ public class HTPIController : MonoBehaviour
     {
         actionList.GetComponent<Animator>().SetTrigger("Actions");
         _botaoDemanda = BotaoDemanda;
-        actionList.BackToTop();
     }
 
     public void SelectAction(ClassAcao acao)
@@ -68,10 +67,6 @@ public class HTPIController : MonoBehaviour
         if (_resolucoes.Count(x => x.Value!=null) == GameManager.GameData.Demandas.Count)
         {
             Confirmation();
-        }
-        else
-        {
-            actionList.BackToTop();
         }
     }
 

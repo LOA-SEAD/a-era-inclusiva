@@ -23,7 +23,7 @@ public class SimpleScroll : MonoBehaviour
     public bool showScroll;
     public event EventHandler TopReached;
     public event EventHandler BottomReached;
-
+    public bool autoDisableButton = true;
    
 
     protected void Awake()
@@ -46,7 +46,7 @@ public class SimpleScroll : MonoBehaviour
 
     public void BackToTop()
     {
-        _at = 0;
+        GoTo(0);
 
         localPosition = Vector3.zero;
         newPosition = Vector3.zero;
@@ -55,6 +55,7 @@ public class SimpleScroll : MonoBehaviour
 
     public void UpdateButtons()
     {
+        if (!autoDisableButton) return;
         DownButton.interactable = _at != childrenCount - 3;
 
         UpButton.interactable = _at != 0;
@@ -70,7 +71,6 @@ public class SimpleScroll : MonoBehaviour
             child.SetParent(null);
             child.gameObject.SetActive(false);
             DestroyImmediate(child.gameObject);
-            Debug.Log(i);
         }
 
         BackToTop();
