@@ -11,11 +11,14 @@ public class BibliotecaController : MonoBehaviour
     public GameObject Media;
     public StreamVideo player;
     public GameObject textoPages;
+    public GameObject avatar;
 
     public void Start()
     {
         AudioManager.instance.PlayAmbience((int)SoundType.AmbienceHallway);
         AudioManager.instance.PlayMusic((int)SoundType.MusicRoom);
+       
+        avatar.GetComponent<Image>().sprite = GameManager.GetAvatarImage();
     }
 
     public void Display(ClassResource resource)

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class AvatarHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class AvatarHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject personagem;
     public GameObject holofote;
@@ -40,10 +40,5 @@ public class AvatarHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         painelImagem.color = new Color32(255, 255, 255, 255); // Painel branco
         painelTexto.color = new Color32(47, 80, 89, 255);     // Texto azul escuro
         painelTexto.fontStyle = FontStyles.Normal;
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("Clicou");
     }
 }
