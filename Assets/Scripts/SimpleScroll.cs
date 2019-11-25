@@ -56,9 +56,10 @@ public class SimpleScroll : MonoBehaviour
     public void UpdateButtons()
     {
         if (!autoDisableButton) return;
-        DownButton.interactable = _at != childrenCount - 3;
-
-        UpButton.interactable = _at != 0;
+        if(DownButton)
+            DownButton.interactable = _at != childrenCount - 3;
+        if(UpButton)
+            UpButton.interactable = _at != 0;
     }
 
     public void Clear()
@@ -192,6 +193,7 @@ public class SimpleScroll : MonoBehaviour
   
     public void SelectFirst()
     {
-        parent.transform.GetChild(0).GetComponent<Button>().Select();
+        if(parent.transform.childCount>0)
+            parent.transform.GetChild(0).GetComponent<Button>().Select();
     }
 }

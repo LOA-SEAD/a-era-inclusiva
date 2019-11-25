@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ControladorSalaDeAula : MonoBehaviour
 {
+    private UIMaster uimaster;
     private DemandToggle _selectedDemand;
     public ActionListWrapper actionListWrapper;
     public BarraInferior barraInferior;
@@ -13,6 +14,7 @@ public class ControladorSalaDeAula : MonoBehaviour
     public SpeechBubble speechBubble;
     public int HappinessFactor = 0;
     public bool happinessDecreasePaused;
+
 
     public DemandToggle SelectedDemand
     {
@@ -94,6 +96,7 @@ public class ControladorSalaDeAula : MonoBehaviour
         barraInferior.IncrementScore(e.efetividade);
         _selectedDemand = null;
         CheckIfEnd();
+        
     }
 
     private void CheckIfEnd()

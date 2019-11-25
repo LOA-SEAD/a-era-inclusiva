@@ -21,6 +21,7 @@ public class ActionListWrapper : MonoBehaviour
     public void Show()
     {
         _animator.SetTrigger("Show");
+
     }
 
     public void Hide()
@@ -30,6 +31,8 @@ public class ActionListWrapper : MonoBehaviour
 
     public void ShowActions(string tipo)
     {
+        Navigation nav = new Navigation();
+        nav.mode = Navigation.Mode.Vertical;
         actionList.Clear();
         var buttonList = new List<GameObject>();
         foreach (var acao in GameManager.PlayerData.SelectedActions.Where(x=>x.tipo == tipo))
@@ -37,9 +40,11 @@ public class ActionListWrapper : MonoBehaviour
             var button = Instantiate(acao.tipo=="Diálogos"? acaoIconPrefabDialogo : acao.tipo=="Recursos"? acaoIconPrefabRecursos : acaoIconPrefabSala);
             button.Acao = acao;
             button.GetComponent<Button>().onClick.AddListener((() => controladorSalaDeAula.UseAction(acao)));
+            button.GetComponent<Button>().navigation = nav;
             buttonList.Add(button.gameObject);
         }
         actionList.AddList(buttonList);
+        actionList.SelectFirst();
         ShowActions();
     }
     

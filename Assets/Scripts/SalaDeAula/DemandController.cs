@@ -22,6 +22,29 @@ public class DemandController : MonoBehaviour
     {
         StartCoroutine(SpawnDemands());
     }
+    private void OnEnable()
+    {
+        uimaster.Enable();
+    }
+
+    public UIMaster uimaster { get; set; }
+
+    private void OnDisable()
+    {
+        uimaster.Disable();
+    }
+
+    private void Awake()
+    {
+        uimaster = new UIMaster();
+        uimaster.UI.Submit.performed += ctx => TrySelectNextDemand();
+    }
+
+    private void TrySelectNextDemand()
+    {
+        if (controladorSalaDeAula.SelectedDemand != null) return;
+            simpleScroll.SelectFirst();
+    }
 
     private IEnumerator SpawnDemands()
     {
@@ -35,6 +58,7 @@ public class DemandController : MonoBehaviour
         {
             SpawnDemand(demandList.First());
             demandList.RemoveAt(0);
+           
             yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
 
         }
@@ -53,6 +77,10 @@ public class DemandController : MonoBehaviour
         //PlayDemandSound(demanda.nivelUrgencia, button.transform.position.x, button.transform.position.y);
         PlayDemandSound(demanda.nivelUrgencia);
         simpleScroll.Add(button.gameObject);
+        if (controladorSalaDeAula.SelectedDemand == null)
+        {
+                button.GetComponent<Button>().Select();
+        }
     }
 
     private void PlayDemandSound(int urgencia)
