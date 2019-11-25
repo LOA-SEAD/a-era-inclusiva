@@ -345,10 +345,10 @@ public class @UIMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""13644508-8177-4da9-ad75-d62afdda3c12"",
-                    ""path"": ""<Keyboard>/m"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Settings"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
