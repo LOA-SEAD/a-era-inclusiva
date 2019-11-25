@@ -15,7 +15,7 @@ public class ControladorSalaDeAula : MonoBehaviour
     public SpeechBubble speechBubble;
     public int HappinessFactor = 0;
     public bool happinessDecreasePaused;
-
+    public GameObject avatar;
 
     public DemandToggle SelectedDemand
     {
