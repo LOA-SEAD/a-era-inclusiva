@@ -8,6 +8,7 @@ public class SaveData
     public int Points;
     public List<string> Dialogs;
     public HashSet<ClassAcao> SelectedActions;
+    public int SelectedAvatar;
 
     public SaveData(string name, PlayerData data)
     {
@@ -17,16 +18,18 @@ public class SaveData
         Points = data.Points;
         SelectedActions = data.SelectedActions;
         Dialogs = data.Dialogs;
+        SelectedAvatar = data.SelectedAvatar;
     }
 
 
-    public SaveData(string name, int day, int happiness, int points, HashSet<ClassAcao> selectedActions)
+    public SaveData(string name, int day, int happiness, int points, HashSet<ClassAcao> selectedActions, int selectedAvatar)
     {
         Name = name;
         Day = day;
         Happiness = happiness;
         Points = points;
         SelectedActions = selectedActions;
+        SelectedAvatar = selectedAvatar;
     }
 
 }

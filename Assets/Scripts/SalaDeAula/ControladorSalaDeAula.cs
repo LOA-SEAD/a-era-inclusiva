@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ControladorSalaDeAula : MonoBehaviour
 {
@@ -44,6 +45,7 @@ public class ControladorSalaDeAula : MonoBehaviour
         AudioManager.instance.PlaySfx((int) SoundType.BellRing);
         AudioManager.instance.PlayAmbience((int) SoundType.AmbienceClass);
         AudioManager.instance.StopMusic();
+        avatar.GetComponent<Image>().sprite = GameManager.GetAvatarImage();
     }
 
     public IEnumerator DecreaseHappiness()

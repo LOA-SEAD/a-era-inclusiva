@@ -10,10 +10,12 @@ public class RMController : MonoBehaviour
     public SimpleScroll scroll;
     public GameObject TextCanvas;
     public TextMeshProUGUI Text;
+    public GameObject avatar;
 
     private void Start()
     {
         AudioManager.instance.PlayMusic((int)SoundType.MusicRoom);
+        avatar.GetComponent<Image>().sprite = GameManager.GetAvatarImage();
     }
 
     public void OnSelectType(string type)
