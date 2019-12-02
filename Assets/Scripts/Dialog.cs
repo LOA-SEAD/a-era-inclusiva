@@ -128,7 +128,7 @@ public class Dialog : MonoBehaviour
         {
             CharacterImage.sprite = npc.images[npc.expressoes[id]];
         }
-        else
+        else if( npc.images.ContainsKey(ClassFala.padrao))
             CharacterImage.sprite = npc.images[ClassFala.padrao];
 
         if (reveal != null)
