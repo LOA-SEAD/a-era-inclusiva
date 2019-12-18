@@ -8,7 +8,6 @@ public class ConfigPanel : MonoBehaviour
     public Slider slider;
 
     public TextMeshProUGUI fullscreenToggle;
-    public TextMeshProUGUI accessibilityMode;
     public Animator animator;
     public bool Shown = false;
     public bool sliderShown;
@@ -18,7 +17,6 @@ public class ConfigPanel : MonoBehaviour
              fullscreenToggle.transform.parent.gameObject.SetActive(false);
      #else
              fullscreenToggle.text = Screen.fullScreen ? "Trocar para modo janela" : "Trocar para tela cheia";
-             accessibilityMode.text = GameManager.AccessibilityMode ? "Desativar acessibilidade" : "Ativar acessibilidade";
      
      #endif
     }
@@ -76,7 +74,6 @@ public class ConfigPanel : MonoBehaviour
     public void OnAccessibilityChanged()
     {
         GameManager.AccessibilityMode = !GameManager.AccessibilityMode;
-        accessibilityMode.text = GameManager.AccessibilityMode ? "Desativar acessibilidade" : "Ativar acessibilidade";
     }
 
     public void Show()
