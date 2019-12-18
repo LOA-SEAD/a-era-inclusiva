@@ -95,6 +95,7 @@ public class ScrollHTPI : MonoBehaviour
             if (HtpiController._resolucoes[demand] != null)
             {
                 button.GetComponent<Button>().interactable = false;
+                button.GetComponent<BotaoDemandaHTPI>().Select();
             }
             list.Add(button.GetComponent<Button>());
             button.GetComponent<Button>().onClick.AddListener(()=>HtpiController.SelectDemand(button));
