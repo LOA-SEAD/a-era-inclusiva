@@ -10,7 +10,7 @@ public class BarraInferior : MonoBehaviour
     public TextMeshProUGUI happinessIcon;
     private List<string> happinessIcons;
     public TextMeshProUGUI pointsText;
-    public float levelTimeInSeconds = 150f;
+    public float levelTimeInSeconds = 180f;
     public ControladorSalaDeAula csd;
     private float totalTime;
     public Image timerFill;
