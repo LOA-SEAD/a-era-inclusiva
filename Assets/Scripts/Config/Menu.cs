@@ -19,10 +19,14 @@ public class Menu : MonoBehaviour
     private void Start()
     {
         bg.raycastTarget = false;
-        if (FindObjectsOfType<Menu>().Length > 1)
+        var otherMenus = FindObjectsOfType<Menu>();
+        foreach (var menu in otherMenus)
         {
-            DestroyImmediate(gameObject);
-            return;
+            if (menu != this)
+            {
+                DestroyImmediate(menu);
+
+            }
         }
 
         DontDestroyOnLoad(gameObject);
