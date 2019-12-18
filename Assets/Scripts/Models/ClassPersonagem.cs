@@ -26,11 +26,16 @@ public class ClassPersonagem
         foreach (var expressao in expressoes)
         {
             if (images.ContainsKey(expressao)) continue;
+
+            if (nome == "André")
+                nome = "Andre";
+            else if (nome == "Valéria")
+                nome = "Valeria";
+
             var filePath = CharacterImageLocation + "/" + nome + "/" + expressao + ".png"; //Get path of folder
             if (!BetterStreamingAssets.FileExists(filePath)) continue;
             Texture2D tex = new Texture2D(2, 2);
-
-
+            
             using (var stream = BetterStreamingAssets.OpenRead(filePath))
             {
                 MemoryStream ms = new MemoryStream();
