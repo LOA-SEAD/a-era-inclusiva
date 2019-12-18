@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
+public class ButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, ISelectHandler
 {
     // TODO: ao invés de ficar checando se disable = true, talvez remover o evento
 
@@ -29,4 +29,12 @@ public class ButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
             AudioManager.instance.PlaySfx((int)SoundType.ButtonClick, gameObject.transform.position.x);
     }
 
+    public void OnSelect(BaseEventData eventData)
+    {
+        if (button && button.interactable && !disable)
+        {
+            AudioManager.instance.PlaySfx((int)SoundType.ButtonHover, gameObject.transform.position.x, gameObject.transform.position.y);
+        }
+        
+    }
 }
