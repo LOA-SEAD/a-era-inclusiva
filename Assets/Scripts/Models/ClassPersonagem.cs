@@ -22,17 +22,21 @@ public class ClassPersonagem
         {
             images = new Dictionary<string, Sprite>();
         }
+        string nameWithoutAccentuation;
 
         foreach (var expressao in expressoes)
         {
             if (images.ContainsKey(expressao)) continue;
 
             if (nome == "André")
-                nome = "Andre";
+                nameWithoutAccentuation = "Andre";
             else if (nome == "Valéria")
-                nome = "Valeria";
+                nameWithoutAccentuation = "Valeria";
+            else
+                nameWithoutAccentuation = nome;
 
-            var filePath = CharacterImageLocation + "/" + nome + "/" + expressao + ".png"; //Get path of folder
+            var filePath = CharacterImageLocation + "/" + nameWithoutAccentuation + "/" + expressao + ".png"; //Get path of folder
+            Debug.Log(filePath);
             if (!BetterStreamingAssets.FileExists(filePath)) continue;
             Texture2D tex = new Texture2D(2, 2);
             

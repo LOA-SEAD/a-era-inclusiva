@@ -16,9 +16,8 @@ public class ControladorCorredor : MonoBehaviour
     {
         if (GameManager.PlayerData.SelectedActions.Count == 9)
             sceneController.ChangeTo("Scenes/SalaDeAula");
-        else {
+        else
             dialog.SetActive(true);
-            }
     }
 
 }
