@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,7 +56,7 @@ public class SimpleScroll : MonoBehaviour
     {
         if (!autoDisableButton) return;
         if(DownButton)
-            DownButton.interactable = _at != childrenCount - 3;
+            DownButton.interactable = _at != childrenCount - _maxShown;
         if(UpButton)
             UpButton.interactable = _at != 0;
     }
@@ -75,6 +75,7 @@ public class SimpleScroll : MonoBehaviour
 
         BackToTop();
         UpdateChildrenCount();
+        UpdateButtons();
     }
 
     public void GoDown()
@@ -120,13 +121,10 @@ public class SimpleScroll : MonoBehaviour
             _at = i-2;
         }
         
-
-
         newPosition.y = _at*step;
         StopAllCoroutines();
         StartCoroutine(AnimateMove());
         UpdateButtons();
-
     }
 
 
