@@ -17,6 +17,8 @@ public class GameData
     public List<ClassResource> Recursos;
     public List<ClassAluno> Alunos;
     public List<ClassResourceRM> RecursosRM;
+    public List<ClassAula> Aulas;
+
     public bool Loaded = false;
     public static event EventHandler GameDataLoaded;
 
@@ -35,6 +37,7 @@ public class GameData
         UrgenciaMinima = 2;
         LevelDemandingStudents = new[] {4, 12, 17};
     }
+    
 
     IEnumerator LoadJson()
     {

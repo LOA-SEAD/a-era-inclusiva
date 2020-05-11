@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -44,6 +46,14 @@ public class GameManager : MonoBehaviour
         PlayerData.SelectedAvatar = avatar;
     }
 
+    public static List<ClassDemanda> GetDemandsOfTheDay()
+    {
+        return GameData.Demandas.Where(x => x.dia == PlayerData.Day).ToList();
+    }
+    public static ClassAula GetClassOfTheDay()
+    {
+        return GameData.Aulas.Where(x => x.dia == PlayerData.Day).First();
+    }
     public static Sprite GetAvatarImage()
     {
         if(PlayerData.SelectedAvatar == 0)

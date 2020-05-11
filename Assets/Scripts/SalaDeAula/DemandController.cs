@@ -50,15 +50,11 @@ public class DemandController : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
 
-        var studentList = GameManager.GameData.Alunos.Where(x => x.importante);
-        var demandList = GameManager.GameData.Demandas
-            .Where(x => studentList.Select(y => y.id).Contains(x.idAluno) && !x.resolvida).OrderBy(x => x.ordem)
-            .ToList();
+        var demandList = GameManager.GetDemandsOfTheDay().OrderBy(x => x.ordem).ToList();
         while (demandList.Any())
         {
             SpawnDemand(demandList.First());
             demandList.RemoveAt(0);
-           
             yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
 
         }

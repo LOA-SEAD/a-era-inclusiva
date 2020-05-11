@@ -8,7 +8,7 @@ public class ClassDemanda
     public List<Efetividade> acoesEficazes;
     public string descricao;
 
-
+    public int dia;
     public int idAluno;
     public int nivelUrgencia;
     public int ordem;

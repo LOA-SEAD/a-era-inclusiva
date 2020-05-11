@@ -13,14 +13,12 @@ public class HTPIController : MonoBehaviour
     private bool _loaded;
     public BotaoDemandaHTPI _botaoDemanda;
     public Dictionary<ClassDemanda, ClassAcao> _resolucoes;
-    private Dictionary<ClassDemanda, BotaoDemandaHTPI> _botaoPorDemanda;
     public Confirmation confirmation;
     public ActionListWrapperHTPI actionList;
     public ScrollHTPI ScrollHtpi;
     public GameObject content;
     void Awake()
     {
-        _botaoPorDemanda = new Dictionary<ClassDemanda, BotaoDemandaHTPI>();
         content.SetActive(false);
         
         _resolucoes = new Dictionary<ClassDemanda, ClassAcao>();
@@ -42,14 +40,11 @@ public class HTPIController : MonoBehaviour
 
     private void Setup(Object obj, EventArgs empty)
     {
-        foreach (var student in GameManager.GameData.Alunos.Where(x => x.importante))
+        foreach (var demand in GameManager.GetDemandsOfTheDay())
         {
-            List<ClassDemanda> demandList = new List<ClassDemanda>();
-            foreach (var demand in GameManager.GameData.Demandas.Where(x => x.idAluno == student.id))
-            {
-                _resolucoes[demand] = null;
-            }
+            _resolucoes[demand] = null;
         }
+        GameManager.PlayerData.Day++;
     }
 
     public void SelectDemand(BotaoDemandaHTPI BotaoDemanda)
