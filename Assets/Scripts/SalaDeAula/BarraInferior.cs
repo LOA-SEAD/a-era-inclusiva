@@ -6,7 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class BarraInferior : MonoBehaviour
-{
+{   
+     public TextMeshProUGUI weekText;
     public TextMeshProUGUI happinessIcon;
     private List<string> happinessIcons;
     public TextMeshProUGUI pointsText;
@@ -39,6 +40,7 @@ public class BarraInferior : MonoBehaviour
     private void Setup(object sender, EventArgs eventArgs)
     {
         pointsText.SetText(GameManager.PlayerData.Points.ToString());
+        weekText.SetText("Semana "+GameManager.PlayerData.Day.ToString());
     }
 
 

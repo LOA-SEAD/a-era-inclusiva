@@ -44,7 +44,10 @@ public class HTPIController : MonoBehaviour
         {
             _resolucoes[demand] = null;
         }
+        Debug.Log(GameManager.PlayerData.Day);
         GameManager.PlayerData.Day++;
+        Debug.Log(GameManager.PlayerData.Day);
+
     }
 
     public void SelectDemand(BotaoDemandaHTPI BotaoDemanda)
@@ -59,7 +62,7 @@ public class HTPIController : MonoBehaviour
         _botaoDemanda.Select();
         ScrollHtpi.DemandList.GoDown();
 
-        if (_resolucoes.Count(x => x.Value!=null) == GameManager.GameData.Demandas.Count)
+        if (_resolucoes.Count(x => x.Value!=null) == GameManager.GameData.Demandas.Count(x=>x.dia==GameManager.PlayerData.Day-1))
         {
             Confirmation();
         }

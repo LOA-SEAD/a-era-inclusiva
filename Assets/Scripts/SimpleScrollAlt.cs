@@ -98,6 +98,10 @@ public class SimpleScrollAlt : MonoBehaviour
 
     private void UpdateIndex(int index)
     {
+        if (children.Count <= index)
+        {
+            return;
+        }
         children[_at].interactable = true;
         _at = index;
         children[_at].interactable = false;
@@ -153,11 +157,13 @@ public class SimpleScrollAlt : MonoBehaviour
 
     public void SelectLast()
     {
-        children.Last().GetComponent<Button>().onClick?.Invoke();
+        if(children.Count>0)
+            children.Last().GetComponent<Button>().onClick?.Invoke();
     }
 
     public void SelectFirst()
     {
-        children.First().GetComponent<Button>().onClick?.Invoke();
+        if(children.Count>0)
+            children.First().GetComponent<Button>().onClick?.Invoke();
     }
 }

@@ -54,7 +54,7 @@ public class ScrollHTPI : MonoBehaviour
         foreach (var student in GameManager.GameData.Alunos.Where(x=>x.importante))
         {
             List<ClassDemanda> demandList = new List<ClassDemanda>();
-            foreach (var demand in GameManager.GameData.Demandas.Where(x=>x.idAluno == student.id))
+            foreach (var demand in  GameManager.GameData.Demandas.Where(x=>x.idAluno == student.id && x.dia == GameManager.PlayerData.Day-1))
             {
                 demandList.Add(demand);
             }
