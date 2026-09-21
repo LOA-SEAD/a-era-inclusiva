@@ -11,14 +11,14 @@ public class ConfigPanel : MonoBehaviour
     public Animator animator;
     public bool Shown = false;
     public bool sliderShown;
+
     private void Start()
     {
-     #if !UNITY_STANDALONE
-             fullscreenToggle.transform.parent.gameObject.SetActive(false);
-     #else
-             fullscreenToggle.text = Screen.fullScreen ? "Trocar para modo janela" : "Trocar para tela cheia";
-     
-     #endif
+#if !UNITY_STANDALONE
+        fullscreenToggle.transform.parent.gameObject.SetActive(false);
+#else
+        fullscreenToggle.text = Screen.fullScreen ? "Trocar para modo janela" : "Trocar para tela cheia";
+#endif
     }
 
     public void ShowMusicSlider()
@@ -30,7 +30,7 @@ public class ConfigPanel : MonoBehaviour
         animator.SetTrigger("SlideIn");
         sliderShown = true;
     }
-    
+
     public void ShowEffectSlider()
     {
         slider.onValueChanged.RemoveAllListeners();
@@ -41,7 +41,23 @@ public class ConfigPanel : MonoBehaviour
         sliderShown = true;
     }
 
-    
+    public void ShowVoiceSlider()
+    {
+        slider.onValueChanged.RemoveAllListeners();
+
+        if (VoiceManager.Instance == null)
+        {
+            Debug.LogWarning("VoiceManager não encontrado. Não foi possível ajustar o volume das vozes.");
+            return;
+        }
+
+        slider.value = VoiceManager.Instance.VoiceVolume;
+        slider.onValueChanged.AddListener(OnVoiceChanged);
+
+        animator.SetTrigger("SlideIn");
+        sliderShown = true;
+    }
+
     public void OnMusicChanged(float value)
     {
         AudioManager.instance.MusicVolume = value;
@@ -52,8 +68,16 @@ public class ConfigPanel : MonoBehaviour
     {
         AudioManager.instance.SFXVolume = value;
         AudioManager.instance.AmbienceVolume = value * 0.30f;
-        AudioManager.instance.PlaySfx((int) SoundType.Beep);
+        AudioManager.instance.PlaySfx((int)SoundType.Beep);
         AudioManager.instance.Save();
+    }
+
+    public void OnVoiceChanged(float value)
+    {
+        if (VoiceManager.Instance != null)
+        {
+            VoiceManager.Instance.SetVolume(value);
+        }
     }
 
     public void OnFullscreenChanged()
@@ -62,15 +86,15 @@ public class ConfigPanel : MonoBehaviour
         {
             Screen.fullScreen = false;
             fullscreenToggle.text = "Trocar para tela cheia";
-
         }
         else
         {
             Resolution res = Screen.resolutions.Last();
-            Screen.SetResolution(res.width, res.width, FullScreenMode.MaximizedWindow);
+            Screen.SetResolution(res.width, res.height, FullScreenMode.MaximizedWindow);
             fullscreenToggle.text = "Trocar para modo janela";
         }
     }
+
     public void OnAccessibilityChanged()
     {
         GameManager.AccessibilityMode = !GameManager.AccessibilityMode;
@@ -80,18 +104,15 @@ public class ConfigPanel : MonoBehaviour
     {
         animator.SetTrigger("Show");
         Shown = true;
-       // GetComponentsInChildren<Button>().First().Select();
-   
     }
 
     public void Hide()
     {
         if (!Shown) return;
+
         animator.SetTrigger("Hide");
         Shown = false;
         gameObject.SetActive(false);
-      
-
     }
 
     public void HideSlider()
@@ -102,11 +123,11 @@ public class ConfigPanel : MonoBehaviour
 
     public void IncSlider()
     {
-        slider.value += 0.1f;
+        slider.value += 0.05f;
     }
 
     public void DecSlider()
     {
-        slider.value -= 0.1f;
+        slider.value -= 0.05f;
     }
 }

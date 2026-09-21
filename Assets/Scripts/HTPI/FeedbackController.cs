@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class FeedbackController : MonoBehaviour
 {
@@ -15,27 +10,43 @@ public class FeedbackController : MonoBehaviour
 
     public Confirmation confirmation;
 
-
     public void Setup()
     {
         results = new Dictionary<ClassDemanda, int>();
+
         foreach (var resolucao in htpiController._resolucoes)
         {
             results[resolucao.Key] = resolucao.Key.EfficiencyOf(resolucao.Value);
         }
-
     }
 
     public void ShowConfirmation(object sender, EventArgs eventArgs)
     {
         confirmation.Message.SetText("Deseja finalizar o dia?");
-        confirmation.AcceptButton.onClick.AddListener(()=>sceneController.ChangeTo("Scenes/FinalAula"));
-        confirmation.DenyButton.onClick.AddListener(()=>confirmation.gameObject.SetActive(false));
+
+        confirmation.AcceptButton.onClick.RemoveAllListeners();
+        confirmation.DenyButton.onClick.RemoveAllListeners();
+
+        confirmation.AcceptButton.onClick.AddListener(() =>
+        {
+            GameManager.PlayerData.Day++;
+            Debug.Log("Dia atualizado para: " + GameManager.PlayerData.Day);
+
+            GameManager.PlayerData.AulaConcluida = false;
+            GameManager.PlayerData.SelectedMethodologyIds.Clear();
+            GameManager.PlayerData.ClearResolutions();
+
+            GameManager.Save();
+            Debug.Log("Dia salvo: " + GameManager.PlayerData.Day);
+
+            sceneController.ChangeTo("Scenes/FinalAula");
+        });
+
+        confirmation.DenyButton.onClick.AddListener(() =>
+        {
+            confirmation.gameObject.SetActive(false);
+        });
+
         confirmation.gameObject.SetActive(true);
-
     }
-
-    
-
-
 }

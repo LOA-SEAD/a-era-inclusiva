@@ -5,19 +5,42 @@
       "expressoes": ["feliz","sereno", "serio"],
       "dialogos": [
         {
-          "local": "ConversaComAndre",
-          "introducao": true,
-          "frases": [
-            "Mas veja quem está aqui! Que bom que aceitou o convite em dar aulas em nossa escola! Meu nome é André e sou o diretor.",
-            "Sempre que precisar que a mensagem seja repetida aperte Q. Pressione Enter ou pressione o botão azul ao lado para nossa conversa continuar.",
-            "Sua aula começará em breve, mas antes visite as salas do colégio para conhecer a nossa equipe. Todos estão ansiosos para te conhecer! Você precisará muito da ajuda deles para preparar suas aulas!"
-          ],
-          "expressoes": ["feliz", "sereno"]
-        },{
+	  "local": "ConversaComAndre",
+	  "introducao": true,
+	  "frases": [
+	    "Mas veja quem está aqui! Que bom que aceitou o convite em dar aulas em nossa escola! Meu nome é André e sou o diretor.",
+	    "Sempre que precisar que a mensagem seja repetida aperte R. Pressione Enter ou pressione o botão azul ao lado para nossa conversa continuar.",
+	    "Sua aula começará em breve, mas antes visite as salas do colégio para conhecer a nossa equipe. Todos estão ansiosos para te conhecer! Você precisará muito da ajuda deles para preparar suas aulas!"
+	  ],
+	  "expressoes": ["feliz", "sereno"],
+	  "audios": [
+	    "Audio/Dialogos/Andre/andre_0.mp3",
+	    "Audio/Dialogos/Andre/andre_1.mp3|Audio/Dialogos/Andre/andre_2.mp3",
+	    "Audio/Dialogos/Andre/andre_3.mp3|Audio/Dialogos/Andre/andre_4.mp3"	    
+	  ]
+	},{
           "local": "Corredor",
-          "frases": [
+          "frases": 
+          [
             "Talvez você devesse visitar a sala dos professores antes!"
-                    ]
+          ],
+          "audios": 
+          [
+           "Audio/Dialogos/Andre/andre_5.mp3"
+          ]
+        },{
+         "local": "FinalAula",
+         "frases": [
+            "Olá, chegamos ao final do dia!",
+            "Conte conosco caso precise de ajuda.",
+            "O amanhã sempre existe e eu acredito que você vai se tornar um professor melhor ainda!"
+         ],
+         "expressoes": ["feliz", "sereno", "feliz"],
+         "audios": [
+           "Audio/Dialogos/Andre/andre_final_1.mp3",
+           "Audio/Dialogos/Andre/andre_final_2.mp3",
+           "Audio/Dialogos/Andre/andre_final_3.mp3"
+          ]
         }
       ]
     },
@@ -34,12 +57,22 @@
             "Meu nome é Valéria e estarei aqui para te ajudar no planejamento de suas aulas e nos demais recursos que precisar em nossa escola.",
             "Escolha a opção “Plano de Aula” para que eu te ajude a se preparar para a aula desta semana."
           ],
-          "expressoes": ["feliz", "sereno", "feliz", "sereno"]
+          "expressoes": ["feliz", "sereno", "feliz", "sereno"],
+          "audios": [
+	    "Audio/Dialogos/Valeria/valeria_0.mp3",
+	    "Audio/Dialogos/Valeria/valeria_1.mp3",
+	    "Audio/Dialogos/Valeria/valeria_2.mp3",
+	    "Audio/Dialogos/Valeria/valeria_3.mp3"	    
+	  ]
         },
         {
           "local": "Sala dos professores",
           "frases": [
-            "Olá!"
+            "Olá! Dia cheio não é? Já preparou sua aula?"
+          ],
+          "audios": 
+          [
+           "Audio/Dialogos/Valeria/valeria_4.mp3"
           ]
         },{
           "local": "HTPI",
@@ -47,23 +80,47 @@
             "Agora vamos ver quais das ações pedagógicas foram mais eficazes na sua aula ou que poderiam ter funcionado melhor.",
             "Analise as demandas e resolva utilizando as ações disponiveis"
           ],
-          "expressoes": ["feliz", "sereno"]
-
+          "expressoes": ["feliz", "sereno"],
+          "audios": [
+	    "Audio/Dialogos/Valeria/valeria_5.mp3",	    
+	    "Audio/Dialogos/Valeria/valeria_6.mp3"	    
+	  ]
         }
       ]
     },
     {
-      "nome": "Marilde",
-      "expressoes": ["feliz","sereno", "serio"],
-      "dialogos": [
-        {
-          "local": "Biblioteca",
-          "frases": [
-            "Precisa consultar algum material?"
-          ]
-        }
-      ]
-    },{
+	  "nome": "Marilde",
+	  "expressoes": ["feliz", "sereno", "serio"],
+	  "dialogos": [
+	    {
+	      "introducao": true,
+	      "local": "Biblioteca",
+	      "frases": [
+		"Cof cof… desculpe por essa poeira toda. Há semanas que esses livros não veem um bom espanador.",
+		"Vamos, entre, entre! Não fique aí no batente da porta. O André tem falado muito bem de você!",
+		"Meu nome é Marilde e sou a responsável por essa biblioteca gigante!",
+		"Sempre que precisar de livros, vídeos e materiais em áudio para ajudar na preparação de suas aulas, é só vir até aqui!",
+		"Precisa consultar algum material?"
+	      ],
+	      "audios": [
+		"Audio/Dialogos/Marilde/marilde_0.mp3",
+		"Audio/Dialogos/Marilde/marilde_1.mp3",
+		"Audio/Dialogos/Marilde/marilde_2.mp3",
+		"Audio/Dialogos/Marilde/marilde_3.mp3",
+		"Audio/Dialogos/Marilde/marilde_4.mp3"
+	      ]
+	    },
+	    {
+	      "local": "Biblioteca",
+	      "frases": [
+		"Olá novamente! Sinta-se como se a biblioteca fosse sua! Como posso te ajudar?"
+	      ],
+	      "audios": [
+		"Audio/Dialogos/Marilde/marilde_5.mp3"
+	      ]
+	    }
+	  ]
+	},{
       "nome": "Ane",
       "expressoes": ["feliz","sereno", "serio"],
       "dialogos": [
@@ -76,13 +133,25 @@
             "É você que começará na escola, certo?",
             "Sou Ane e tomo conta da sala de Recursos Multifuncionais, muito prazer!",
             "Se precisar de alguma informação sobre o uso de mídias e materiais para suas aulas, fique à vontade para me consultar."
+          ],
+          "audios":
+          [
+           "Audio/Dialogos/Ane/ane_0.mp3",
+           "Audio/Dialogos/Ane/ane_1.mp3",
+           "Audio/Dialogos/Ane/ane_2.mp3",
+           "Audio/Dialogos/Ane/ane_3.mp3",
+           "Audio/Dialogos/Ane/ane_4.mp3"           
           ]
         },
         {
           "local": "RM",
           "frases": [
-            "Olá, precisa consultar algo?"
-          ]
+            "2 regletes, 3 livros em Braille… ah, olá! Estava aqui contando fazendo a lista de compras desse mês. Posso te ajudar?"
+          ],
+          "audios": 
+          [
+           "Audio/Dialogos/Ane/ane_5.mp3"
+	  ]
         }
       ]
     }

@@ -14,7 +14,6 @@ public class ActionList : SimpleScroll
 
     public AcaoAction whenSelected;
 
-
     public string Type
     {
         get => _type;
@@ -32,21 +31,39 @@ public class ActionList : SimpleScroll
 
     public void UpdateList()
     {
-        if (GameManager.GameData.Acoes == null ) return;
+        if (GameManager.GameData == null || GameManager.GameData.Acoes == null)
+        {
+            return;
+        }
+
         Clear();
         BackToTop();
+
         foreach (var action in GameManager.GameData.Acoes.Where(WhichActions))
         {
             var acaoIcon = Instantiate(actionPrefab);
             acaoIcon.Acao = action;
+
             if (whenSelected != null)
-                acaoIcon.AddListener(delegate { whenSelected(action); });
+            {
+                acaoIcon.AddListener(delegate
+                {
+                    whenSelected(action);
+                });
+            }
+
             Add(acaoIcon.gameObject);
         }
     }
 
     public override void UpdateChildrenCount()
     {
+        if (GameManager.GameData == null || GameManager.GameData.Acoes == null)
+        {
+            childrenCount = 0;
+            return;
+        }
+
         childrenCount = GameManager.GameData.Acoes.Where(WhichActions).Count();
     }
 
@@ -62,11 +79,30 @@ public class ActionList : SimpleScroll
 
     protected virtual bool WhichActions(ClassAcao x)
     {
-        if (actionFilter != null) return actionFilter(x);
+        if (actionFilter != null)
+        {
+            return actionFilter(x);
+        }
 
-        if (selectedOnly && !GameManager.PlayerData.SelectedActions.Contains(x)) return false;
+        if (selectedOnly)
+        {
+            if (GameManager.PlayerData == null ||
+                GameManager.PlayerData.SelectedMethodologyIds == null)
+            {
+                return false;
+            }
+
+            if (!GameManager.PlayerData.SelectedMethodologyIds.Contains(x.id))
+            {
+                return false;
+            }
+        }
+
         if (!string.IsNullOrEmpty(Type))
+        {
             return x.tipo == Type;
+        }
+
         return true;
     }
 }

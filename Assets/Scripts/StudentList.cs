@@ -36,7 +36,7 @@ public class StudentList:MonoBehaviour
         ScrollAlt.BackToTop();
         foreach (var student in GameManager.GameData.Alunos)
         {
-            if (importantOnly && !student.importante) continue;
+            if (importantOnly && student.dia != GameManager.PlayerData.Day) continue;
 
             var studentIcon = Instantiate(prefabButton);
             studentIcon.GetComponent<StudentIcon>().Student = student;

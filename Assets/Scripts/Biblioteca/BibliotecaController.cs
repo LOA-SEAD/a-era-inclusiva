@@ -17,13 +17,12 @@ public class BibliotecaController : MonoBehaviour
     {
         AudioManager.instance.PlayAmbience((int)SoundType.AmbienceHallway);
         AudioManager.instance.PlayMusic((int)SoundType.MusicRoom);
-       
+
         avatar.GetComponent<Image>().sprite = GameManager.GetAvatarImage();
     }
 
     public void Display(ClassResource resource)
     {
-
         switch (resource.type)
         {
             case "video":
@@ -34,6 +33,7 @@ public class BibliotecaController : MonoBehaviour
                 player.SetSource(Application.streamingAssetsPath + resource.src);
                 player.Play();
                 break;
+
             case "image":
                 Media.SetActive(true);
 
@@ -41,6 +41,7 @@ public class BibliotecaController : MonoBehaviour
                 Debug.Log("Carregando imagem de:" + Application.streamingAssetsPath + resource.src);
                 StartCoroutine(LoadTextureInto(Application.streamingAssetsPath + resource.src, image));
                 break;
+
             case "text":
                 Media.SetActive(true);
 
@@ -48,9 +49,11 @@ public class BibliotecaController : MonoBehaviour
                 Debug.Log("Carregando texto de:" + Application.streamingAssetsPath + resource.src);
                 ShowText(resource);
                 break;
-             case "url":
+
+            case "url":
                 Application.OpenURL(resource.src);
                 break;
+
             default:
                 Debug.Log("Abrindo aplicacao para o arquivo:" + resource.src);
                 Application.OpenURL(Application.streamingAssetsPath + resource.src);
@@ -61,27 +64,42 @@ public class BibliotecaController : MonoBehaviour
     private void ShowText(ClassResource resource)
     {
         var caminho = Application.streamingAssetsPath + resource.src;
+
         if (!File.Exists(caminho))
+        {
             return;
+        }
+
         var file = new FileStream(caminho, FileMode.Open, FileAccess.Read);
         var sr = new StreamReader(file);
         var conteudo = sr.ReadToEnd();
+
         textoPages.GetComponentInChildren<TextMeshProUGUI>().SetText(conteudo);
+
+        sr.Close();
+        file.Close();
     }
 
     public IEnumerator LoadTextureInto(string path, Image img)
     {
         var www = UnityWebRequestTexture.GetTexture(path);
+
         yield return www.SendWebRequest();
-        if (www.isNetworkError || www.isHttpError)
+
+        if (www.result == UnityWebRequest.Result.ConnectionError ||
+            www.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log(www.error);
         }
         else
         {
-            // Get downloaded asset bundle
             var texture = DownloadHandlerTexture.GetContent(www);
-            img.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+
+            img.sprite = Sprite.Create(
+                texture,
+                new Rect(0, 0, texture.width, texture.height),
+                new Vector2(0.5f, 0.5f)
+            );
         }
 
         yield return 0;

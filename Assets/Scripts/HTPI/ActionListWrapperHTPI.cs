@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ActionListWrapperHTPI : MonoBehaviour
 {
     private Animator _animator;
+
     public SimpleScroll actionList;
     public HTPIController controladorHTPI;
-    private bool _loaded;
-    private ClassAcao Selected = null;
+
     private Dictionary<ClassAcao, Button> buttonByAction;
+    private Dictionary<ClassAcao, PairVisualTag> pairTagByAction;
+
     public AcaoIcon acaoIconPrefabDialogo;
     public AcaoIcon acaoIconPrefabSala;
     public AcaoIcon acaoIconPrefabRecursos;
 
-    // Start is called before the first frame update
     public void Show()
     {
         _animator.SetTrigger("Show");
@@ -30,71 +30,134 @@ public class ActionListWrapperHTPI : MonoBehaviour
 
     public void BackToTop()
     {
-        if(Selected!=null) 
-            buttonByAction[Selected].interactable = true;
-        if (controladorHTPI.ActionSelected() != null)
-        {
-            buttonByAction[controladorHTPI.ActionSelected()].interactable = false;
-            Selected = controladorHTPI.ActionSelected();
-        }
-
         actionList.BackToTop();
+        RefreshVisualState();
     }
 
     private void Setup(object obj, EventArgs empty)
     {
-    
-       actionList.Clear();
+        actionList.Clear();
+
+        buttonByAction.Clear();
+        pairTagByAction.Clear();
+
         var buttonList = new List<GameObject>();
-        var acoes = GameManager.GameData.Acoes.Where(x => x.diaMin <= GameManager.PlayerData.Day).OrderBy(x => x.tipo);
-        
+
+        var acoes = GameManager.GameData.Acoes
+            .Where(x => x.diaMin <= GameManager.PlayerData.Day)
+            .OrderBy(x => x.tipo)
+            .ToList();
+
         Navigation nav = new Navigation();
         nav.mode = Navigation.Mode.Vertical;
+
         foreach (var acao in acoes)
         {
-            var button = Instantiate(acao.tipo=="Diálogos"? acaoIconPrefabDialogo : acao.tipo=="Recursos"? acaoIconPrefabRecursos : acaoIconPrefabSala);
-            buttonByAction[acao] = button.GetComponent<Button>();
-            button.Acao = acao;
-            button.GetComponent<Button>().navigation = nav;
-            button.GetComponent<Button>().onClick.AddListener((() =>
+            var acaoIcon = Instantiate(
+                acao.tipo == "Diálogos" ? acaoIconPrefabDialogo :
+                acao.tipo == "Recursos" ? acaoIconPrefabRecursos :
+                acaoIconPrefabSala
+            );
+
+            Button button = acaoIcon.GetComponent<Button>();
+
+            buttonByAction[acao] = button;
+
+            PairVisualTag pairTag = acaoIcon.GetComponent<PairVisualTag>();
+
+            if (pairTag != null)
+            {
+                pairTagByAction[acao] = pairTag;
+                pairTag.ClearPair();
+            }
+
+            acaoIcon.Acao = acao;
+
+            button.navigation = nav;
+
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() =>
             {
                 controladorHTPI.SelectAction(acao);
-                
-            }));
-            buttonList.Add(button.gameObject);
+            });
+
+            buttonList.Add(acaoIcon.gameObject);
         }
+
         actionList.AddList(buttonList);
         actionList.SelectFirst();
-        
-        Navigation navDownButton = new Navigation();
-        navDownButton.mode = Navigation.Mode.Explicit;
-        navDownButton.selectOnUp = buttonByAction[acoes.Last()].GetComponent<Button>();
-        actionList.DownButton.navigation = navDownButton;
-        
-        Navigation navUpButton = new Navigation();
-        navUpButton.mode = Navigation.Mode.Explicit;
-        navUpButton.selectOnDown = buttonByAction[acoes.First()].GetComponent<Button>();
-        actionList.UpButton.navigation = navUpButton;
+
+        if (acoes.Count > 0)
+        {
+            Navigation navDownButton = new Navigation();
+            navDownButton.mode = Navigation.Mode.Explicit;
+            navDownButton.selectOnUp = buttonByAction[acoes.Last()];
+            actionList.DownButton.navigation = navDownButton;
+
+            Navigation navUpButton = new Navigation();
+            navUpButton.mode = Navigation.Mode.Explicit;
+            navUpButton.selectOnDown = buttonByAction[acoes.First()];
+            actionList.UpButton.navigation = navUpButton;
+        }
+
+        RefreshVisualState();
     }
-    
+
+    public void RefreshVisualState()
+    {
+        foreach (var item in buttonByAction)
+        {
+            ClassAcao acao = item.Key;
+            Button button = item.Value;
+
+            // IMPORTANTE:
+            // A ação nunca fica bloqueada, porque pode ser usada em mais de uma demanda.
+            button.interactable = true;
+
+            if (pairTagByAction.ContainsKey(acao))
+            {
+                pairTagByAction[acao].ClearPair();
+            }
+        }
+
+        ClassDemanda demandaSelecionada = controladorHTPI.DemandSelected();
+
+        if (demandaSelecionada == null)
+        {
+            return;
+        }
+
+        ClassAcao acaoSelecionadaDaDemanda = controladorHTPI.GetActionOfDemand(demandaSelecionada);
+
+        if (acaoSelecionadaDaDemanda == null)
+        {
+            return;
+        }
+
+        int pairNumber = controladorHTPI.GetPairNumber(demandaSelecionada);
+
+        if (pairTagByAction.ContainsKey(acaoSelecionadaDaDemanda))
+        {
+            pairTagByAction[acaoSelecionadaDaDemanda].SetPairNumber(pairNumber);
+        }
+    }
 
     public void Start()
     {
         buttonByAction = new Dictionary<ClassAcao, Button>();
+        pairTagByAction = new Dictionary<ClassAcao, PairVisualTag>();
+
         _animator = GetComponent<Animator>();
-        if (GameManager.GameData != null && GameManager.GameData.Demandas != null &&
+
+        if (GameManager.GameData != null &&
+            GameManager.GameData.Demandas != null &&
             GameManager.GameData.Demandas.Count > 0)
+        {
             Setup(this, EventArgs.Empty);
+        }
         else
         {
             GameData.GameDataLoaded += Setup;
         }
-        
-    }
-    
-
-    public void Update()
-    {
-        
     }
 }

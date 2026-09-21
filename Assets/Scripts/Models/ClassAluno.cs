@@ -12,7 +12,7 @@ public class ClassAluno
     public string deficiencia;
     public string descricao;
     public int id;
-    public bool importante;
+    public int dia;
     public string nome;
     public Sprite portrait;
     public Sprite image;
