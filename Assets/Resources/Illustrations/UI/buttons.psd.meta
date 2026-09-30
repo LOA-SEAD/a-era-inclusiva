@@ -174,7 +174,7 @@ TextureImporter:
       213: 268766644332095394
     second: blue_button_selected_right
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -194,6 +194,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -202,9 +204,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -225,9 +227,14 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -267,6 +274,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -632,7 +651,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 0709eae24b4810447b41cd72aaba04bd
-      internalID: -8191739510646017925
+      internalID: -1628707277254524750
       vertices: []
       indices: 
       edges: []
@@ -842,7 +861,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a927e8b4c95dbf947a9636d650d57e55
-      internalID: -8191739510646017925
+      internalID: -7049600074491098816
       vertices: []
       indices: 
       edges: []
@@ -1073,7 +1092,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 1d134a4cc92cb40448aa90d3957aa380
-      internalID: -8191739510646017925
+      internalID: -8114329519611358125
       vertices: []
       indices: 
       edges: []
@@ -1487,6 +1506,64 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      blue_button: -3391858700105548758
+      blue_button_disabled: -1505383000123124203
+      blue_button_disabled_left: -7972663419109127190
+      blue_button_disabled_right: -5926723297517442348
+      blue_button_highlighted: 7161483045141872326
+      blue_button_highlighted_left: -6354115065114408670
+      blue_button_highlighted_right: 8339981449410061210
+      blue_button_left: -1738913037619477399
+      blue_button_pressed: -7452057142991358550
+      blue_button_pressed_left: -3354400930317963944
+      blue_button_pressed_right: 3756009062463836997
+      blue_button_right: -3440836581730500262
+      blue_button_selected: -8431950507618097019
+      blue_button_selected_left: -7049600074491098816
+      blue_button_selected_right: 268766644332095394
+      blue_button_top: -8191739510646017925
+      green_button: -480254276019886394
+      green_button_clicked: -1628707277254524750
+      green_button_clicked_left: 4504193086640373523
+      green_button_clicked_right: 7047755862237039115
+      green_button_disabled: 3572151910874299129
+      green_button_disabled_left: -2968748264073971229
+      green_button_disabled_right: -861293752792298577
+      green_button_highlighted: -6164375452264669377
+      green_button_highlighted_left: 5185538113585602760
+      green_button_highlighted_right: -2046773191739816657
+      green_button_left: 655971262535773241
+      green_button_right: -3245627812919568627
+      green_button_selected: 438738386622518714
+      green_button_selected_left: -829771727109113514
+      green_button_selected_right: 5700459532200317603
+      orange_button: -5303037649804275797
+      orange_button_disabled: 1042576124196175435
+      orange_button_disabled_left: 6270109204871816463
+      orange_button_highlighted: -2028252670365327782
+      orange_button_highlighted_left: 2720173064023427023
+      orange_button_left: -8114329519611358125
+      orange_button_pressed: -2479360571993576146
+      orange_button_pressed_left: 5474422926185179867
+      orange_button_selected: -5177915455903084793
+      orange_button_selected_left: -6090477475119955098
+      red_button: -8647964577088547803
+      red_button_disabled: 8949205111791990638
+      red_button_disabled_left: 4031634212663312470
+      red_button_highlighted: -3916806126039276902
+      red_button_highlighted_left: -8881892545017780819
+      red_button_left: 947615206189896353
+      red_button_pressed: 5747242430457247556
+      red_button_pressed_left: 4714036242966609447
+      red_button_right: 6417789691196024414
+      red_button_selected: 1480620861358319234
+      red_button_selected_left: -6034883813551207544
+      yellow_button: 3713549098536957005
+      yellow_button_disabled: -4335595278964951668
+      yellow_button_left: 8765208071168525816
+      yellow_button_pressed: -7990280060156359047
+      yellow_button_right: 6221987753304671209
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 1

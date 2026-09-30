@@ -36,8 +36,8 @@ public class FeedbackContentHTPI : MonoBehaviour
 
     public void PopulateStudentList()
     {
-        var important = GameManager.GameData.Alunos.Where(x => x.importante);
-        foreach (var student in important)
+        var alunosdoDia = GameManager.GameData.Alunos.Where(x => x.dia == GameManager.PlayerData.Day);
+        foreach (var student in alunosdoDia)
         {
             var icon = Instantiate(studentIconPrefab);
             icon.Student = student;

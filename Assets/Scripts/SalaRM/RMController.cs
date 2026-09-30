@@ -20,16 +20,22 @@ public class RMController : MonoBehaviour
 
     public void OnSelectType(string type)
     {
-        if (!scroll.gameObject.active)
+        if (!scroll.gameObject.activeSelf)
+        {
             scroll.gameObject.SetActive(true);
+        }
 
         scroll.Clear();
+
         List<GameObject> buttons = new List<GameObject>();
+
         foreach (var recurso in GameManager.GameData.RecursosRM.Where(x => x.Tipo == type))
         {
             var button = Instantiate(buttonPrefab).GetComponent<Button>();
+
             button.onClick.AddListener(() => OnSelectResource(recurso.Nome));
             button.GetComponentInChildren<TextMeshProUGUI>().text = recurso.Nome;
+
             buttons.Add(button.gameObject);
         }
 
@@ -39,6 +45,11 @@ public class RMController : MonoBehaviour
     private void OnSelectResource(string recursoNome)
     {
         TextCanvas.SetActive(true);
-        Text.SetText(GameManager.GameData.RecursosRM.Find(x=>x.Nome == recursoNome).Descricao);
+
+        Text.SetText(
+            GameManager.GameData.RecursosRM
+                .Find(x => x.Nome == recursoNome)
+                .Descricao
+        );
     }
 }
